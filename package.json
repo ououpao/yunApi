@@ -1,7 +1,7 @@
 {
-  "name": "starter-node-react",
-  "version": "1.1.0",
-  "description": "a starter project structure for react-app",
+  "name": "MKRN",
+  "version": "0.0.1",
+  "description": "build spa with Koa, React, Node and Mongodb",
   "scripts": {
     "deploy": "pm2 start src/server/server.js --watch",
     "dev": "node src/server/server.js dev",
@@ -10,14 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wwsun/starter-node-react.git"
+    "url": "git+https://github.com/callmeJozo/MKRN.git"
   },
-  "author": "Weiwei SUN",
+  "author": "naraku",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wwsun/starter-node-react/issues"
+    "url": "https://github.com/callmeJozo/MKRN/issues"
   },
-  "homepage": "https://github.com/wwsun/starter-node-react#readme",
   "dependencies": {
     "antd": "^0.12.13",
     "babel-cli": "^6.4.5",
