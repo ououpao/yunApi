@@ -37,7 +37,7 @@ class Layout extends React.Component {
                         {this.state.login ? 
                             <span>{user.name}</span> : 
                             <div>
-                                <Button type="primary" onClick={this.showLogin.bind(this)}>登陆</Button>
+                                <Button type="primary" onClick={this.showLogin.bind(this)}>登陆/注册</Button>
                                 <Login visible={this.state.loginVisible} hide={this.hideLogin.bind(this)}></Login>
                             </div>
                         }
