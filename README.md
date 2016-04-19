@@ -1,4 +1,4 @@
-# starter-node-react
+# MKRN start
 A starter project for react-app, if you don't familiar with React with Webpack,
 the following links is highly recommended.
 
