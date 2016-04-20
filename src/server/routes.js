@@ -17,10 +17,6 @@ module.exports = function(app, passport) {
     yield next;
   });
 
-  // router.get("/auth", authController.getCurrentUser);
-  // router.post("/auth", authController.signIn);
-
   router.post("/signup", authController.createUser);
-
   app.use(router.routes());
 };

@@ -29,7 +29,16 @@ exports.createUser = function*() {
     } catch (err) {
         this.throw(err);
     }
-
-    this.status = 200;
-    this.body = { user: user };
+    let _this = this;
+    yield * passport.authenticate("local", function*(err, user, info) {
+        if (err) {
+            throw err;
+        }
+        if (user === false) {
+            _this.status = 401;
+        } else {
+            yield _this.login(user);
+            _this.body = { user: user };
+        }
+    }).call(this);
 };

@@ -13,6 +13,7 @@ class AppRoutes extends React.Component {
       <Router history={browserHistory}>
         <Route path="/" component={Layout}>
           <IndexRoute component={Index}/>
+          <Route path="dashboard" component={Project} />
           <Route path="project" component={Project} />
           <Route path="task" component={Task} />
           <Route path="status" component={Status} />

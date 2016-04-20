@@ -3,6 +3,7 @@ let fs = require('fs');
 let path = require('path');
 let koa = require('koa');
 let mongoose = require('mongoose');
+let session = require("koa-generic-session");
 let logger = require('koa-logger');
 let serve = require('koa-static');
 let convert = require('koa-convert');
@@ -10,10 +11,12 @@ let send = require('koa-send');
 let router = require('koa-router')();
 let passport = require("koa-passport");
 let bodyParser = require("koa-bodyparser");
+let MongoStore = require("koa-sess-mongo-store");
 let env = process.argv[2];
 // let debug = 'dev' == env;
 let debug = true;
 let app = new koa();
+app.keys = ['secret', 'key'];
 let staticPath = path.resolve(__dirname, '../' + (debug ? '../' : '../dist'));
 app.use(serve(staticPath));
 if (debug) {
@@ -41,21 +44,30 @@ if (debug) {
 }
 mongoose.connect('mongodb://localhost/mkrn');
 mongoose.connection.on("error", function(err) {
-  console.log(err);
+    console.log(err);
 });
+
 // models
 require('./models/user');
+
 // config
 require("./config/passport")(passport);
-app.use(bodyParser());  
-// Logger
-app.use(logger());
-// app.use(router.routes())
+
+app.use(session({
+    key: "mkrn.sid",
+    store: new MongoStore({ url: 'mongodb://localhost/mkrn' }),
+}));
+
+app.use(bodyParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Routes
 require("./routes")(app, passport);
+
 app.use(function*() {
     this.type = 'text/html';
-    this.body =  yield send(this, '/index.html');
+    this.body = yield send(this, '/index.html');
 });
 
 app.listen(3000);
