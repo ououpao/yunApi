@@ -8,12 +8,17 @@ const URLS = {
     AUTH: "/auth",
     SIGN_UP: "/signup",
 };
-function _postAndHandleParseUser(url, username, password, done) {
+function _postAndHandleParseUser(url, username, password, email, done) {
     request.post(url)
         .set("Accept", "application/json")
         .set("Content-Type", "application/json")
-        .send({ username: username, password: password })
+        .send({ 
+            username: username, 
+            password: password,
+            email: email 
+        })
         .end(function(err, res) {
+            console.log(res);
             if (!err && res.body && res.body.user) {
                 _user = parseUser(res.body.user);
                 /* eslint-disable no-use-before-define */
@@ -27,8 +32,8 @@ function _postAndHandleParseUser(url, username, password, done) {
 }
 
 const AuthStore = {
-    signUp: function(username, password, done) {
-        _postAndHandleParseUser(URLS.SIGN_UP, username, password, done);
+    signUp: function(username, password, email, done) {
+        _postAndHandleParseUser(URLS.SIGN_UP, username, password, email, done);
     }
 };
 

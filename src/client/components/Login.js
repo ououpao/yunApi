@@ -29,8 +29,8 @@ class Login extends React.Component {
     }
     regHandle(e){
         e.preventDefault();
-        var regInfo = this.props.form.getFieldsValue(['username', 'password']);
-        AuthStore.signUp(regInfo.username, regInfo.password, (err, user) => {
+        var regInfo = this.props.form.getFieldsValue(['username', 'email', 'password']);
+        AuthStore.signUp(regInfo.username, regInfo.password, regInfo.email, (err, user) => {
           if (err || !user) {
             return this.setState({ error: true });
           }
@@ -78,6 +78,11 @@ class Login extends React.Component {
                                   {...formItemLayout}
                                   label="用户名：">
                                   <Input type="text" {...getFieldProps('username')} placeholder="请输入用户名" />
+                                </FormItem>
+                                <FormItem
+                                  {...formItemLayout}
+                                  label="email：">
+                                  <Input type="text" {...getFieldProps('email')} placeholder="请输入邮箱" />
                                 </FormItem>
                                 <FormItem
                                   {...formItemLayout}

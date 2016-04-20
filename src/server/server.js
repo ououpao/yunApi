@@ -8,8 +8,11 @@ let serve = require('koa-static');
 let convert = require('koa-convert');
 let send = require('koa-send');
 let router = require('koa-router')();
+let passport = require("koa-passport");
+let bodyParser = require("koa-bodyparser");
 let env = process.argv[2];
-let debug = 'dev' == env;
+// let debug = 'dev' == env;
+let debug = true;
 let app = new koa();
 let staticPath = path.resolve(__dirname, '../' + (debug ? '../' : '../dist'));
 app.use(serve(staticPath));
@@ -41,8 +44,11 @@ mongoose.connection.on("error", function(err) {
   console.log(err);
 });
 // Logger
+app.use(bodyParser());
 app.use(logger());
 // app.use(router.routes())
+// Routes
+require("./routes")(app, passport);
 app.use(function*() {
     this.type = 'text/html';
     this.body =  yield send(this, '/index.html');
