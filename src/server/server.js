@@ -43,8 +43,12 @@ mongoose.connect('mongodb://localhost/mkrn');
 mongoose.connection.on("error", function(err) {
   console.log(err);
 });
+// models
+require('./models/user');
+// config
+require("./config/passport")(passport);
+app.use(bodyParser());  
 // Logger
-app.use(bodyParser());
 app.use(logger());
 // app.use(router.routes())
 // Routes

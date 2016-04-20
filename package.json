@@ -32,6 +32,7 @@
     "koa-route": "^2.4.2",
     "koa-static": "^2.0.0",
     "mongoose": "^4.4.12",
+    "passport-local": "^1.0.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "^2.0.0-rc5",

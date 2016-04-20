@@ -31,6 +31,7 @@ class Login extends React.Component {
         e.preventDefault();
         var regInfo = this.props.form.getFieldsValue(['username', 'email', 'password']);
         AuthStore.signUp(regInfo.username, regInfo.password, regInfo.email, (err, user) => {
+          debugger;
           if (err || !user) {
             return this.setState({ error: true });
           }

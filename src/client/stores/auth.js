@@ -20,7 +20,7 @@ function _postAndHandleParseUser(url, username, password, email, done) {
         .end(function(err, res) {
             console.log(res);
             if (!err && res.body && res.body.user) {
-                _user = parseUser(res.body.user);
+                // _user = parseUser(res.body.user);
                 /* eslint-disable no-use-before-define */
                 // AuthStore.notifyChange();
                 /* eslint-enable no-use-before-define */
