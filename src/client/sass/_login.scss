@@ -1,21 +1,16 @@
-#react-app{
-	height: 100%;
-}
-.login-wrap {
-    display: table;
-    width: 100%;
+#react-app {
     height: 100%;
-    .login-wrap-container {
-        display: table-cell;
-        vertical-align: middle;
-    }
+}
+
+.login {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 200px;
+    border: 1px solid #F1F1F1;
+    box-shadow: 0px 0px 3px 1px #dedede;
     form {
         width: 444px;
-        min-height: 211px;
-        border: 1px solid #dedede;
-        padding: 50px 20px;
         margin: 0 auto;
         border-radius: 3px;
-        box-shadow: 0px 0px 3px 1px #dedede;
     }
 }

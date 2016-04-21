@@ -1,27 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router';
 import {Button, Icon, Menu, Dropdown} from 'antd';
-import Login from '../components/Login';
 const DropdownButton = Dropdown.Button;
 class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginVisible: false,
             login: false
         };
     }
-    showLogin(){
-        this.setState({
-            loginVisible: true
-        })
-    }
-    hideLogin(){
-        this.setState({
-            loginVisible: false
-        })
-    }
     render() {
+        let isLoginPage = (function(_this){
+            debugger;
+            if(_this.props.routes.lenth >= 1){
+                return _this.props.routes[1].path == 'login';
+            }
+        })(this);
         const user = {
             name: 'naraku'
         };
@@ -46,6 +40,7 @@ class Layout extends React.Component {
         );
         return (
             <div className="wrap">
+                {isLoginPage ? 
                 <div className="navbar-wrap">
                     <div className="navbar main-wrap">
                         <ul className="nav-left">
@@ -55,26 +50,20 @@ class Layout extends React.Component {
                             <li><Link to="status" activeClassName={"active"}>动态</Link></li>
                         </ul>
                         <div className="nav-right ttr">
-                            {this.state.login ? 
-                                <div className="authed">
-                                    <DropdownButton overlay={userMenu} type="ghost">
-                                        {user.name}
-                                    </DropdownButton>
-                                    <Dropdown overlay={oprateMenu} trigger={['click']}>
-                                        <Button type="primary" shape="circle">
-                                            <Icon type="plus-circle-o" size="small"/>
-                                        </Button>
-                                    </Dropdown>
-                                </div>
-                                :
-                                <div className="unauthed">
-                                    <Button type="primary" onClick={this.showLogin.bind(this)}>登陆/注册</Button>
-                                    <Login visible={this.state.loginVisible} hide={this.hideLogin.bind(this)}></Login>
-                                </div>
-                            }
+                            <div className="authed">
+                                <DropdownButton overlay={userMenu} type="ghost">
+                                    {user.name}
+                                </DropdownButton>
+                                <Dropdown overlay={oprateMenu} trigger={['click']}>
+                                    <Button type="primary" shape="circle">
+                                        <Icon type="plus-circle-o" size="small"/>
+                                    </Button>
+                                </Dropdown>
+                            </div>
                         </div>
                     </div>
                 </div>
+                : ''}
                 <div className="content main-wrap">
                     {this.props.children}
                 </div>

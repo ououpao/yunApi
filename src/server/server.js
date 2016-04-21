@@ -50,25 +50,27 @@ mongoose.connection.on("error", function(err) {
 // models
 require('./models/user');
 
-// config
-require("./config/passport")(passport);
-
+// session config
+app.use(bodyParser());
 app.use(session({
-    key: "mkrn.sid",
-    store: new MongoStore({ url: 'mongodb://localhost/mkrn' }),
+    key: "mkrn.sid"
 }));
 
-app.use(bodyParser());
+// passport config
+require("./config/passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
 require("./routes")(app, passport);
 
+// spa config
 app.use(function*() {
+    console.log('here');
     this.type = 'text/html';
     this.body = yield send(this, '/index.html');
 });
+
 
 app.listen(3000);
 console.log('listening on port 3000...');

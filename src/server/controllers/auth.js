@@ -2,7 +2,7 @@
 var passport = require("koa-passport");
 
 
-exports.createUser = function*() {
+exports.createUser = function*(next) {
     if (!this.request.body) {
         this.throw("注册信息不能为空！", 400);
     }
@@ -17,7 +17,6 @@ exports.createUser = function*() {
     }
 
     var User = require("mongoose").model("User");
-
     try {
         var user = new User({
             username: this.request.body.username,
@@ -30,15 +29,6 @@ exports.createUser = function*() {
         this.throw(err);
     }
     let _this = this;
-    yield * passport.authenticate("local", function*(err, user, info) {
-        if (err) {
-            throw err;
-        }
-        if (user === false) {
-            _this.status = 401;
-        } else {
-            yield _this.login(user);
-            _this.body = { user: user };
-        }
-    }).call(this);
+    this.status = 200;
+    this.body = {user: user};
 };

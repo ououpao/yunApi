@@ -12,10 +12,10 @@ var secured = function *(next) {
 
 module.exports = function(app, passport) {
   // register functions
-  router.use(function *(next) {
-    this.type = "json";
-    yield next;
-  });
+  // router.use(function *(next) {
+  //   this.type = "json";
+  //   yield next;
+  // });
 
   router.post("/signup", authController.createUser);
   app.use(router.routes());
