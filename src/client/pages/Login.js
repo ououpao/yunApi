@@ -10,27 +10,22 @@ class Login extends React.Component {
         super(props);
         this.state = { loading: false };
     }
-    handleSubmit(e) {
-        e.preventDefault();
-        this.setState({
-            loading: true,
-            defaultTab: 1
-        })
-        setTimeout(() => {
-            this.setState({
-                loading: false
-            })
-        }, 3000)
-        console.log('收到表单值：', this.props.form.getFieldsValue());
-    }
     loginHandle(e) {
         e.preventDefault();
-        console.log('login')
-        console.log('收到表单值：', this.props.form.getFieldsValue(['user', 'pass']));
+        let user = this.props.form.getFieldsValue(['loginEmail', 'pass']);
+        user.username = user.loginEmail;
+        user.password = user.pass;
+        AuthStore.signIn(user, (err, _user) => {
+            if (err || !user) {
+                message.error(err.response.text, 3)
+                return;
+            }
+            message.success('登录成功!', 3)
+        });
     }
     regHandle(e) {
         e.preventDefault();
-        var user = this.props.form.getFieldsValue(['username', 'email', 'password']);
+        let user = this.props.form.getFieldsValue(['username', 'email', 'password']);
         AuthStore.signUp(user, (err, _user) => {
             if (err || !user) {
                 message.error(err.response.text, 3)
@@ -47,13 +42,13 @@ class Login extends React.Component {
         return (
             <div className="login">
               <div className="login-cell">
-                  <Tabs defaultActiveKey="2">
+                  <Tabs defaultActiveKey="1">
                     <TabPane tab="登录" key="1">
                         <Form horizontal onSubmit={this.loginHandle.bind(this)}>
                             <FormItem
                               {...formItemLayout}
-                              label="用户名：">
-                              <Input type="text" {...getFieldProps('user')} placeholder="请输入用户名" />
+                              label="邮箱：">
+                              <Input type="text" {...getFieldProps('loginEmail')} placeholder="请输入电子邮箱" />
                             </FormItem>
                             <FormItem
                               {...formItemLayout}
@@ -78,7 +73,7 @@ class Login extends React.Component {
                             </FormItem>
                             <FormItem
                               {...formItemLayout}
-                              label="email：">
+                              label="邮箱：">
                               <Input type="text" {...getFieldProps('email')} placeholder="请输入邮箱" />
                             </FormItem>
                             <FormItem
@@ -103,3 +98,4 @@ class Login extends React.Component {
 };
 Login = Form.create()(Login);
 export default Login;
+

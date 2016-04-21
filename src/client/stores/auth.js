@@ -7,6 +7,7 @@ let _initCalled = false;
 const URLS = {
     AUTH: "/auth",
     SIGN_UP: "/signup",
+    SIGN_OUT: "/signout",
 };
 
 function _postAndHandleParseUser(url, user, done) {
@@ -19,8 +20,6 @@ function _postAndHandleParseUser(url, user, done) {
             email: user.email 
         })
         .end(function(err, res) {
-            console.log(err);
-            console.log(res);
             if (!err && res.body && res.body.user) {
                 // 注册成功处理逻辑
                 // _user = parseUser(res.body.user);
@@ -38,7 +37,24 @@ function _postAndHandleParseUser(url, user, done) {
 const AuthStore = {
     signUp: function(user, done) {
         _postAndHandleParseUser(URLS.SIGN_UP, user, done);
-    }
+    },
+    signIn: function(user, done) {
+        _postAndHandleParseUser(URLS.AUTH, user, done);
+    },
+    signOut: function(done) {
+        _user = null;
+        request.get(URLS.SIGN_OUT)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                if (!err) {
+                    // AuthStore.notifyChange();
+                }
+                if (done) {
+                    done(null, res);
+                }
+            });
+    },
 };
 
 export default AuthStore;

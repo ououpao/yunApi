@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import {Button, Icon, Menu, Dropdown} from 'antd';
+import {Button, Icon, Menu, Dropdown, message} from 'antd';
 const DropdownButton = Dropdown.Button;
+import AuthStore from "../stores/auth";
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -9,13 +10,19 @@ class Layout extends React.Component {
             login: false
         };
     }
-    render() {
-        let isLoginPage = (function(_this){
-            debugger;
-            if(_this.props.routes.lenth >= 1){
-                return _this.props.routes[1].path == 'login';
+    singout(){
+        AuthStore.signOut((err, res) => {
+            if(!err){
+               message.success('退出成功!', 3)
             }
-        })(this);
+        });
+    }
+    render() {
+        let isLoginPage = (() => {
+            if(this.props.routes.length >= 1){
+                return this.props.routes[1].path == 'login';
+            }
+        })();
         const user = {
             name: 'naraku'
         };
@@ -35,12 +42,14 @@ class Layout extends React.Component {
           <Menu>
             <Menu.Item key="1">个人中❤</Menu.Item>
             <Menu.Divider />
-            <Menu.Item key="2">退出</Menu.Item>
+            <Menu.Item key="2" >
+                <span onClick={this.singout.bind(this)}>退出</span>
+            </Menu.Item>
           </Menu>
         );
         return (
             <div className="wrap">
-                {isLoginPage ? 
+                {!isLoginPage ? 
                 <div className="navbar-wrap">
                     <div className="navbar main-wrap">
                         <ul className="nav-left">

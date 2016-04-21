@@ -9,8 +9,8 @@ module.exports = function(passport) {
     passport.deserializeUser(function(id, done) {
         User.findById(id, done);
     });
-    passport.use(new LocalStrategy(function(username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
+    passport.use(new LocalStrategy(function(email, password, done) {
+        User.findOne({ email: email }, function(err, user) {
             // done()有三种用法：
             // 1. 当发生系统级异常时，返回done(err)，这里是数据库查询出错，一般用next(err)，但这里用done(err)，两者的效果相同，都是返回error信息；
             // 2.当验证不通过时，返回done(null, false, message)，这里的message是可选的，可通过express-flash调用；
