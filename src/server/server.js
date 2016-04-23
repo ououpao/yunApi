@@ -27,6 +27,7 @@ mongoose.connection.on("error", function(err) {
 
 // models
 require('./models/user');
+require('./models/project');
 
 // session config
 app.use(bodyParser());

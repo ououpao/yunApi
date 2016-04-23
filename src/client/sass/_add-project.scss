@@ -1,0 +1,15 @@
+.add-project {
+    border: 1px solid $main-border-color;
+    .header {
+        padding: 10px;
+        border-bottom: 1px solid $main-border-color
+    }
+    form {
+        padding: 20px;
+        width: 65%;
+        margin: 0 auto;
+    }
+    .ant-alert-with-description {
+        margin-bottom: 0px!important;
+    }
+}

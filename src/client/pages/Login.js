@@ -9,6 +9,9 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount(){
+        document.title = "登录/注册";
+    }
     loginHandle(e) {
         e.preventDefault();
         let user = this.props.form.getFieldsValue(['loginEmail', 'pass']);

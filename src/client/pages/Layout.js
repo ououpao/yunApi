@@ -43,18 +43,6 @@ class Layout extends React.Component {
                 return this.props.routes[1].path == 'login';
             }
         })();
-         const oprateMenu = (
-          <Menu>
-            <Menu.Item key="0">
-              <a href="http://www.alipay.com/">第一个菜单项</a>
-            </Menu.Item>
-            <Menu.Item key="1">
-              <a href="http://www.taobao.com/">第二个菜单项</a>
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="3">第三个菜单项</Menu.Item>
-          </Menu>
-        );
         const userMenu = (
           <Menu>
             <Menu.Item key="1">个人中❤</Menu.Item>
@@ -80,11 +68,11 @@ class Layout extends React.Component {
                                 <DropdownButton overlay={userMenu} type="ghost">
                                     {this.state.user && this.state.user.username}
                                 </DropdownButton>
-                                <Dropdown overlay={oprateMenu} trigger={['click']}>
-                                    <Button type="primary" shape="circle">
+                                <Link to="addproject">
+                                    <Button type="primary" shape="circle" title="添加项目">
                                         <Icon type="plus-circle-o" size="small"/>
                                     </Button>
-                                </Dropdown>
+                                </Link>
                             </div>
                         </div>
                     </div>

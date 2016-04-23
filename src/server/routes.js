@@ -1,6 +1,7 @@
 "use strict";
 var router = require("koa-router")();
 var authController = require("./controllers/auth");
+var projectController = require("./controllers/project");
 
 var secured = function *(next) {
   if (this.isAuthenticated()) {
@@ -22,5 +23,7 @@ module.exports = function(app, passport) {
   
   router.all("/api/signout", authController.signOut);
   router.post("/api/signup", authController.createUser);
+
+  router.post("/api/project/create", secured, projectController.createProject);
   app.use(router.routes());
 };
