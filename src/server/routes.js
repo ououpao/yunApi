@@ -17,10 +17,10 @@ module.exports = function(app, passport) {
   //   yield next;
   // });
 
-  router.get("/auth", authController.getCurrentUser);
-  router.post("/auth", authController.signIn);
+  router.get("/api/auth", authController.getCurrentUser);
+  router.post("/api/auth", authController.signIn);
   
-  router.all("/signout", authController.signOut);
-  router.post("/signup", authController.createUser);
+  router.all("/api/signout", authController.signOut);
+  router.post("/api/signup", authController.createUser);
   app.use(router.routes());
 };

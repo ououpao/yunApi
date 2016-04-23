@@ -12,36 +12,14 @@ let router = require('koa-router')();
 let passport = require("koa-passport");
 let bodyParser = require("koa-bodyparser");
 let MongoStore = require("koa-sess-mongo-store");
-let env = process.argv[2];
-// let debug = 'dev' == env;
-let debug = true;
+var env = process.env.NODE_ENV = process.env.NODE_ENV || "development";
+let debug = env == 'development';
+// let debug = true;
 let app = new koa();
 app.keys = ['secret', 'key'];
 let staticPath = path.resolve(__dirname, '../' + (debug ? '../' : '../dist'));
 app.use(serve(staticPath));
-if (debug) {
-    let webpackDevMiddleware = require('koa-webpack-dev-middleware')
-    let webpack = require('webpack')
-    let webpackConf = require('../../build_config/webpack.dev.config.js');
-    let compiler = webpack(webpackConf)
 
-    // 为使用Koa做服务器配置koa-webpack-dev-middleware
-    app.use(webpackDevMiddleware(compiler, {
-        publicPath: webpackConf.output.publicPath,
-        stats: {
-            colors: true,
-            chunks: false
-        }
-    }))
-
-    // 为实现HMR配置webpack-hot-middleware
-    let hotMiddleware = require("webpack-hot-middleware")(compiler);
-    // Koa对webpack-hot-middleware做适配
-    app.use(function*(next) {
-        yield hotMiddleware.bind(null, this.req, this.res);
-        yield next;
-    });
-}
 mongoose.connect('mongodb://localhost/mkrn');
 mongoose.connection.on("error", function(err) {
     console.log(err);
@@ -72,5 +50,5 @@ app.use(function*() {
 });
 
 
-app.listen(3000);
-console.log('listening on port 3000...');
+app.listen(8085);
+console.log('listening on port 8085...');

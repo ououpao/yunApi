@@ -1,8 +1,6 @@
 var webpack = require('webpack')
 var config = require('./webpack.base')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-// eval-source-map is faster for development
-config.devtool = 'eval-source-map'
 // config.devtool = false
 // add hot-reload related code to entry chunks
 var polyfill = 'eventsource-polyfill'
@@ -12,7 +10,27 @@ Object.keys(config.entry).forEach(function(name, i) {
     config.entry[name] = extras.concat(config.entry[name])
 })
 config.output.publicPath = '/'
-
+// eval-source-map is faster for development
+config.devtool = 'eval-source-map'
+config.devServer = {
+    hot: true,
+    port: 3000,
+    proxy: {
+        '/': {
+            secure: false,
+            bypass: function(req, res, proxyOptions) {
+                if (req.headers.accept.indexOf('html') !== -1) {
+                    console.log('Skipping proxy for browser request.');
+                    return '/index.html';
+                }
+            }
+        },
+        '/api/*': {
+            target: 'http://127.0.0.1:8085/',
+            secure: false
+        }
+    }
+}
 config.plugins = (config.plugins || []).concat([
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.optimize.OccurenceOrderPlugin(),

@@ -5,9 +5,9 @@ let _changeListeners = [];
 let _initCalled = false;
 
 const URLS = {
-    AUTH: "/auth",
-    SIGN_UP: "/signup",
-    SIGN_OUT: "/signout",
+    AUTH: "/api/auth",
+    SIGN_UP: "/api/signup",
+    SIGN_OUT: "/api/signout",
 };
 
 function _postAndHandleParseUser(url, user, done) {

@@ -29,8 +29,9 @@ class Login extends React.Component {
         AuthStore.signUp(user, (err, _user) => {
             if (err || !user) {
                 message.error(err.response.text, 3)
+            }else{
+                message.success('注册成功, 请登录!', 3)
             }
-            message.success('注册成功, 请登录!', 3)
         });
     }
     render() {
