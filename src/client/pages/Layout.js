@@ -1,32 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router';
-import {Button, Icon, Menu, Dropdown, message} from 'antd';
+import { Button, Icon, Menu, Dropdown, message } from 'antd';
 const DropdownButton = Dropdown.Button;
 import AuthStore from "../stores/auth";
+AuthStore.init();
+
 class Layout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: false
+            login: false,
+            user: AuthStore.getUser()
         };
     }
-    singout(){
+    singout() {
         AuthStore.signOut((err, res) => {
-            if(!err){
-               message.success('退出成功!', 3)
+            if (!err) {
+                message.success('退出成功!', 3);
+                this.props.history.replace({ pathname: 'login'})
             }
         });
     }
+    loginStateChange(user){
+        if(!user){
+            this.props.history.replace({ pathname: 'login'})
+        }
+        this.setState({
+            user: user
+        })
+    }
+    componentWillMount() {
+    }
+    componentDidMount() {
+        AuthStore.addChangeListener(this.loginStateChange.bind(this));
+    }
+    componentWillUnmount() {
+        AuthStore.removeChangeListener(this.loginStateChange.bind(this));
+    }
     render() {
         let isLoginPage = (() => {
-            if(this.props.routes.length >= 1){
+            if (this.props.routes.length >= 1) {
                 return this.props.routes[1].path == 'login';
             }
         })();
-        const user = {
-            name: 'naraku'
-        };
-        const oprateMenu = (
+         const oprateMenu = (
           <Menu>
             <Menu.Item key="0">
               <a href="http://www.alipay.com/">第一个菜单项</a>
@@ -61,7 +78,7 @@ class Layout extends React.Component {
                         <div className="nav-right ttr">
                             <div className="authed">
                                 <DropdownButton overlay={userMenu} type="ghost">
-                                    {user.name}
+                                    {this.state.user && this.state.user.username}
                                 </DropdownButton>
                                 <Dropdown overlay={oprateMenu} trigger={['click']}>
                                     <Button type="primary" shape="circle">

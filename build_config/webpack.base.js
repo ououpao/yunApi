@@ -1,4 +1,5 @@
 var path = require('path');
+ var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
@@ -18,8 +19,7 @@ module.exports = {
         loaders: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel',
-            query: { presets: ['es2015', 'react'] }
+            loader: 'react-hot!babel?presets[]=react'
         }, {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
@@ -42,6 +42,6 @@ module.exports = {
         new ExtractTextPlugin("[name].[contenthash].css", {
             allChunks: true,
             disable: false
-        }),
+        })
     ]
 }

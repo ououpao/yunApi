@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import Layout from './pages/Layout';
 import Index from './pages/Index';
@@ -11,14 +11,14 @@ import Login from './pages/Login';
 class AppRoutes extends React.Component {
   render () {
     return (
-      <Router>
+      <Router history={hashHistory}>
         <Route path="/" component={Layout}>
           <IndexRoute component={Index}/>
-          <Route path="dashboard" component={Project} />
-          <Route path="project" component={Project} />
-          <Route path="task" component={Task} />
-          <Route path="status" component={Status} />
-          <Route path="login" component={Login} />
+          <Route name="dashboard" path="dashboard" component={Project} />
+          <Route name="project" path="project" component={Project} />
+          <Route name="task" path="task" component={Task} />
+          <Route name="status" path="status" component={Status} />
+          <Route name="login" path="login" component={Login} />
         </Route>
       </Router>
     );

@@ -4,11 +4,12 @@ var passport = require("koa-passport");
 exports.signIn = function*() {
     var _this = this;
     yield * passport.authenticate("local", function*(err, user, info) {
-        if (err) {
+        if (!!err) {
             throw err;
         }
-        if (user === false) {
+        if (!user) {
             _this.status = 401;
+            _this.body = info;
         } else {
             yield _this.login(user);
             _this.body = { user: user };
@@ -37,20 +38,26 @@ exports.createUser = function*(next) {
     }
 
     var User = require("mongoose").model("User");
-    try {
-        var user = new User({
-            username: this.request.body.username,
-            password: this.request.body.password,
-            email: this.request.body.email
-        });
-        user = yield user.save();
-        // yield this.login(user);
-    } catch (err) {
-        this.throw(err);
+
+    var user = yield User.findOne({ email: this.request.body.email }).exec();
+    if (!user) {
+        try {
+            var user = new User({
+                username: this.request.body.username,
+                password: this.request.body.password,
+                email: this.request.body.email
+            });
+            user = yield user.save();
+            // yield this.login(user);
+        } catch (err) {
+            this.throw(err);
+        }
+        let _this = this;
+        this.status = 200;
+        this.body = { user: user };
+    } else {
+        this.throw("该邮箱已存在！", 400);
     }
-    let _this = this;
-    this.status = 200;
-    this.body = {user: user};
 };
 
 exports.getCurrentUser = function*() {

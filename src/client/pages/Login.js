@@ -8,19 +8,19 @@ import AuthStore from "../stores/auth";
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { loading: false };
     }
     loginHandle(e) {
         e.preventDefault();
         let user = this.props.form.getFieldsValue(['loginEmail', 'pass']);
         user.username = user.loginEmail;
         user.password = user.pass;
-        AuthStore.signIn(user, (err, _user) => {
+        AuthStore.signIn(user, (err, user) => {
             if (err || !user) {
-                message.error(err.response.text, 3)
+                message.error(JSON.parse(err.response.text).message, 3)
                 return;
             }
             message.success('登录成功!', 3)
+            this.props.history.replace({ pathname: 'dashboard' , state: user })
         });
     }
     regHandle(e) {
@@ -30,7 +30,13 @@ class Login extends React.Component {
             if (err || !user) {
                 message.error(err.response.text, 3)
             }else{
-                message.success('注册成功, 请登录!', 3)
+                Modal.success({
+                  title: '成功',
+                  content: '注册成功，请登录！',
+                  onOk() {
+                    window.location.reload();
+                  }
+                });
             }
         });
     }
@@ -60,8 +66,7 @@ class Login extends React.Component {
                               <Button 
                                 type="primary" 
                                 htmlType="submit" 
-                                style={{width: '100%'}}
-                                loading={this.state.loading}>确定</Button>
+                                style={{width: '100%'}}>确定</Button>
                             </FormItem>
                         </Form>
                     </TabPane>
@@ -86,8 +91,7 @@ class Login extends React.Component {
                               <Button 
                                 type="primary" 
                                 htmlType="submit" 
-                                style={{width: '100%'}}
-                                loading={this.state.loading}>确定</Button>
+                                style={{width: '100%'}}>确定</Button>
                             </FormItem>
                         </Form>
                     </TabPane>
