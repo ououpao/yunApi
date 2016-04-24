@@ -76,7 +76,7 @@ class Layout extends React.Component {
                     </div>
                 </div>
                 : ''}
-                <div className="content main-wrap">
+                <div className="content">
                     {this.props.children}
                 </div>
             </div>

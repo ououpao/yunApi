@@ -16,18 +16,19 @@ class AddProject extends React.Component {
         };
     }
     componentDidMount(){
-        document.title = "添加项目";
+        document.title = "创建新项目";
     }
     submit(e){
         e.preventDefault();
         let projectInfo = this.props.form.getFieldsValue(['name', 'url', 'detail']);
         projectInfo.members = this.state.members;
-        ProjectStore.create(projectInfo, function(err, projectInfo){
+        ProjectStore.create(projectInfo, (err, projectInfo) => {
             if (err || !projectInfo) {
                 message.error(err.response.text, 3)
                 return;
             }
             message.success('添加成功!', 3)
+            this.props.history.replace({ pathname: 'projectDetail', params: {url: projectInfo.url}})
         })
     }
     handleChange(value) {
@@ -54,7 +55,7 @@ class AddProject extends React.Component {
           }]
         };
         return ( 
-            <div className="add-project">
+            <div className="main-wrap add-project">
                 <header className="header">
                     <span>创建新项目</span>
                 </header>

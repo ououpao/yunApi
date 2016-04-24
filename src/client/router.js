@@ -5,6 +5,7 @@ import Layout from './pages/Layout';
 import Index from './pages/Index';
 import Project from './pages/Project';
 import ProjectAdd from './pages/ProjectAdd';
+import ProjectList from './pages/ProjectList';
 import ProjectDetail from './pages/ProjectDetail';
 import Task from './pages/Task';
 import Status from './pages/Status';
@@ -17,8 +18,10 @@ class AppRoutes extends React.Component {
               <Route path="/" component={Layout}>
                   <IndexRoute component={Index}/>
                   <Route name="dashboard" path="dashboard" component={Project} />
-                  <Route name="project" path="project" component={Project} />
-                  <Route name="projectDetail" path="project/:url" component={ProjectDetail}/>
+                  <Route name="project" path="project" component={Project}>
+                      <IndexRoute component={ProjectList}/>
+                      <Route name="projectDetail" path=":url" component={ProjectDetail}/>
+                  </Route>
                   <Route name="addproject" path="addproject" component={ProjectAdd} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="status" path="status" component={Status} />

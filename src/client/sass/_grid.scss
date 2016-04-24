@@ -1,0 +1,67 @@
+$columns: 12;
+$grid-col-padding: 5px;
+$mobile-with: 748px;
+*,
+*:after,
+*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.app-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+[class*='app-col-'] {
+    float: left;
+    min-height: 1px;
+    padding:$grid-col-padding;
+}
+
+
+/* Desktop Layout */
+
+@for $i from 1 through $columns {
+    .app-col-#{$i} {
+        width: ($i / $columns) * 100%;
+    }
+}
+
+
+/* push offset */
+
+$i:0;
+@for $i from 1 through $columns {
+    .app-push-#{$i} {
+        margin-left: ($i / $columns) * 100%;
+    }
+}
+
+@media handheld,
+only screen and (max-width: $mobile-with) {
+    .container {
+        width: 100%;
+        min-width: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    [class*='app-col-'] {
+        width: auto;
+        float: none;
+    }
+    [class*='app-col-mb'] {
+        float: left;
+    }
+    $i:0;
+    @for $i from 1 through $columns {
+        .app-col-mb-#{$i} {
+            width: ($i / $columns) * 100%;
+        }
+    }
+    .app-hide-on-mb {
+        display: none;
+    }
+}

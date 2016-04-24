@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.project-list {
+    margin-top: 10px!important;
+    .item {}
+    .detail {
+        border: 1px solid $main-border-color;
+        height: 150px;
+        padding: 25px;
+        transition: border-color .3s;
+        &:hover {
+            border-color: $main-active-color;
+        }
+        .detail-icon {
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+        .detail-info{
+        	display: table-cell;
+        	padding-left: 10px;
+        	p{
+        		font-size: 12px;
+        		padding: 2px 0;
+        		&.name{
+        			font-size: 16px;
+        		}
+        	}
+        }
+    }
+}

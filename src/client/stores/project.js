@@ -36,7 +36,7 @@ const ProjectStore = {
                 url: url
             })
             .end(function(err, res) {
-                done(err, res);
+                done(err, res.body.detail);
             });
     }
 
