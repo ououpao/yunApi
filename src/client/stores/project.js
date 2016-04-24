@@ -39,7 +39,6 @@ const ProjectStore = {
                 done(err, res.body.detail);
             });
     }
-
 };
 
 export default ProjectStore;
