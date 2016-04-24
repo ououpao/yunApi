@@ -1,7 +1,8 @@
 import request from "superagent";
 const URLS = {
     CREATE: "/api/project/create",
-    GETALL: '/api/project/list'
+    GETALL: '/api/project/list',
+    DETAIL: '/api/project/detail',
 };
 
 const ProjectStore = {
@@ -23,6 +24,17 @@ const ProjectStore = {
         request.get(URLS.GETALL)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.list);
+            });
+    },
+    getDetail: function(url, done) {
+        request.get(URLS.DETAIL)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .query({
+                url: url
+            })
             .end(function(err, res) {
                 done(err, res);
             });

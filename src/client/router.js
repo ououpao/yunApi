@@ -17,9 +17,8 @@ class AppRoutes extends React.Component {
               <Route path="/" component={Layout}>
                   <IndexRoute component={Index}/>
                   <Route name="dashboard" path="dashboard" component={Project} />
-                  <Route name="project" path="project" component={Project}>
-                      <Route name="detail" path="detail" component={ProjectDetail} />
-                  </Route>
+                  <Route name="project" path="project" component={Project} />
+                  <Route name="projectDetail" path="project/:url" component={ProjectDetail}/>
                   <Route name="addproject" path="addproject" component={ProjectAdd} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="status" path="status" component={Status} />

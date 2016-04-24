@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ProjectStore from '../stores/project'
 
 class Project extends React.Component {
@@ -9,20 +10,32 @@ class Project extends React.Component {
         };
     }
     componentWillMount(){
-    	ProjectStore.getAll(function(err, list){
-    		
+    	ProjectStore.getAll((err, list) => {
+            this.setState({
+                projects: list
+            })
     	})
     }
     componentDidMount() {
         document.title = "我的项目";
     }
     render() {
+        var items = this.state.projects.map(function (item) {
+            return (
+                <Link to={`/project/${item.url}`}>
+                    <li className="item">
+                        <p>{item.name}</p>
+                        <p>{item.owner}</p>
+                    </li>
+                </Link>
+            );
+        });
         return ( 
         	<div>
         		{!this.props.children ?
-    			<div>
-    				<h3>Project page</h3> 
-    			</div>
+    			<ul className="projects">
+                    {items}
+    			</ul>
         		:
         		<div>
         		 	{this.props.children}

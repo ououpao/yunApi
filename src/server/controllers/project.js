@@ -10,7 +10,7 @@ exports.createProject = function*(next) {
 
     let user = this.passport.user;
     let Project = require("mongoose").model("Project");
-    let project = yield Project.findOne({"$or": [{ name: this.request.body.name }, {url: this.request.body.url}]}).exec();
+    let project = yield Project.findOne({ "$or": [{ name: this.request.body.name }, { url: this.request.body.url }] }).exec();
     if (!project) {
         try {
             project = new Project({
@@ -33,7 +33,19 @@ exports.createProject = function*(next) {
 exports.getALl = function*(next) {
     let user = this.passport.user;
     let Project = require("mongoose").model("Project");
-    let projects = yield Project.find({owner: user.email}).exec();
+    let projects = yield Project.find({ owner: user.email }).exec();
     this.status = 200;
     this.body = { list: projects };
+}
+exports.getDetail = function*(next) {
+    console.log(this.request.query)
+    let user = this.passport.user;
+    let Project = require("mongoose").model("Project");
+    let detail = yield Project.findOne({
+        owner: user.email,
+        url: this.request.query.url,
+        isRemove: false
+    }).exec();
+    this.status = 200;
+    this.body = { detal: detail };
 }

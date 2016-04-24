@@ -26,6 +26,7 @@ module.exports = function(app, passport) {
 
   router.post('/api/project/create', secured, projectController.createProject);
   router.get('/api/project/list', secured, projectController.getALl);
+  router.get('/api/project/detail', secured, projectController.getDetail);
 
   app.use(router.routes());
 };
