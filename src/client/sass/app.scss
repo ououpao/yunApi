@@ -27,7 +27,7 @@ body {
 .navbar {
     .nav-left {
         display: inline-block;
-        width: 80%;
+        width: 60%;
         vertical-align: middle;
         li {
             display: inline-block;
@@ -35,9 +35,9 @@ body {
                 padding: 12px 25px;
                 display: inline-block;
                 color: $main-font-color;
-                border-bottom:2px solid transparent;
+                border-bottom: 2px solid transparent;
                 transition: all .3s;
-                &.active{
+                &.active {
                     color: $main-active-color;
                     border-bottom: 2px solid $main-active-color;
                 }
@@ -46,18 +46,17 @@ body {
     }
     .nav-right {
         display: inline-block;
-        width: 19%;
+        width: 40%;
         vertical-align: middle;
-        
     }
     .authed {
-        .ant-btn-group{
+        .ant-btn-group {
             padding-right: 30px;
         }
     }
 }
 
 // 主体
-.content{
-    margin-top: 10px;
+.content {
+    padding-top: 10px;
 }

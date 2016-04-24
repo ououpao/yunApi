@@ -3,16 +3,13 @@ var passport = require("koa-passport");
 
 exports.signIn = function*() {
     var _this = this;
-    yield * passport.authenticate("local", function*(err, user, info) {
+    yield * passport.authenticate("local", function*(err, user) {
         if (!!err) {
-            throw err;
+            _this.throw(err, 400);
         }
-        if (!user) {
-            _this.status = 401;
-            _this.body = info;
-        } else {
-            yield _this.login(user);
-            _this.body = { user: user };
+        if(user){
+           yield _this.login(user);
+            _this.body = { user: user }; 
         }
     }).call(this);
 };

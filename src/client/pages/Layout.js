@@ -29,8 +29,6 @@ class Layout extends React.Component {
             user: user
         })
     }
-    componentWillMount() {
-    }
     componentDidMount() {
         AuthStore.addChangeListener(this.loginStateChange.bind(this));
     }

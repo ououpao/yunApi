@@ -1,13 +1,17 @@
 #react-app {
     height: 100%;
 }
-
+.login-wrap{
+    background: red;
+}
 .login {
     width: 500px;
-    margin: 0 auto;
-    margin-top: 200px;
     border: 1px solid #F1F1F1;
     box-shadow: 0px 0px 3px 1px #dedede;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    margin-left: -250px;
     form {
         width: 444px;
         margin: 0 auto;

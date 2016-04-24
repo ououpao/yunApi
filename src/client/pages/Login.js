@@ -19,7 +19,7 @@ class Login extends React.Component {
         user.password = user.pass;
         AuthStore.signIn(user, (err, user) => {
             if (err || !user) {
-                message.error(JSON.parse(err.response.text).message, 3)
+                message.error(err.response.text, 3)
                 return;
             }
             message.success('登录成功!', 3)
@@ -30,6 +30,7 @@ class Login extends React.Component {
         e.preventDefault();
         let user = this.props.form.getFieldsValue(['username', 'email', 'password']);
         AuthStore.signUp(user, (err, _user) => {
+            console.dir(err);
             if (err || !user) {
                 message.error(err.response.text, 3)
             }else{
@@ -50,8 +51,8 @@ class Login extends React.Component {
             wrapperCol: { span: 14 },
         };
         return (
-            <div className="login">
-              <div className="login-cell">
+            <div className="login-wrap">
+              <div className="login">
                   <Tabs defaultActiveKey="1">
                     <TabPane tab="登录" key="1">
                         <Form horizontal onSubmit={this.loginHandle.bind(this)}>

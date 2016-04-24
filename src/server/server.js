@@ -24,6 +24,9 @@ mongoose.connect('mongodb://localhost/mkrn');
 mongoose.connection.on("error", function(err) {
     console.log(err);
 });
+mongoose.connection.on("open", function () {
+    console.log("------mongodb connect seccess!------");
+});
 
 // models
 require('./models/user');
@@ -52,4 +55,4 @@ app.use(function*() {
 
 
 app.listen(8085);
-console.log('listening on port 8085...');
+console.log('------server start success on port: 8085------');

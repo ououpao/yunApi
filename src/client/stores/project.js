@@ -1,6 +1,7 @@
 import request from "superagent";
 const URLS = {
-    CREATE: "/api/project/create"
+    CREATE: "/api/project/create",
+    GETALL: '/api/project/list'
 };
 
 const ProjectStore = {
@@ -10,16 +11,19 @@ const ProjectStore = {
             .set("Content-Type", "application/json")
             .send({
                 name: projectInfo.name,
+                url: projectInfo.url,
                 detail: projectInfo.detail,
                 members: projectInfo.members
             })
             .end(function(err, res) {
-                // if (!err && res.body && res.body.user) {
-                //     done(null, res.body.user);
-                //     _user = res.body.user;
-                // } else {
-                //     done(err, _user);
-                // }
+                done(err, res);
+            });
+    },
+    getAll: function(done) {
+        request.get(URLS.GETALL)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
                 done(err, res);
             });
     }

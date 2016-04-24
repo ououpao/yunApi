@@ -51,12 +51,12 @@ UserSchema.methods.comparePassword = function*(candidatePassword) {
 UserSchema.statics.passwordMatches = function*(email, password) {
     var user = yield this.findOne({ email: email.toLowerCase() }).exec();
     if (!user) {
-        throw new Error("User not found");
+        throw new Error("没有找到该用户！");
     }
     if (yield user.comparePassword(password)) {
         return user;
     }
-    throw new Error("Password does not match");
+    throw new Error("输入的密码不正确！");
 };
 
 // Model creation

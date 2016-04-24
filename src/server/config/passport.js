@@ -31,7 +31,7 @@ module.exports = function(passport) {
             try {
                 return yield User.passwordMatches(email, password);
             } catch (ex) {
-                done(null, null, { message: '用户名和密码不匹配！' });
+                done(ex, null);
             }
         }).then(function(user) {
             done(null, user);

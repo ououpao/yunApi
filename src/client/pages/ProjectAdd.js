@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Button, Select, Upload, Icon, Alert} from 'antd';
+import {Form, Input, Button, Select, Upload, Icon, Alert, message} from 'antd';
 const FormItem = Form.Item;
 import ProjectStore from "../stores/project";
 
@@ -20,10 +20,14 @@ class AddProject extends React.Component {
     }
     submit(e){
         e.preventDefault();
-        let projectInfo = this.props.form.getFieldsValue(['name', 'detail']);
+        let projectInfo = this.props.form.getFieldsValue(['name', 'url', 'detail']);
         projectInfo.members = this.state.members;
         ProjectStore.create(projectInfo, function(err, projectInfo){
-            console.log(projectInfo)
+            if (err || !projectInfo) {
+                message.error(err.response.text, 3)
+                return;
+            }
+            message.success('添加成功!', 3)
         })
     }
     handleChange(value) {
@@ -71,6 +75,11 @@ class AddProject extends React.Component {
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
+                          label="项目URL：" required>
+                          <Input type="text" {...getFieldProps('url')} placeholder="请输入项目URL" />
+                        </FormItem>
+                        <FormItem
+                          {...formItemLayout}
                           label="添加成员：">
                           <Select multiple
                             defaultValue={[]} 
@@ -92,7 +101,7 @@ class AddProject extends React.Component {
                         </FormItem>
                     </Form>
                 </section>
-                <div class="tip">
+                <div className="tip">
                     <Alert message="温馨提示"
                     description="项目成员可在成功添加项目继续添加或邀请未注册的成员！"
                     type="info"
