@@ -47,5 +47,5 @@ exports.getDetail = function*(next) {
         isRemove: false
     }).exec();
     this.status = 200;
-    this.body = { detal: detail };
+    this.body = { detail: detail };
 }
