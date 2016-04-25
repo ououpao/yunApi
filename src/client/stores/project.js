@@ -1,6 +1,7 @@
 import request from "superagent";
 const URLS = {
-    CREATE: "/api/project/create",
+    All: '/api/project',
+    CREATE: '/api/project/create',
     GETALL: '/api/project/list',
     DETAIL: '/api/project/detail',
 };
@@ -35,6 +36,14 @@ const ProjectStore = {
             .query({
                 url: url
             })
+            .end(function(err, res) {
+                done(err, res.body.detail);
+            });
+    },
+    reomve: function(id, done) {
+        request.del(`${URLS.All}/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
             .end(function(err, res) {
                 done(err, res.body.detail);
             });

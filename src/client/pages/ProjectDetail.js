@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Menu, Dropdown, Modal} from 'antd';
+import { Button, Icon, Menu, Dropdown, Modal, message} from 'antd';
 import ProjectStore from '../stores/project';
 
 class ProjectDetail extends React.Component {
@@ -22,10 +22,11 @@ class ProjectDetail extends React.Component {
     }
     removeProject(){
         let remove =  () => {
-            ProjectStore.getDetail(this.state.url, (err, detail) => {
-                this.setState({
-                    detail: detail
-                })
+            ProjectStore.reomve(this.state.detail._id, (err, res) => {
+                if(!err){
+                    message.success('删除成功!', 3)
+                    this.props.history.replace({ pathname: 'project' })
+                }
             })
         }
         Modal.confirm({

@@ -38,7 +38,6 @@ exports.getALl = function*(next) {
     this.body = { list: projects };
 }
 exports.getDetail = function*(next) {
-    console.log(this.request.query)
     let user = this.passport.user;
     let Project = require("mongoose").model("Project");
     let detail = yield Project.findOne({
@@ -48,4 +47,15 @@ exports.getDetail = function*(next) {
     }).exec();
     this.status = 200;
     this.body = { detail: detail };
+}
+exports.remove = function*(next) {
+    let user = this.passport.user;
+    let Project = require("mongoose").model("Project");
+    let detail = yield Project.remove({
+        owner: user.email,
+        _id: this.params.id,
+        isRemove: false
+    }).exec();
+    this.status = 200;
+    this.body = {};
 }
