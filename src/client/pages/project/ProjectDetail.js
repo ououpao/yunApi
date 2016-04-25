@@ -37,14 +37,17 @@ class ProjectDetail extends React.Component {
             cancelText: '取消',
             onOk: remove
         });
-
-        
+    }
+    editProject(){
+        this.props.history.replace({ pathname: 'editProject' , state: this.state.detail })
     }
     render() {
         let detail = this.state.detail;
         const editMenu = (
           <Menu>
-            <Menu.Item key="1">修改</Menu.Item>
+            <Menu.Item key="1">
+                <span onClick={this.editProject.bind(this)}>修改</span>
+            </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="2" >
                 <span onClick={this.removeProject.bind(this)}>删除</span>

@@ -30,6 +30,7 @@ module.exports = function(app, passport) {
     router.get('/project/list', secured, projectController.getALl);
     router.get('/project/detail', secured, projectController.getDetail);
     router.del('/project/:id', secured, projectController.remove);
+    router.put('/project/:id', secured, projectController.update);
 
     app.use(router.routes());
 };

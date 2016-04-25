@@ -9,6 +9,7 @@ import Login from './pages/Login';
 
 import Project from './pages/project/Project';
 import ProjectAdd from './pages/project/ProjectAdd';
+import ProjectEdit from './pages/project/ProjectEdit';
 import ProjectList from './pages/project/ProjectList';
 import ProjectDetail from './pages/project/ProjectDetail';
 import ProjectDetailApi from './pages/project/ProjectDetailApi';
@@ -33,6 +34,7 @@ class AppRoutes extends React.Component {
                       </Route>
                   </Route>
                   <Route name="addproject" path="addproject" component={ProjectAdd} />
+                  <Route name="editproject" path="editproject" component={ProjectEdit} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="status" path="status" component={Status} />
                   <Route name="login" path="login" component={Login} />

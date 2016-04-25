@@ -59,3 +59,18 @@ exports.remove = function*(next) {
     this.status = 200;
     this.body = {};
 }
+exports.update = function*(next) {
+    let user = this.passport.user;
+    let Project = require("mongoose").model("Project");
+    let detail = yield Project.update({
+        _id: this.params.id,
+    }, {
+        name: this.request.body.name,
+        url: this.request.body.url,
+        detail: this.request.body.detail,
+        members: this.request.body.members,
+        owner: user.email
+    }).exec();
+    this.status = 200;
+    this.body = {};
+}

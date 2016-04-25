@@ -12,22 +12,30 @@ class AddProject extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: []
+            members: [],
+            detail: props.detail || {}
         };
+        this.isEdit = !!this.state.detail.name;
     }
     componentDidMount(){
-        document.title = "创建新项目";
+        document.title = this.isEdit ? '修改项目' : '创建新项目';
+        if(this.isEdit){
+            this.props.form.setFieldsValue(this.state.detail)
+        }
     }
     submit(e){
         e.preventDefault();
         let projectInfo = this.props.form.getFieldsValue(['name', 'url', 'detail']);
         projectInfo.members = this.state.members;
-        ProjectStore.create(projectInfo, (err, projectInfo) => {
+        if(this.isEdit){
+          projectInfo._id = this.state.detail._id;
+        }
+        ProjectStore[this.isEdit ? 'update' : 'create'](projectInfo, (err, projectInfo) => {
             if (err || !projectInfo) {
                 message.error(err.response.text, 3)
                 return;
             }
-            message.success('添加成功!', 3)
+            message.success(this.isEdit ? '修改成功!' : '添加成功!', 3)
             this.props.history.replace({ pathname: 'projectDetail', params: {url: projectInfo.url}})
         })
     }
@@ -38,6 +46,7 @@ class AddProject extends React.Component {
     }
 
     render() {
+        let detail = this.state.detail;
         const { getFieldProps } = this.props.form;
         const formItemLayout = {
             labelCol: { span: 6 },
@@ -57,7 +66,7 @@ class AddProject extends React.Component {
         return ( 
             <div className="main-wrap add-project">
                 <header className="header">
-                    <span>创建新项目</span>
+                    <span>{this.isEdit ? '修改项目' : '创建新项目'}</span>
                 </header>
                 <section>
                     <Form horizontal onSubmit={this.submit.bind(this)}>
@@ -72,12 +81,12 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="项目名称：" required>
-                          <Input type="text" {...getFieldProps('name')} placeholder="请输入项目名称" />
+                          <Input type="text" {...getFieldProps('name')} placeholder="请输入项目名称"/>
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
                           label="项目URL：" required>
-                          <Input type="text" {...getFieldProps('url')} placeholder="请输入项目URL" />
+                          <Input type="text" {...getFieldProps('url')} placeholder="请输入项目URL"/>
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
@@ -92,13 +101,13 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="项目描述：">
-                          <Input type="textarea" {...getFieldProps('detail')} placeholder="请输入项目描述" />
+                          <Input type="textarea" {...getFieldProps('detail')} placeholder="请输入项目描述"/>
                         </FormItem>
                         <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
                           <Button 
                             type="primary" 
                             htmlType="submit" 
-                            style={{width: '100%'}}>立即添加</Button>
+                            style={{width: '100%'}}>{this.isEdit ? '确认修改' : '立即添加'}</Button>
                         </FormItem>
                     </Form>
                 </section>
