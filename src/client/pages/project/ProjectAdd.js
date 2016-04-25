@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Input, Button, Select, Upload, Icon, Alert, message} from 'antd';
 const FormItem = Form.Item;
-import ProjectStore from "../stores/project";
+import ProjectStore from "../../stores/project";
 
 let children = [];
 for (let i = 10; i < 36; i++) {

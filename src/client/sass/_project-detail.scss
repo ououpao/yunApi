@@ -38,16 +38,19 @@
         margin-top: 7px;
         li {
             display: inline-block;
+        }
+        a{
+            display: inline-block;
             padding: 10px 20px;
             cursor: pointer;
             border-bottom: 1px solid transparent;
             transition: all .3s;
             &:hover{
-            	color: $main-active-color;
+                color: $main-active-color;
             }
             &.active{
-            	border-color: $main-active-color;
-            	color: $main-active-color;
+                border-color: $main-active-color;
+                color: $main-active-color;
             }
         }
     }

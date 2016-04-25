@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message} from 'antd';
-import ProjectStore from '../stores/project';
+import ProjectStore from '../../stores/project';
 
 class ProjectDetail extends React.Component {
     constructor(props) {
@@ -69,14 +70,16 @@ class ProjectDetail extends React.Component {
                             </div>
                         </Dropdown>
                         <ul className="pro-navbar">
-                            <li className="active">接口列表</li>
-                            <li>任务列表</li>
-                            <li>项目成员</li>
-                            <li>项目统计</li>
+                            <li className="active"><Link to={`project/${detail.url}`} activeClassName={"active"}>接口列表</Link></li>
+                            <li><Link to={`project/${detail.url}/tasks`} activeClassName={"active"}>任务列表</Link></li>
+                            <li><Link to={`project/${detail.url}/members`} activeClassName={"active"}>项目成员</Link></li>
+                            <li><Link to={`project/${detail.url}/analysis`} activeClassName={"active"}>项目统计</Link></li>
                         </ul>
                     </div>
                 </div>
-                <div className="pro-detail">content</div>
+                <div className="pro-detail">
+                    {this.props.children}
+                </div>
             </div>
         )
     }

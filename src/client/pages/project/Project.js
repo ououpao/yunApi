@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import ProjectStore from '../stores/project'
+import ProjectStore from '../../stores/project'
 
 class Project extends React.Component {
 	constructor(props) {

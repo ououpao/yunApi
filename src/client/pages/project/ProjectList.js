@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import { Link } from 'react-router';
-import ProjectStore from '../stores/project'
+import ProjectStore from '../../stores/project'
 
 class ProjectList extends React.Component {
 	constructor(props) {
