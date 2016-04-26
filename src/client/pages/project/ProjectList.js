@@ -23,19 +23,19 @@ class ProjectList extends React.Component {
     render() {
         var items = this.state.projects.map(function (item) {
             return (
-                <Link to={`/project/${item.url}/apis`}>
-                    <li className="item app-col-4 app-col-mb-12">
-                        <div className="detail">
-                            <img className="detail-icon" src={item.icon} alt="项目icon"/>
-                            <div className="detail-info">
-                                <p className="name">{item.name}</p>
-                                <p>创建日期： {item.createDate.substr(0, 10)}</p>
-                                <p>项目成员： </p>
-                                <ul></ul>
+                    <li className="item app-col-4 app-col-mb-12" key={item._id}>
+                        <Link to={`/project/${item.url}/apis`}>
+                            <div className="detail">
+                                <img className="detail-icon" src={item.icon} alt="项目icon"/>
+                                <div className="detail-info">
+                                    <p className="name">{item.name}</p>
+                                    <p>创建日期： {item.createDate.substr(0, 10)}</p>
+                                    <p>项目成员： </p>
+                                    <ul></ul>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </li>
-                </Link>
             );
         });
         return ( 
