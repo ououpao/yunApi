@@ -73,7 +73,7 @@ class ProjectDetail extends React.Component {
                             </div>
                         </Dropdown>
                         <ul className="pro-navbar">
-                            <li className="active"><Link to={`project/${detail.url}`} activeClassName={"active"}>接口列表</Link></li>
+                            <li><Link to={`project/${detail.url}/apis`} activeClassName={"active"}>接口列表</Link></li>
                             <li><Link to={`project/${detail.url}/tasks`} activeClassName={"active"}>任务列表</Link></li>
                             <li><Link to={`project/${detail.url}/members`} activeClassName={"active"}>项目成员</Link></li>
                             <li><Link to={`project/${detail.url}/analysis`} activeClassName={"active"}>项目统计</Link></li>

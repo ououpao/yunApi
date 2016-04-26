@@ -23,7 +23,7 @@ class ProjectList extends React.Component {
     render() {
         var items = this.state.projects.map(function (item) {
             return (
-                <Link to={`/project/${item.url}`}>
+                <Link to={`/project/${item.url}/apis`}>
                     <li className="item app-col-4 app-col-mb-12">
                         <div className="detail">
                             <img className="detail-icon" src={item.icon} alt="项目icon"/>
