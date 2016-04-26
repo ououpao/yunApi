@@ -70,7 +70,7 @@ exports.update = function*(next) {
         detail: this.request.body.detail,
         members: this.request.body.members,
         owner: user.email
-    }).exec();
+    }, {new: true}).exec();
     this.status = 200;
     this.body = {detail: detail};
 }
