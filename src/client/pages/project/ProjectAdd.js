@@ -18,6 +18,7 @@ class AddProject extends React.Component {
         this.isEdit = !!this.state.detail.name;
     }
     componentDidMount(){
+      console.log(this.state.detail)
         document.title = this.isEdit ? '修改项目' : '创建新项目';
         if(this.isEdit){
             this.props.form.setFieldsValue(this.state.detail)
@@ -35,8 +36,9 @@ class AddProject extends React.Component {
                 message.error(err.response.text, 3)
                 return;
             }
+            console.log(projectInfo)
             message.success(this.isEdit ? '修改成功!' : '添加成功!', 3)
-            this.props.history.replace({ pathname: 'projectDetail', params: {url: projectInfo.url}})
+            this.props.history.replace({ pathname: `project/${projectInfo.url}`})
         })
     }
     handleChange(value) {

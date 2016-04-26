@@ -14,6 +14,7 @@ class Login extends React.Component {
     }
     loginHandle(e) {
         e.preventDefault();
+        console.log(this.props)
         let user = this.props.form.getFieldsValue(['loginEmail', 'pass']);
         user.username = user.loginEmail;
         user.password = user.pass;

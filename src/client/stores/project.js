@@ -18,7 +18,7 @@ const ProjectStore = {
                 members: projectInfo.members
             })
             .end(function(err, res) {
-                done(err, res);
+                done(err, res.body.project);
             });
     },
     reomve: function(id, done) {
@@ -40,7 +40,7 @@ const ProjectStore = {
                 members: projectInfo.members
             })
             .end(function(err, res) {
-                done(err, res);
+                done(err, res.body.detail);
             });
     },
     getAll: function(done) {

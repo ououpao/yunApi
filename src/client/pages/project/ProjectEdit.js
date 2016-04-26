@@ -14,7 +14,7 @@ class ProjectEdit extends React.Component {
     render() {
         return ( 
             <div>
-            	<ProjectAdd detail={this.state.detail}></ProjectAdd>
+            	<ProjectAdd detail={this.state.detail} {...this.props}></ProjectAdd>
             </div>
         );
     }

@@ -62,7 +62,7 @@ exports.remove = function*(next) {
 exports.update = function*(next) {
     let user = this.passport.user;
     let Project = require("mongoose").model("Project");
-    let detail = yield Project.update({
+    let detail = yield Project.findOneAndUpdate({
         _id: this.params.id,
     }, {
         name: this.request.body.name,
@@ -72,5 +72,5 @@ exports.update = function*(next) {
         owner: user.email
     }).exec();
     this.status = 200;
-    this.body = {};
+    this.body = {detail: detail};
 }
