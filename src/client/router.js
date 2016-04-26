@@ -8,14 +8,15 @@ import Status from './pages/Status';
 import Login from './pages/Login';
 
 import Project from './pages/project/Project';
-import ProjectAdd from './pages/project/ProjectAdd';
-import ProjectEdit from './pages/project/ProjectEdit';
-import ProjectList from './pages/project/ProjectList';
-import ProjectDetail from './pages/project/ProjectDetail';
-import ProjectDetailApi from './pages/project/ProjectDetailApi';
-import ProjectDetailTask from './pages/project/ProjectDetailTask';
-import ProjectDetailMembers from './pages/project/ProjectDetailMembers';
-import ProjectDetailAnalysis from './pages/project/ProjectDetailAnalysis';
+import AddProject from './pages/project/AddProject';
+import AddApi from './pages/project/AddApi';
+import ProjectEdit from './pages/project/Edit';
+import ProjectList from './pages/project/List';
+import ProjectDetail from './pages/project/Detail';
+import ProjectDetailApi from './pages/project/DetailApi';
+import ProjectDetailTask from './pages/project/DetailTask';
+import ProjectDetailMembers from './pages/project/DetailMembers';
+import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
 
 class AppRoutes extends React.Component {
     render() {
@@ -33,7 +34,8 @@ class AppRoutes extends React.Component {
                           <Route name="ProjectDetailAnalysis" path="analysis" component={ProjectDetailAnalysis} />
                       </Route>
                   </Route>
-                  <Route name="addproject" path="addproject" component={ProjectAdd} />
+                  <Route name="addproject" path="addproject" component={AddProject} />
+                  <Route name="addapi" path="addapi" component={AddApi} />
                   <Route name="editproject" path="editproject" component={ProjectEdit} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="status" path="status" component={Status} />

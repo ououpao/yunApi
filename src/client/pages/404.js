@@ -1,5 +1,5 @@
 import React from 'react';
-class 404Page extends React.Component {
+class notFoundPage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -11,4 +11,4 @@ class 404Page extends React.Component {
         );
     }
 }
-export default 404Page;
+export default notFoundPage;

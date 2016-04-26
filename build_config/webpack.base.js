@@ -10,7 +10,8 @@ module.exports = {
         // 输出目录
         path: path.resolve(__dirname, '../dist/static'),
         publicPath: '/static/',
-        filename: '[name].[hash].js'
+        filename: '[name].min.js',
+        chunkFilename: "[name].min.js"
     },
     resolveLoader: {
         root: path.join(__dirname, 'node_modules')
