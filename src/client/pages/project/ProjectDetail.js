@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { Button, Icon, Menu, Dropdown, Modal, message} from 'antd';
+import { Link} from 'react-router';
+import { Button, Icon, Menu, Dropdown, Modal, message, Badge } from 'antd';
 import ProjectStore from '../../stores/project';
 
 class ProjectDetail extends React.Component {
@@ -73,14 +73,14 @@ class ProjectDetail extends React.Component {
                             </div>
                         </Dropdown>
                         <ul className="pro-navbar">
-                            <li><Link to={`project/${detail.url}/apis`} activeClassName={"active"}>接口列表</Link></li>
-                            <li><Link to={`project/${detail.url}/tasks`} activeClassName={"active"}>任务列表</Link></li>
-                            <li><Link to={`project/${detail.url}/members`} activeClassName={"active"}>项目成员</Link></li>
+                            <li><Link to={`project/${detail.url}/apis`} activeClassName={"active"}><span>接口列表<Badge count={25} /></span></Link></li>
+                            <li><Link to={`project/${detail.url}/tasks`} activeClassName={"active"}>任务列表<Badge count={20} /></Link></li>
+                            <li><Link to={`project/${detail.url}/members`} activeClassName={"active"}>项目成员<Badge count={10} /></Link></li>
                             <li><Link to={`project/${detail.url}/analysis`} activeClassName={"active"}>项目统计</Link></li>
                         </ul>
                     </div>
                 </div>
-                <div className="pro-detail">
+                <div className="pro-modules">
                     {this.props.children}
                 </div>
             </div>

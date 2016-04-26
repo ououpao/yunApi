@@ -8,7 +8,13 @@ class ProjectDetailApi extends React.Component {
     }
     render() {
         return (
-            <div>APIs</div>
+            <div className="api-module">
+            	<div className="api-list-wrap">
+            		<div className="header"></div>
+            		<div class="list"></div>
+            	</div>
+            	<div className="api-detail"></div>
+            </div>
         )
     }
 }
