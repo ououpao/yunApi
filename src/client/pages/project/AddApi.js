@@ -1,6 +1,7 @@
 import React from 'react';
 import Codemirror from 'react-codemirror/lib/Codemirror';
 require('codemirror/mode/javascript/javascript');
+require('codemirror/theme/monokai.css');
 import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message } from 'antd';
 import ProjectStore from "../../stores/project";
 const FormItem = Form.Item;
@@ -23,7 +24,6 @@ class AddProject extends React.Component {
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
-
     }
     submit(e) {
         e.preventDefault();
@@ -37,10 +37,19 @@ class AddProject extends React.Component {
     render() {
         let detail = this.state.detail;
         const options = {
-            mode: "javascript",
-            lineNumbers: true,
+            // mode: "javascript",
+            // lineNumbers: true,
+            // indentUnit: 4,
+            // cursorHeight: 1,
+            // styleActiveLine: true,
+            // theme: 'monokai'
+
+            theme: "monokai",
             indentUnit: 4,
-            cursorHeight: 1
+            lineNumbers: !0,
+            mode: "text/javascript",
+            matchBrackets: !0,
+            autoCloseBrackets: !0,
         };
         const { getFieldProps } = this.props.form;
         const formItemLayout = {
@@ -48,7 +57,7 @@ class AddProject extends React.Component {
             wrapperCol: { span: 14 },
         };
         return (
-            <div className="main-wrap add-project">
+            <div className="main-wrap add-project add-api">
                 <header className="header">
                     <span>{this.isEdit ? '修改接口' : '创建新接口'}</span>
                 </header>
