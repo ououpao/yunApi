@@ -1,11 +1,11 @@
 import React from 'react';
-import {Form, Input, Button, Select, Upload, Icon, Alert, message} from 'antd';
+import { Form, Input, Button, Select, Upload, Icon, Alert, message } from 'antd';
 const FormItem = Form.Item;
 import ProjectStore from "../../stores/project";
 
 let children = [];
 for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
 }
 
 class AddProject extends React.Component {
@@ -17,18 +17,18 @@ class AddProject extends React.Component {
         };
         this.isEdit = !!this.state.detail.name;
     }
-    componentDidMount(){
+    componentDidMount() {
         document.title = this.isEdit ? '修改项目' : '创建新项目';
-        if(this.isEdit){
+        if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
     }
-    submit(e){
+    submit(e) {
         e.preventDefault();
         let projectInfo = this.props.form.getFieldsValue(['name', 'url', 'detail']);
         projectInfo.members = this.state.members;
-        if(this.isEdit){
-          projectInfo._id = this.state.detail._id;
+        if (this.isEdit) {
+            projectInfo._id = this.state.detail._id;
         }
         ProjectStore[this.isEdit ? 'update' : 'create'](projectInfo, (err, projectInfo) => {
             if (err || !projectInfo) {
@@ -37,7 +37,7 @@ class AddProject extends React.Component {
             }
             console.log(projectInfo)
             message.success(this.isEdit ? '修改成功!' : '添加成功!', 3)
-            this.props.history.replace({ pathname: `project/${projectInfo.url}`})
+            this.props.history.replace({ pathname: `project/${projectInfo.url}` })
         })
     }
     handleChange(value) {
@@ -54,17 +54,17 @@ class AddProject extends React.Component {
             wrapperCol: { span: 14 },
         };
         const props = {
-          action: '/upload.do',
-          listType: 'picture-card',
-          defaultFileList: [{
-            uid: -1,
-            name: 'xxx.png',
-            status: 'done',
-            url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-            thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-          }]
+            action: '/upload.do',
+            listType: 'picture-card',
+            defaultFileList: [{
+                uid: -1,
+                name: 'xxx.png',
+                status: 'done',
+                url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+                thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+            }]
         };
-        return ( 
+        return (
             <div className="main-wrap add-project">
                 <header className="header">
                     <span>{this.isEdit ? '修改项目' : '创建新项目'}</span>

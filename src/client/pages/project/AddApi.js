@@ -1,13 +1,13 @@
 import React from 'react';
 import Codemirror from 'react-codemirror/lib/Codemirror';
 require('codemirror/mode/javascript/javascript');
-import {Form, Input, Button, Radio, Select, Upload, Icon, Alert, message} from 'antd';
+import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message } from 'antd';
+import ProjectStore from "../../stores/project";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
-import ProjectStore from "../../stores/project";
 let children = [];
 for (let i = 10; i < 36; i++) {
-  children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
 }
 class AddProject extends React.Component {
     constructor(props) {
@@ -18,16 +18,16 @@ class AddProject extends React.Component {
         };
         this.isEdit = !!this.state.detail.name;
     }
-    componentDidMount(){
+    componentDidMount() {
         document.title = this.isEdit ? '修改接口' : '创建新接口';
-        if(this.isEdit){
+        if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
-        
+
     }
-    submit(e){
+    submit(e) {
         e.preventDefault();
-        
+
     }
     handleChange(value) {
         this.setState({
@@ -47,7 +47,7 @@ class AddProject extends React.Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
-        return ( 
+        return (
             <div className="main-wrap add-project">
                 <header className="header">
                     <span>{this.isEdit ? '修改接口' : '创建新接口'}</span>

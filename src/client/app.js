@@ -7,34 +7,29 @@ import ReactDOMServer from 'react-dom/server';
 import Router from './router';
 
 class App {
-
-  constructor(options) {
-  }
-
-  render (element) {
-    var appRootElement = React.createElement(Router);
-
-    if (element) {
-      ReactDOM.render(appRootElement, element);
-      return;
+    constructor(options) {}
+    render(element) {
+        var appRootElement = React.createElement(Router);
+        if (element) {
+            ReactDOM.render(appRootElement, element);
+            return;
+        }
+        return ReactDOMServer.renderToString(appRootElement);
     }
 
-    return ReactDOMServer.renderToString(appRootElement);
-  }
-
-  renderToDOM(element) {
-    if (!element) {
-      throw new Error('App.renderToDOM: element is required!');
+    renderToDOM(element) {
+        if (!element) {
+            throw new Error('App.renderToDOM: element is required!');
+        }
+        this.render(element);
     }
-    this.render(element);
-  }
 
-  renderToString() {
-    return this.render();
-  }
+    renderToString() {
+        return this.render();
+    }
 }
 
 var attachElement = document.getElementById('react-app');
-var app= new App();
+var app = new App();
 
 app.renderToDOM(attachElement);

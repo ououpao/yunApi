@@ -5,9 +5,10 @@ class Task extends React.Component {
         document.title = "我的任务";
     }
     render() {
-
-        return ( < div >
-            < h3 > Task page < /h3> < /div>
+        return (
+            <div>
+	            <h3> Task page </h3> 
+            </div>
         );
     }
 }

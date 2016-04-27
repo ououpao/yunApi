@@ -4,26 +4,26 @@ import { Link } from 'react-router';
 import ProjectStore from '../../stores/project'
 
 class ProjectList extends React.Component {
-	constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             projects: []
         };
     }
-    componentWillMount(){
-    	ProjectStore.getAll((err, list) => {
+    componentWillMount() {
+        ProjectStore.getAll((err, list) => {
             this.setState({
                 projects: list
             })
-    	})
+        })
     }
     componentDidMount() {
         document.title = "项目列表";
     }
     render() {
-        var items = this.state.projects.map(function (item) {
+        var items = this.state.projects.map(function(item) {
             return (
-                    <li className="item app-col-4 app-col-mb-12" key={item._id}>
+                <li className="item app-col-4 app-col-mb-12" key={item._id}>
                         <Link to={`/project/${item.url}/apis`}>
                             <div className="detail">
                                 <img className="detail-icon" src={item.icon} alt="项目icon"/>
@@ -38,11 +38,11 @@ class ProjectList extends React.Component {
                     </li>
             );
         });
-        return ( 
-        	<div>
-    			<ul className="main-wrap project-list app-row">
+        return (
+            <div>
+                <ul className="main-wrap project-list app-row">
                     {items}
-    			</ul>
+                </ul>
             </div>
         );
     }

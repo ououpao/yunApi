@@ -1,22 +1,22 @@
 import React from 'react';
 
 class Index extends React.Component {
-	constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
-        	user: null
+            user: null
         };
     }
-    initUser(){
-    	this.setState({
-    		user: this.props.location.state
-    	})
+    initUser() {
+        this.setState({
+            user: this.props.location.state
+        })
     }
     render() {
-        return ( 
-        	< div >
-	            < h3 > Index page < /h3> 
-            < /div>
+        return (
+            <div>
+                <h3>Index page</h3>
+            </div>
         );
     }
 }

@@ -1,5 +1,16 @@
 import React from 'react';
-import { Modal, Tabs, Form, Input, Button, Checkbox, Radio, Tooltip, Icon, message } from 'antd';
+import {
+    Modal,
+    Tabs,
+    Form,
+    Input,
+    Button,
+    Checkbox,
+    Radio,
+    Tooltip,
+    Icon,
+    message
+} from 'antd';
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TabPane = Tabs.TabPane;
@@ -9,7 +20,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount(){
+    componentDidMount() {
         document.title = "登录/注册";
     }
     loginHandle(e) {
@@ -24,7 +35,10 @@ class Login extends React.Component {
                 return;
             }
             message.success('登录成功!', 3)
-            this.props.history.replace({ pathname: 'dashboard' , state: user })
+            this.props.history.replace({
+                pathname: 'dashboard',
+                state: user
+            })
         });
     }
     regHandle(e) {
@@ -34,22 +48,28 @@ class Login extends React.Component {
             console.dir(err);
             if (err || !user) {
                 message.error(err.response.text, 3)
-            }else{
+            } else {
                 Modal.success({
-                  title: '成功',
-                  content: '注册成功，请登录！',
-                  onOk() {
-                    window.location.reload();
-                  }
+                    title: '成功',
+                    content: '注册成功，请登录！',
+                    onOk() {
+                        window.location.reload();
+                    }
                 });
             }
         });
     }
     render() {
-        const { getFieldProps } = this.props.form;
+        const {
+            getFieldProps
+        } = this.props.form;
         const formItemLayout = {
-            labelCol: { span: 6 },
-            wrapperCol: { span: 14 },
+            labelCol: {
+                span: 6
+            },
+            wrapperCol: {
+                span: 14
+            },
         };
         return (
             <div className="login-wrap">
@@ -108,4 +128,3 @@ class Login extends React.Component {
 };
 Login = Form.create()(Login);
 export default Login;
-

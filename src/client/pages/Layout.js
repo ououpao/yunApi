@@ -1,6 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { Button, Icon, Menu, Dropdown, message } from 'antd';
+import {
+    Link
+} from 'react-router';
+import {
+    Button,
+    Icon,
+    Menu,
+    Dropdown,
+    message
+} from 'antd';
 const DropdownButton = Dropdown.Button;
 import AuthStore from "../stores/auth";
 AuthStore.init();
@@ -17,13 +25,17 @@ class Layout extends React.Component {
         AuthStore.signOut((err, res) => {
             if (!err) {
                 message.success('退出成功!', 3);
-                this.props.history.replace({ pathname: 'login'})
+                this.props.history.replace({
+                    pathname: 'login'
+                })
             }
         });
     }
-    loginStateChange(user){
-        if(!user){
-            this.props.history.replace({ pathname: 'login'})
+    loginStateChange(user) {
+        if (!user) {
+            this.props.history.replace({
+                pathname: 'login'
+            })
         }
         this.setState({
             user: user
@@ -42,7 +54,7 @@ class Layout extends React.Component {
             }
         })();
         const userMenu = (
-          <Menu>
+            <Menu>
             <Menu.Item key="1">个人中❤</Menu.Item>
             <Menu.Divider />
             <Menu.Item key="2" >

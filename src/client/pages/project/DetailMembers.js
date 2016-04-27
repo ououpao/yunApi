@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Menu, Dropdown, Modal, message} from 'antd';
+import { Button, Icon, Menu, Dropdown, Modal, message } from 'antd';
 import ProjectStore from '../../stores/project';
 
 class ProjectDetailMembers extends React.Component {

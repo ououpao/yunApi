@@ -21,7 +21,7 @@ import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
 class AppRoutes extends React.Component {
     render() {
         return (
-          <Router history={hashHistory}>
+            <Router history={hashHistory}>
               <Route path="/" component={Layout}>
                   <IndexRoute component={Index}/>
                   <Route name="dashboard" path="dashboard" component={Project} />
