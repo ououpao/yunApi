@@ -4,10 +4,11 @@ const URLS = {
     CREATE: '/api/project/create',
     GETALL: '/api/project/list',
     DETAIL: '/api/project/detail',
+    ADDAPI: '/api/project/addapi'
 };
 
 const ProjectStore = {
-    create: function(projectInfo, done) {
+    create(projectInfo, done) {
         request.post(URLS.CREATE)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -21,7 +22,7 @@ const ProjectStore = {
                 done(err, res.body.project);
             });
     },
-    reomve: function(id, done) {
+    reomve(id, done) {
         request.del(`${URLS.All}/${id}`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -29,7 +30,7 @@ const ProjectStore = {
                 done(err, res.body.detail);
             });
     },
-    update: function(projectInfo, done) {
+    update(projectInfo, done) {
         request.put(`${URLS.All}/${projectInfo._id}`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -43,7 +44,7 @@ const ProjectStore = {
                 done(err, res.body.detail);
             });
     },
-    getAll: function(done) {
+    getAll(done) {
         request.get(URLS.GETALL)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -51,7 +52,7 @@ const ProjectStore = {
                 done(err, res.body.list);
             });
     },
-    getDetail: function(url, done) {
+    getDetail(url, done) {
         request.get(URLS.DETAIL)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -61,8 +62,23 @@ const ProjectStore = {
             .end(function(err, res) {
                 done(err, res.body.detail);
             });
+    },
+    addApi(projectId, apiInfo, done) {
+        request.post(URLS.ADDAPI)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                name: apiInfo.name,
+                url: apiInfo.url,
+                detail: apiInfo.detail,
+                method: apiInfo.method,
+                requestBody: apiInfo.requestBody,
+                responseBody: apiInfo.responseBody
+            })
+            .end(function(err, res) {
+                done(err, res.body);
+            });
     }
-
 };
 
 export default ProjectStore;

@@ -15,7 +15,8 @@ class AddProject extends React.Component {
         super(props);
         this.state = {
             members: [],
-            detail: props.detail || {}
+            detail: props.detail || {},
+            projectUrl: this.props.location.query.projectUrl
         };
         this.isEdit = !!this.state.detail.name;
     }
@@ -27,7 +28,26 @@ class AddProject extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-
+        let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
+        apiInfo.requestBody = this.state.requestBody;
+        apiInfo.responseBody = this.state.responseBody;
+        ProjectStore.addApi(apiInfo, function(err, res) {
+            if (!err && res) {
+                message.success('添加成功！', 3);
+            } else {
+                message.error(err, 3)
+            }
+        })
+    }
+    updateRequestBody(newValue) {
+        this.setState({
+            requestBody: newValue
+        })
+    }
+    updateReponseBody(newValue) {
+        this.setState({
+            responseBody: newValue
+        })
     }
     handleChange(value) {
         this.setState({
@@ -71,7 +91,7 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="请求方式：" required>
-                          <RadioGroup {...getFieldProps('gender', { initialValue: 'female' })}>
+                          <RadioGroup {...getFieldProps('method', { initialValue: 'GET' })}>
                             <Radio value="GET">GET</Radio>
                             <Radio value="POST">POST</Radio>
                             <Radio value="PUT">PUT</Radio>
@@ -86,12 +106,12 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="请求参数：" required>
-                          <Codemirror value={this.state.code} options={options} />
+                          <Codemirror value={this.state.requestBody} onChange={this.updateRequestBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
                           label="响应模板：" required>
-                          <Codemirror value={this.state.code} options={options} />
+                          <Codemirror value={this.state.reponseBody} onChange={this.updateReponseBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
