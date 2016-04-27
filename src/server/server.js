@@ -31,6 +31,7 @@ mongoose.connection.on("open", function () {
 // models
 require('./models/user');
 require('./models/project');
+require('./models/api');
 
 // session config
 app.use(bodyParser());

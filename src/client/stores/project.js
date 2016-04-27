@@ -63,8 +63,8 @@ const ProjectStore = {
                 done(err, res.body.detail);
             });
     },
-    addApi(projectId, apiInfo, done) {
-        request.post(URLS.ADDAPI)
+    addApi(projectUrl, apiInfo, done) {
+        request.post(`api/project/${projectUrl}/api`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
             .send({
@@ -76,7 +76,7 @@ const ProjectStore = {
                 responseBody: apiInfo.responseBody
             })
             .end(function(err, res) {
-                done(err, res.body);
+                done(err, res);
             });
     }
 };

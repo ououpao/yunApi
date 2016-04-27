@@ -35,7 +35,6 @@ class AddProject extends React.Component {
                 message.error(err.response.text, 3)
                 return;
             }
-            console.log(projectInfo)
             message.success(this.isEdit ? '修改成功!' : '添加成功!', 3)
             this.props.history.replace({ pathname: `project/${projectInfo.url}` })
         })

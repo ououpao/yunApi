@@ -70,14 +70,40 @@ exports.update = function*(next) {
         detail: this.request.body.detail,
         members: this.request.body.members,
         owner: user.email
-    }, {new: true}).exec();
+    }, { new: true }).exec();
     this.status = 200;
-    this.body = {detail: detail};
+    this.body = { detail: detail };
 }
-exports.addApi = function*(next){
+exports.addApi = function*(next) {
+    let data = this.request.body,
+        projectUrl = this.params.url,
+        user = this.passport.user,
+        Api = require("mongoose").model("Api"),
+        apiEntity = null;
+    if (!data.name) {
+        this.throw("接口名称不能为空！", 400);
+    }
+    if (!data.url) {
+        this.throw("接口url不能为空！", 400);
+    }
+
     
+    try {
+        apiEntity = new Api({
+            name: data.name,
+            url: data.url,
+            method: data.method,
+            detail: data.detail,
+            members: data.members,
+            owner: this.passport.user.email,
+            belongTo: projectUrl
+        });
+        apiEntity = yield apiEntity.save();
+    } catch (err) {
+        this.throw(err);
+    }
+    this.status = 200;
+    this.body = { api: apiEntity };
 }
-exports.updateApi = function*(next){
-}
-exports.removeApi = function*(next){
-}
+exports.updateApi = function*(next) {}
+exports.removeApi = function*(next) {}

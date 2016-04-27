@@ -31,12 +31,14 @@ class AddProject extends React.Component {
         let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
         apiInfo.requestBody = this.state.requestBody;
         apiInfo.responseBody = this.state.responseBody;
-        ProjectStore.addApi(apiInfo, function(err, res) {
-            if (!err && res) {
-                message.success('添加成功！', 3);
-            } else {
-                message.error(err, 3)
+        ProjectStore.addApi(this.state.projectUrl, apiInfo, function(err, res) {
+            console.log(err);
+            console.log(res);
+            if (err || !res) {
+                message.error(err.response.text, 3)
+                return;
             }
+            message.success('添加成功！', 3);
         })
     }
     updateRequestBody(newValue) {
