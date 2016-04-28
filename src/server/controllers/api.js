@@ -6,6 +6,13 @@ exports.getList = function*(next) {
     this.status = 200;
     this.body = { list: apis };
 }
+exports.getDetail = function*(next) {
+    let id = this.params.id;
+    let Api = require("mongoose").model("Api");
+    let detail = yield Api.findOne({ _id: id }).exec();
+    this.status = 200;
+    this.body = { detail: detail };
+}
 exports.addApi = function*(next) {
     let data = this.request.body,
         projectUrl = this.params.url,

@@ -71,7 +71,9 @@ class ProjectDetailApi extends React.Component {
                         {listItems}
                     </ul>
                 </div>
-                <div className="api-detail"></div>
+                <div className="api-detail">
+                    {this.props.children}
+                </div>
             </div>
         )
     }

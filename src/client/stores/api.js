@@ -12,7 +12,14 @@ const ApiStore = {
                 done(err, res.body.list);
             });
     },
-    getDetail() {},
+    getDetail(projectUrl, id, done) {
+        request.get(`api/project/${projectUrl}/api/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.detail);
+            });
+    },
     add(projectUrl, apiInfo, done) {
         console.log(projectUrl);
         request.post(`api/project/${projectUrl}/api`)

@@ -9,14 +9,16 @@ import Login from './pages/Login';
 
 import Project from './pages/project/Project';
 import AddProject from './pages/project/AddProject';
-import AddApi from './pages/project/AddApi';
 import ProjectEdit from './pages/project/Edit';
 import ProjectList from './pages/project/List';
 import ProjectDetail from './pages/project/Detail';
-import ProjectDetailApi from './pages/project/DetailApi';
 import ProjectDetailTask from './pages/project/DetailTask';
 import ProjectDetailMembers from './pages/project/DetailMembers';
 import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
+
+import ApiList from './pages/project/ApiList';
+import AddApi from './pages/project/AddApi';
+import ApiDetail from './pages/project/ApiDetail';
 
 class AppRoutes extends React.Component {
     render() {
@@ -28,7 +30,9 @@ class AppRoutes extends React.Component {
                   <Route name="project" path="project" component={Project}>
                       <IndexRoute component={ProjectList}/>
                       <Route name="projectDetail" path=":url" component={ProjectDetail}>
-                          <Route name="ProjectDetailApi" path="apis" component={ProjectDetailApi} />
+                          <Route name="ApiList" path="apis" component={ApiList}>
+                              <Route name="ApiDetail" path=":id" component={ApiDetail} />
+                          </Route>
                           <Route name="ProjectDetailTask" path="tasks" component={ProjectDetailTask} />
                           <Route name="ProjectDetailMembers" path="members" component={ProjectDetailMembers} />
                           <Route name="ProjectDetailAnalysis" path="analysis" component={ProjectDetailAnalysis} />
