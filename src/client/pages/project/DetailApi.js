@@ -1,16 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message } from 'antd';
-import ProjectStore from '../../stores/project';
+import ApiStore from '../../stores/api';
 
 class ProjectDetailApi extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: this.props.params.url
+            projectUrl: this.props.params.url,
+            list: []
         }
     }
+    componentWillMount() {
+        ApiStore.getList(this.state.projectUrl, (err, list) => {
+            if(err){
+                message.error(err, 3);
+                return;
+            }
+            this.setState({
+                list: list
+            })
+        })
+    }
     render() {
+        let listItems = this.state.list.map((item, index) => {
+            return (
+                <li>{item.name}</li>
+            )
+        });
         return (
             <div className="api-module">
                 <div className="api-list-wrap">
@@ -20,9 +37,9 @@ class ProjectDetailApi extends React.Component {
                             <span className="api-add" title="添加API"><Icon type="plus" /></span>
                         </Link>
                     </div>
-                    <div className="list">
-
-                    </div>
+                    <ul className="list">
+                        {listItems}
+                    </ul>
                 </div>
                 <div className="api-detail"></div>
             </div>

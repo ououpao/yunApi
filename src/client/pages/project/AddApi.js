@@ -3,7 +3,7 @@ import Codemirror from 'react-codemirror/lib/Codemirror';
 require('codemirror/mode/javascript/javascript');
 require('codemirror/theme/monokai.css');
 import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message } from 'antd';
-import ProjectStore from "../../stores/project";
+import ApiStore from "../../stores/api";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 let children = [];
@@ -31,7 +31,7 @@ class AddProject extends React.Component {
         let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
         apiInfo.requestBody = this.state.requestBody;
         apiInfo.responseBody = this.state.responseBody;
-        ProjectStore.addApi(this.state.projectUrl, apiInfo, function(err, res) {
+        ApiStore.add(this.state.projectUrl, apiInfo, function(err, res) {
             console.log(err);
             console.log(res);
             if (err || !res) {
