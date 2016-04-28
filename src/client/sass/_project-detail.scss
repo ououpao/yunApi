@@ -87,20 +87,30 @@
                 }
             }
         }
-        .list{
-            li{
+        .list {
+            .item {
+                position: relative;
                 padding: 10px;
                 border-bottom: 1px solid $main-border-color;
                 transition: all .3s;
                 cursor: pointer;
-                &:hover{
+                &:hover {
                     background-color: $main-border-color;
                 }
             }
-            .name{
+            button {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+            }
+            .name {
                 font-size: 16px;
                 padding-bottom: 10px;
                 color: #333;
+            }
+            .owner {
+                width: 75%;
+                display: inline-block;
             }
         }
     }
