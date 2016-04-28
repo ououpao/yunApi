@@ -21,6 +21,7 @@ class AddProject extends React.Component {
         this.isEdit = !!this.state.detail.name;
     }
     componentDidMount() {
+        console.log(this.state.projectUrl)
         document.title = this.isEdit ? '修改接口' : '创建新接口';
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
@@ -32,8 +33,6 @@ class AddProject extends React.Component {
         apiInfo.requestBody = this.state.requestBody;
         apiInfo.responseBody = this.state.responseBody;
         ApiStore.add(this.state.projectUrl, apiInfo, function(err, res) {
-            console.log(err);
-            console.log(res);
             if (err || !res) {
                 message.error(err.response.text, 3)
                 return;

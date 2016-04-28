@@ -14,6 +14,7 @@ const ApiStore = {
     },
     getDetail() {},
     add(projectUrl, apiInfo, done) {
+        console.log(projectUrl);
         request.post(`api/project/${projectUrl}/api`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
