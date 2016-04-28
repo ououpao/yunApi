@@ -40,6 +40,7 @@ class ProjectDetailApi extends React.Component {
             </Menu.Item>
           </Menu>
         );
+        let _id = this.props.params.id;
         let listItems = this.state.list.map((item, index) => {
             return (
                 <li className="item" key={item._id}>
@@ -60,6 +61,7 @@ class ProjectDetailApi extends React.Component {
         });
         return (
             <div className="api-module">
+                {!_id ? 
                 <div className="api-list-wrap">
                     <div className="header">
                         <span className="api-count">共{this.state.list.length}项</span>
@@ -71,9 +73,11 @@ class ProjectDetailApi extends React.Component {
                         {listItems}
                     </ul>
                 </div>
-                <div className="api-detail">
+                : 
+                <div className="api-detail ">
                     {this.props.children}
                 </div>
+                }
             </div>
         )
     }

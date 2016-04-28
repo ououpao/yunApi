@@ -36,28 +36,23 @@ class ApiDetail extends React.Component {
         };
         return (
             <div className="detail-wrap">
-                <div className="header-wrap">
-                    <header className="header">
-                        <h3>{detail.name}</h3>
-                        <p><span>{detail.owner}</span></p>
-                        <p><span>{detail.createDate}</span></p>
-                    </header>
-                </div>
-                <div className="body-wrap">
-                    <section className="body-main">
-                        <p>请求方式：<span className="method">{detail.method}</span></p>
-                        <p>请求URL：<span className="url">{detail.url}</span></p>
-                        <p>请求参数：</p>
-                        <Codemirror value={detail.requestBody && detail.requestBody[0]} options={options} />
-                        <p>响应模板：</p>
-                        <Codemirror value={detail.responseBody && detail.responseBody[0]} options={options} />
-                        <p>详细描述：</p>
-                        <p className="detail">
-                            阿萨德发送到分乐尽哀生电话费交阿克苏地方哈师大覅那usd回复收到货您符合是滴
-                        </p>
-
-                    </section>
-                </div>
+                <header className="header">
+                    <h3>{detail.name}</h3>
+                    <p><span>{detail.owner}</span></p>
+                    <p><span>{detail.createDate}</span></p>
+                </header>
+                <section className="body-main">
+                    <p>请求方式：<span className="method">{detail.method}</span></p>
+                    <p>请求URL：<span className="url">{detail.url}</span></p>
+                    <p>请求参数：</p>
+                    <Codemirror value={detail.requestBody && detail.requestBody[0]} options={options} />
+                    <p>响应模板：</p>
+                    <Codemirror value={detail.responseBody && detail.responseBody[0]} options={options} />
+                    <p>详细描述：</p>
+                    <p className="detail">
+                        阿萨德发送到分乐尽哀生电话费交阿克苏地方哈师大覅那usd回复收到货您符合是滴
+                    </p>
+                </section>
             </div>
         )
     }
