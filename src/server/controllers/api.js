@@ -34,6 +34,8 @@ exports.addApi = function*(next) {
             method: data.method,
             detail: data.detail,
             members: data.members,
+            requestBody: data.requestBody,
+            responseBody: data.responseBody,
             owner: this.passport.user.email,
             belongTo: projectUrl
         });

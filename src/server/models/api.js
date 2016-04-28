@@ -8,6 +8,8 @@ var ApiSchema = new Schema({
     method: { type: String, required: true}, 
     detail: { type: String},
     members: { type: Array},
+    requestBody: {type: Array},
+    responseBody: {type: Array},
     owner: {type: String, required: true},
     belongTo: {type: String, required: true},
     isRemove: {type: Boolean, default: false, required: true},
