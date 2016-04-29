@@ -116,7 +116,7 @@
                 color: #333;
                 width: 80%;
             }
-            .time{
+            .time {
                 display: inline-block;
                 width: 19%;
                 text-align: right;
@@ -124,6 +124,20 @@
             }
             .owner {
                 display: inline-block;
+            }
+        }
+        .member-list {
+            border-bottom: 1px solid $main-border-color;
+            padding: 30px;
+            .item {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                border: 1px solid $main-border-color;
+                border-radius: 25px;
+                margin: 10px;
             }
         }
     }

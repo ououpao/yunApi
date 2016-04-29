@@ -5,6 +5,7 @@ import Layout from './pages/Layout';
 import Index from './pages/Index';
 import Task from './pages/Task';
 import Login from './pages/Login';
+import User from './pages/User';
 
 import Project from './pages/project/Project';
 import AddProject from './pages/project/AddProject';
@@ -29,9 +30,7 @@ class AppRoutes extends React.Component {
             <Router history={hashHistory}>
               <Route path="/" component={Layout}>
                   <IndexRoute component={Index}/>
-                  <Route name="dashboard" path="dashboard" component={Project} />
                   <Route name="project" path="project" component={Project}>
-                      <IndexRoute component={ProjectList}/>
                       <Route name="projectDetail" path=":url" component={ProjectDetail}>
                           <Route name="ApiList" path="apis" component={ApiList}>
                               <Route name="ApiDetail" path=":id" component={ApiDetail} />
@@ -47,6 +46,9 @@ class AppRoutes extends React.Component {
                   <Route name="editproject" path="editproject" component={ProjectEdit} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="login" path="login" component={Login} />
+                  <Route name="user" path="user" component={User}>
+                      <Route name="user" path=":id" component={User} />
+                  </Route>
               </Route>
           </Router>
         );

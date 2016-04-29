@@ -81,34 +81,6 @@ class AddProject extends React.Component {
                         <div className="methods">
                             <FormItem
                               {...formItemLayout}
-                              label="方式一：">
-                              <span>搜索添加(员工已有账号)</span>
-                            </FormItem>
-                            <FormItem
-                              {...formItemLayout}
-                              label="添加成员：">
-                              <Select multiple
-                                defaultValue={[]} 
-                                onChange={this.handleChange.bind(this)}
-                                searchPlaceholder="请选择项目成员">
-                                {children}
-                              </Select>
-                            </FormItem>
-                            <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
-                              <Button 
-                                type="primary" 
-                                htmlType="submit" 
-                                style={{width: '30%'}}>立即邀请</Button>
-                            </FormItem>
-                        </div>
-                        <div className="methods">
-                            <FormItem
-                              {...formItemLayout}
-                              label="方式二：">
-                              <span>邀请添加(员工未有账号)</span>
-                            </FormItem>
-                            <FormItem
-                              {...formItemLayout}
                               label="邀请成员：">
                               <Select tags
                                 style={{ width: '100%' }}
@@ -124,7 +96,6 @@ class AddProject extends React.Component {
                                 style={{width: '30%'}}>立即邀请</Button>
                             </FormItem>
                         </div>
-                        
                     </Form>
                 </section>
                 <div className="tip">

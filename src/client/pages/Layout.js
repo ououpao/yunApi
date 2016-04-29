@@ -68,14 +68,12 @@ class Layout extends React.Component {
                 <div className="navbar-wrap">
                     <div className="navbar main-wrap">
                         <ul className="nav-left">
-                            <li><Link to="dashboard" activeClassName={"active"}>工作台</Link></li>
-                            <li><Link to="project" activeClassName={"active"}>项目</Link></li>
-                            <li><Link to="task" activeClassName={"active"}>任务</Link></li>
+                            <li><Link to="/" activeClassName={"active"}>我的项目</Link></li>
                         </ul>
                         <div className="nav-right ttr">
                             <div className="authed">
                                 <DropdownButton overlay={userMenu} type="ghost">
-                                    {this.state.user && this.state.user.username}
+                                   <Link to="user">{this.state.user && this.state.user.username}</Link>
                                 </DropdownButton>
                                 <Link to="addproject">
                                     <Button type="primary" shape="circle" title="添加项目">

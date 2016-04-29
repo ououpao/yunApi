@@ -30,14 +30,9 @@ class ProjectDetailApi extends React.Component {
                 <li className="item" key={item._id}>
                     <Link to={`/project/${this.state.projectUrl}/apis/${item._id}`}>
                         <p>
-                            <span className="name">{item.name}</span>
-                            <span className="time">{item.createDate.substr(0, 10)}</span>
-                        </p>
-                        <p>
-                            <span className="owner">{item.owner}</span>
+                            <span className="name">{item.name.substr(0, 3)}</span>
                         </p>
                     </Link>
-                    
                 </li>
             )
         });
@@ -45,12 +40,12 @@ class ProjectDetailApi extends React.Component {
             <div className="api-module">
                 <div className="api-list-wrap">
                     <div className="header">
-                        <span className="api-count">共{this.state.list.length}项</span>
+                        <span className="api-count">共{this.state.list.length}位项目成员</span>
                         <Link to={{ pathname: 'addmember', query: { projectUrl: this.state.projectUrl } }}>
                             <span className="api-add" title="添加API"><Icon type="plus" /></span>
                         </Link>
                     </div>
-                    <ul className="list">
+                    <ul className="member-list">
                         {listItems}
                     </ul>
                 </div>

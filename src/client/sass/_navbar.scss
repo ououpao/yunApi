@@ -1,0 +1,36 @@
+// 导航栏
+.navbar-wrap {
+    background-color: #FDFDFD;
+    box-shadow: 0px -11px 1px 11px #9E9E9E;
+}
+.navbar {
+    .nav-left {
+        display: inline-block;
+        width: 60%;
+        vertical-align: middle;
+        li {
+            display: inline-block;
+            a {
+                padding: 12px 25px;
+                display: inline-block;
+                color: $main-font-color;
+                border-bottom: 2px solid transparent;
+                transition: all .3s;
+                &.active {
+                    color: $main-active-color;
+                    border-bottom: 2px solid $main-active-color;
+                }
+            }
+        }
+    }
+    .nav-right {
+        display: inline-block;
+        width: 39%;
+        vertical-align: middle;
+    }
+    .authed {
+        .ant-btn-group {
+            padding-right: 30px;
+        }
+    }
+}

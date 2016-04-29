@@ -2,65 +2,10 @@
 @import './var';
 @import './grid';
 @import './common';
+@import './navbar';
+@import './user';
 @import './login';
 @import './project-add';
 @import './api-add';
 @import './project-list';
 @import './project-detail';
-html,
-body {
-    font-size: 14px;
-}
-
-.wrap {
-    width: 100%;
-    height: 100%;
-}
-a{
-    color: #333;
-}
-
-.main-wrap {
-    max-width: $desktop-with;
-    margin: 0 auto;
-}
-
-.navbar-wrap {
-    background-color: #FDFDFD;
-    box-shadow: 0px -11px 1px 11px #9E9E9E;
-}
-
-// 导航栏
-.navbar {
-    .nav-left {
-        display: inline-block;
-        width: 60%;
-        vertical-align: middle;
-        li {
-            display: inline-block;
-            a {
-                padding: 12px 25px;
-                display: inline-block;
-                color: $main-font-color;
-                border-bottom: 2px solid transparent;
-                transition: all .3s;
-                &.active {
-                    color: $main-active-color;
-                    border-bottom: 2px solid $main-active-color;
-                }
-            }
-        }
-    }
-    .nav-right {
-        display: inline-block;
-        width: 39%;
-        vertical-align: middle;
-    }
-    .authed {
-        .ant-btn-group {
-            padding-right: 30px;
-        }
-    }
-}
-
-// 主体
