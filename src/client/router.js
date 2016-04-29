@@ -11,9 +11,13 @@ import AddProject from './pages/project/AddProject';
 import ProjectEdit from './pages/project/Edit';
 import ProjectList from './pages/project/List';
 import ProjectDetail from './pages/project/Detail';
-import ProjectDetailTask from './pages/project/DetailTask';
-import ProjectDetailMembers from './pages/project/DetailMembers';
 import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
+
+import ProjectMemberList from './pages/project/MemberList';
+import AddMember from './pages/project/AddMember';
+
+import ProjectTaskList from './pages/project/TaskList';
+import AddTask from './pages/project/AddTask';
 
 import ApiList from './pages/project/ApiList';
 import AddApi from './pages/project/AddApi';
@@ -32,12 +36,14 @@ class AppRoutes extends React.Component {
                           <Route name="ApiList" path="apis" component={ApiList}>
                               <Route name="ApiDetail" path=":id" component={ApiDetail} />
                           </Route>
-                          <Route name="ProjectDetailTask" path="tasks" component={ProjectDetailTask} />
-                          <Route name="ProjectDetailMembers" path="members" component={ProjectDetailMembers} />
+                          <Route name="ProjectTaskList" path="tasks" component={ProjectTaskList} />
+                          <Route name="ProjectMemberList" path="members" component={ProjectMemberList} />
                       </Route>
                   </Route>
                   <Route name="addproject" path="addproject" component={AddProject} />
                   <Route name="addapi" path="addapi" component={AddApi} />
+                  <Route name="addtask" path="addtask" component={AddTask} />
+                  <Route name="addmember" path="addmember" component={AddMember} />
                   <Route name="editproject" path="editproject" component={ProjectEdit} />
                   <Route name="task" path="task" component={Task} />
                   <Route name="login" path="login" component={Login} />

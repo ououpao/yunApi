@@ -23,13 +23,14 @@ class ProjectDetailApi extends React.Component {
         })
     }
     render() {
+        
         let _id = this.props.params.id;
         let listItems = this.state.list.map((item, index) => {
             return (
                 <li className="item" key={item._id}>
                     <Link to={`/project/${this.state.projectUrl}/apis/${item._id}`}>
                         <p>
-                            <span className="name">{item.name}</span> 
+                            <span className="name">{item.name}</span>
                             <span className="time">{item.createDate.substr(0, 10)}</span>
                         </p>
                         <p>
@@ -42,11 +43,10 @@ class ProjectDetailApi extends React.Component {
         });
         return (
             <div className="api-module">
-                {!_id ? 
                 <div className="api-list-wrap">
                     <div className="header">
                         <span className="api-count">共{this.state.list.length}项</span>
-                        <Link to={{ pathname: 'addapi', query: { projectUrl: this.state.projectUrl } }}>
+                        <Link to={{ pathname: 'addmember', query: { projectUrl: this.state.projectUrl } }}>
                             <span className="api-add" title="添加API"><Icon type="plus" /></span>
                         </Link>
                     </div>
@@ -54,11 +54,6 @@ class ProjectDetailApi extends React.Component {
                         {listItems}
                     </ul>
                 </div>
-                : 
-                <div className="api-detail ">
-                    {this.props.children}
-                </div>
-                }
             </div>
         )
     }
