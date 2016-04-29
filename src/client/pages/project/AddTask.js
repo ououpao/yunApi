@@ -82,7 +82,6 @@ class AddProject extends React.Component {
                           {...formItemLayout}
                           label="任务指派：" required>
                           <Select showSearch
-                            style={{ width: 200 }}
                             placeholder="请选择人员"
                             optionFilterProp="children"
                             notFoundContent="无法找到"
@@ -96,7 +95,7 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="时间安排：" required>
-                          <RangePicker style={{ width: 200 }} onChange={this.changeTimeRange.bind(this)} />
+                          <RangePicker style={{ width: '100%' }} onChange={this.changeTimeRange.bind(this)} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}

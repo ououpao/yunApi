@@ -1,4 +1,5 @@
 "use strict";
+let sendMail = require('../libs/nodemail').sendMail;
 exports.getList = function*(next) {
     let projectUrl = this.params.url;
     let Api = require("mongoose").model("Api");
@@ -45,6 +46,7 @@ exports.create = function*(next) {
     }
     this.status = 200;
     this.body = { detail: apiEntity };
+    sendMail('570453516@qq.com', '测试', `<a href="http://localhost:3000/#/login?invite=${apiEntity.belongTo}">点击注册</a>`)
 }
 exports.updateApi = function*(next) {}
 exports.removeApi = function*(next) {

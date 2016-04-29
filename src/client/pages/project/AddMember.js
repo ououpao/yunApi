@@ -59,13 +59,6 @@ class AddProject extends React.Component {
     render() {
         let detail = this.state.detail;
         const options = {
-            // mode: "javascript",
-            // lineNumbers: true,
-            // indentUnit: 4,
-            // cursorHeight: 1,
-            // styleActiveLine: true,
-            // theme: 'monokai'
-
             theme: "monokai",
             indentUnit: 4,
             lineNumbers: !0,
@@ -85,34 +78,53 @@ class AddProject extends React.Component {
                 </header>
                 <section>
                     <Form horizontal onSubmit={this.submit.bind(this)}>
-                        <p><label class="col-6"> </label>方式一：搜索添加(员工已有账号)</p>
-                        <FormItem
-                          {...formItemLayout}
-                          label="添加成员：">
-                          <Select multiple
-                            defaultValue={[]} 
-                            onChange={this.handleChange.bind(this)}
-                            searchPlaceholder="请选择项目成员">
-                            {children}
-                          </Select>
-                        </FormItem>
-                        <p><label class="col-6"> </label>方式二：邀请添加(员工未有账号)</p>
-                        <FormItem
-                          {...formItemLayout}
-                          label="邀请成员：">
-                          <Select tags
-                            style={{ width: '100%' }}
-                            searchPlaceholder="输入后按Enter键添加"
-                            onChange={this.handleChange.bind(this)}>
-                          </Select>
-                        </FormItem>
-
-                        <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
-                          <Button 
-                            type="primary" 
-                            htmlType="submit" 
-                            style={{width: '100%'}}>{this.isEdit ? '确认修改' : '立即添加'}</Button>
-                        </FormItem>
+                        <div className="methods">
+                            <FormItem
+                              {...formItemLayout}
+                              label="方式一：">
+                              <span>搜索添加(员工已有账号)</span>
+                            </FormItem>
+                            <FormItem
+                              {...formItemLayout}
+                              label="添加成员：">
+                              <Select multiple
+                                defaultValue={[]} 
+                                onChange={this.handleChange.bind(this)}
+                                searchPlaceholder="请选择项目成员">
+                                {children}
+                              </Select>
+                            </FormItem>
+                            <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
+                              <Button 
+                                type="primary" 
+                                htmlType="submit" 
+                                style={{width: '30%'}}>立即邀请</Button>
+                            </FormItem>
+                        </div>
+                        <div className="methods">
+                            <FormItem
+                              {...formItemLayout}
+                              label="方式二：">
+                              <span>邀请添加(员工未有账号)</span>
+                            </FormItem>
+                            <FormItem
+                              {...formItemLayout}
+                              label="邀请成员：">
+                              <Select tags
+                                style={{ width: '100%' }}
+                                showSearch="true"
+                                searchPlaceholder="输入后按Enter键添加"
+                                onChange={this.handleChange.bind(this)}>
+                              </Select>
+                            </FormItem>
+                            <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
+                              <Button 
+                                type="primary" 
+                                htmlType="submit" 
+                                style={{width: '30%'}}>立即邀请</Button>
+                            </FormItem>
+                        </div>
+                        
                     </Form>
                 </section>
                 <div className="tip">

@@ -9,7 +9,7 @@ class ApiDetail extends React.Component {
         super(props);
         this.state = {
             detail: {},
-            projectUrl: this.props.params.projectUrl,
+            projectUrl: this.props.params.url,
             _id: this.props.params.id
         };
     }
@@ -24,23 +24,32 @@ class ApiDetail extends React.Component {
             })
         })
     }
-    removeApi(){
-        ApiStore.remove(this.state.projectUrl, this.state._id, (err, res) => {
-            if(err || !res){
-                message.error(err, 3);
-                return;
-            }
-            message.success('删除成功！', 3);
-            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis`})
-        })
+    removeApi() {
+        let remove = () => {
+            ApiStore.remove(this.state.projectUrl, this.state._id, (err, res) => {
+                if (err || !res) {
+                    message.error(err, 3);
+                    return;
+                }
+                message.success('删除成功！', 3);
+                this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis` })
+            })
+        }
+        Modal.confirm({
+            title: '警告',
+            content: '是否删除改接口，不可恢复！',
+            okText: '删除',
+            cancelText: '取消',
+            onOk: remove
+        });
     }
-    editApi(){
+    editApi() {
 
     }
     render() {
         let detail = this.state.detail;
         const editMenu = (
-          <Menu>
+            <Menu>
             <Menu.Item key="1">
                 <span onClick={this.editApi.bind(this)}>修改</span>
             </Menu.Item>
