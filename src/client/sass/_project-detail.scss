@@ -122,8 +122,14 @@
     }
     .api-detail {
         .header {
+            position: relative;
             background-color: #FBFBFB;
             padding: 40px;
+            button {
+                position: absolute;
+                top: 40px;
+                right: 45px;
+            }
         }
         .body-main {
             padding: 10px 40px;

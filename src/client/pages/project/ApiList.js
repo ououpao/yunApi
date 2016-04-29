@@ -22,24 +22,8 @@ class ProjectDetailApi extends React.Component {
             })
         })
     }
-    removeApi(){
-
-    }
-    editApi(){
-
-    }
     render() {
-        const editMenu = (
-          <Menu>
-            <Menu.Item key="1">
-                <span onClick={this.editApi.bind(this)}>修改</span>
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="2" >
-                <span onClick={this.removeApi.bind(this)}>删除</span>
-            </Menu.Item>
-          </Menu>
-        );
+        
         let _id = this.props.params.id;
         let listItems = this.state.list.map((item, index) => {
             return (
@@ -51,11 +35,7 @@ class ProjectDetailApi extends React.Component {
                             <span className="time">{item.createDate.substr(0, 10)}</span>
                         </p>
                     </Link>
-                    <Dropdown overlay={editMenu} type="ghost" trigger={['click']}>
-                        <Button type="ghost" shape="circle" size="small">
-                            <Icon type="ellipsis" />
-                        </Button>
-                    </Dropdown>
+                    
                 </li>
             )
         });

@@ -32,12 +32,13 @@ class AddProject extends React.Component {
         let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
         apiInfo.requestBody = this.state.requestBody;
         apiInfo.responseBody = this.state.responseBody;
-        ApiStore.add(this.state.projectUrl, apiInfo, function(err, res) {
-            if (err || !res) {
+        ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
+            if (err || !detail) {
                 message.error(err.response.text, 3)
                 return;
             }
             message.success('添加成功！', 3);
+            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis/${detail._id}` })
         })
     }
     updateRequestBody(newValue) {

@@ -24,15 +24,40 @@ class ApiDetail extends React.Component {
             })
         })
     }
+    removeApi(){
+        ApiStore.remove(this.state.projectUrl, this.state._id, (err, res) => {
+            if(err || !res){
+                message.error(err, 3);
+                return;
+            }
+            message.success('删除成功！', 3);
+            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis`})
+        })
+    }
+    editApi(){
+
+    }
     render() {
         let detail = this.state.detail;
+        const editMenu = (
+          <Menu>
+            <Menu.Item key="1">
+                <span onClick={this.editApi.bind(this)}>修改</span>
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key="2" >
+                <span onClick={this.removeApi.bind(this)}>删除</span>
+            </Menu.Item>
+          </Menu>
+        );
         const options = {
             theme: "monokai",
             indentUnit: 4,
-            lineNumbers: !0,
+            lineNumbers: true,
             mode: "text/javascript",
-            matchBrackets: !0,
-            autoCloseBrackets: !0,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            readOnly: true
         };
         return (
             <div className="detail-wrap">
@@ -40,6 +65,11 @@ class ApiDetail extends React.Component {
                     <h3>{detail.name}</h3>
                     <p><span>{detail.owner}</span></p>
                     <p><span>{detail.createDate}</span></p>
+                    <Dropdown overlay={editMenu} type="ghost" trigger={['click']}>
+                        <Button type="ghost" shape="circle" size="small">
+                            <Icon type="ellipsis" />
+                        </Button>
+                    </Dropdown>
                 </header>
                 <section className="body-main">
                     <p>请求方式：<span className="method">{detail.method}</span></p>

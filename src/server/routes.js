@@ -34,10 +34,10 @@ module.exports = function(app, passport) {
     router.put('/project/:id', secured, projectController.update);
 
     router.get('/project/:url/api', secured, apiController.getList);
+    router.post('/project/:url/api', secured, apiController.create);
     router.get('/project/:url/api/:id', secured, apiController.getDetail);
-    router.post('/project/:url/api', secured, apiController.addApi);
-    router.put('/project/:url/api', secured, apiController.updateApi);
-    router.del('/project/:url/api', secured, apiController.removeApi);
+    router.put('/project/:url/api/:id', secured, apiController.updateApi);
+    router.del('/project/:url/api/:id', secured, apiController.removeApi);
 
     app.use(router.routes());
 };

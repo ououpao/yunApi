@@ -20,7 +20,7 @@ const ApiStore = {
                 done(err, res.body.detail);
             });
     },
-    add(projectUrl, apiInfo, done) {
+    create(projectUrl, apiInfo, done) {
         console.log(projectUrl);
         request.post(`api/project/${projectUrl}/api`)
             .set("Accept", "application/json")
@@ -34,10 +34,17 @@ const ApiStore = {
                 responseBody: apiInfo.responseBody
             })
             .end(function(err, res) {
-                done(err, res);
+                done(err, res.body.detail);
             });
     },
-    remove() {},
+    remove(projectUrl, id, done) {
+        request.del(`api/project/${projectUrl}/api/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body);
+            });
+    },
     update() {}
 };
 

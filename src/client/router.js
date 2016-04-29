@@ -4,7 +4,6 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Layout from './pages/Layout';
 import Index from './pages/Index';
 import Task from './pages/Task';
-import Status from './pages/Status';
 import Login from './pages/Login';
 
 import Project from './pages/project/Project';
@@ -35,14 +34,12 @@ class AppRoutes extends React.Component {
                           </Route>
                           <Route name="ProjectDetailTask" path="tasks" component={ProjectDetailTask} />
                           <Route name="ProjectDetailMembers" path="members" component={ProjectDetailMembers} />
-                          <Route name="ProjectDetailAnalysis" path="analysis" component={ProjectDetailAnalysis} />
                       </Route>
                   </Route>
                   <Route name="addproject" path="addproject" component={AddProject} />
                   <Route name="addapi" path="addapi" component={AddApi} />
                   <Route name="editproject" path="editproject" component={ProjectEdit} />
                   <Route name="task" path="task" component={Task} />
-                  <Route name="status" path="status" component={Status} />
                   <Route name="login" path="login" component={Login} />
               </Route>
           </Router>

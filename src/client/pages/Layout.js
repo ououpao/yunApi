@@ -71,7 +71,6 @@ class Layout extends React.Component {
                             <li><Link to="dashboard" activeClassName={"active"}>工作台</Link></li>
                             <li><Link to="project" activeClassName={"active"}>项目</Link></li>
                             <li><Link to="task" activeClassName={"active"}>任务</Link></li>
-                            <li><Link to="status" activeClassName={"active"}>动态</Link></li>
                         </ul>
                         <div className="nav-right ttr">
                             <div className="authed">

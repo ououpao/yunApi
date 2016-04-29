@@ -13,7 +13,7 @@ exports.getDetail = function*(next) {
     this.status = 200;
     this.body = { detail: detail };
 }
-exports.addApi = function*(next) {
+exports.create = function*(next) {
     let data = this.request.body,
         projectUrl = this.params.url,
         user = this.passport.user,
@@ -44,7 +44,16 @@ exports.addApi = function*(next) {
         this.throw(err);
     }
     this.status = 200;
-    this.body = { api: apiEntity };
+    this.body = { detail: apiEntity };
 }
 exports.updateApi = function*(next) {}
-exports.removeApi = function*(next) {}
+exports.removeApi = function*(next) {
+    let user = this.passport.user;
+    let Api = require("mongoose").model("Api");
+    let api = yield Api.remove({
+        _id: this.params.id,
+        isRemove: false
+    }).exec();
+    this.status = 200;
+    this.body = {api: api};
+}
