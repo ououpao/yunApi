@@ -36,7 +36,6 @@ class ProjectDetailApi extends React.Component {
                             <span className="owner">{item.owner}</span>
                         </p>
                     </Link>
-                    
                 </li>
             )
         });

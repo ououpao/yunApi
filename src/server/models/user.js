@@ -5,11 +5,17 @@ var Schema = mongoose.Schema;
 var co = require("co");
 
 var UserSchema = new Schema({
+    // 用户名
     username: { type: String, required: true},
+    // 密码
     password: { type: String, required: true },
+    // 电子邮箱
     email: { type: String, required: true, unique: true },
+    // 用户头像
     avatar: {type: String},
+    // 好友列表
     friends: {type: Array},
+    // 注册时间
     time: { type: Date, default: new Date(), required: true}
 }, {
     toJSON: {

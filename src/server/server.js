@@ -14,6 +14,7 @@ let bodyParser = require("koa-bodyparser");
 let MongoStore = require("koa-sess-mongo-store");
 var env = process.env.NODE_ENV = process.env.NODE_ENV || "development";
 let debug = env == 'development';
+let port = debug ? 8085 : 8086;
 // let debug = true;
 let app = new koa();
 app.keys = ['secret', 'key'];
@@ -56,5 +57,5 @@ app.use(function*() {
 });
 
 
-app.listen(8085);
-console.log('------server start success on port: 8085------');
+app.listen(port);
+console.log(`------server start success on port: ${port}------`);
