@@ -61,7 +61,7 @@ class ProjectDetail extends React.Component {
                         <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
                         <div className="detail-info">
                             <p className="name">{detail.name}</p>
-                            <p>创建日期： {detail.createDate && detail.createDate.substr(0, 10)}</p>
+                            <p>创建日期： {detail.time && detail.time.substr(0, 10)}</p>
                             <p className="detail-text">{detail.detail || '暂无描述'}</p>
                         </div>
                         

@@ -7,7 +7,10 @@ var co = require("co");
 var UserSchema = new Schema({
     username: { type: String, required: true},
     password: { type: String, required: true },
-    email: { type: String, required: true, unique: true }
+    email: { type: String, required: true, unique: true },
+    avatar: {type: String},
+    friends: {type: Array},
+    time: { type: Date, default: new Date(), required: true}
 }, {
     toJSON: {
         transform: function(doc, ret, options) {

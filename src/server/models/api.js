@@ -11,9 +11,10 @@ var ApiSchema = new Schema({
     requestBody: {type: Array},
     responseBody: {type: Array},
     owner: {type: String, required: true},
+    comments: {type: Array},
     belongTo: {type: String, required: true},
     isRemove: {type: Boolean, default: false, required: true},
-    createDate: {type: Date, default: new Date(), required: true}
+    time: {type: Date, default: new Date(), required: true}
 });
 
 // Model creation

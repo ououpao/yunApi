@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Tag } from 'react-router';
 import Codemirror from 'react-codemirror/lib/Codemirror';
-import { Button, Icon, Menu, Dropdown, Modal, message, Badge } from 'antd';
+import { Form, Input, Button, Icon, message, Modal, Badge, Dropdown, Menu } from 'antd';
+const FormItem = Form.Item;
 import ApiStore from '../../stores/api';
 
 class ApiDetail extends React.Component {
@@ -48,6 +49,11 @@ class ApiDetail extends React.Component {
     }
     render() {
         let detail = this.state.detail;
+        const formItemLayout = {
+            labelCol: { span: 6 },
+            wrapperCol: { span: 14 },
+        };
+        const { getFieldProps } = this.props.form;
         const editMenu = (
             <Menu>
             <Menu.Item key="1">
@@ -73,7 +79,7 @@ class ApiDetail extends React.Component {
                 <header className="header">
                     <h3>{detail.name}</h3>
                     <p><span>{detail.owner}</span></p>
-                    <p><span>{detail.createDate}</span></p>
+                    <p><span>{detail.time}</span></p>
                     <Dropdown overlay={editMenu} type="ghost" trigger={['click']}>
                         <Button type="ghost" shape="circle" size="small">
                             <Icon type="ellipsis" />
@@ -91,9 +97,58 @@ class ApiDetail extends React.Component {
                     <p className="detail">
                         阿萨德发送到分乐尽哀生电话费交阿克苏地方哈师大覅那usd回复收到货您符合是滴
                     </p>
+                    <div className="comment">
+                        <p>全部回复</p>
+                        <ul>
+                            <li>
+                                <header>
+                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                                    <span className="name">naraku</span>
+                                    <span className="time">2015-10-10 08:00</span>
+                                </header>
+                                <div className="content">
+                                    接口返回有点问题
+                                </div>
+                            </li>
+                            <li>
+                                <header>
+                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                                    <span className="name">naraku</span>
+                                    <span className="time">2015-10-10 08:00</span>
+                                </header>
+                                <div className="content">
+                                    那里有问题
+                                </div>
+                            </li>
+                            <li>
+                                <header>
+                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                                    <span className="name">naraku</span>
+                                    <span className="time">2015-10-10 08:00</span>
+                                </header>
+                                <div className="content">
+                                    date参数有无
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="add-comment">
+                        <FormItem
+                          label="">
+                          <Input type="textarea" {...getFieldProps('detail')} placeholder="请输入评论内容"/>
+                        </FormItem>
+                        <FormItem wrapperCol={{ span: 3, offset: 21 }} style={{ marginTop: 24 }}>
+                          <Button 
+                            type="primary" 
+                            htmlType="submit" 
+                            style={{width: '100%'}}>添加评论
+                          </Button>
+                        </FormItem>
+                    </div>
                 </section>
             </div>
         )
     }
 }
+ApiDetail = Form.create()(ApiDetail);
 export default ApiDetail;

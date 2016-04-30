@@ -6,7 +6,7 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
     port: 25, // SMTP 端口
     auth: {
         user: "570453516@qq.com", // 账号
-        pass: "*****" // 密码
+        pass: "****" // 密码
     }
 });
 // 设置邮件内容

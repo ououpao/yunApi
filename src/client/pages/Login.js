@@ -36,7 +36,7 @@ class Login extends React.Component {
             }
             message.success('登录成功!', 3)
             this.props.history.replace({
-                pathname: 'dashboard',
+                pathname: '/',
                 state: user
             })
         });

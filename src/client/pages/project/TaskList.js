@@ -31,7 +31,7 @@ class ProjectDetailApi extends React.Component {
                     <Link to={`/project/${this.state.projectUrl}/apis/${item._id}`}>
                         <p>
                             <span className="name">{item.name}</span>
-                            <span className="time">{item.createDate.substr(0, 10)}</span>
+                            <span className="time">{item.time.substr(0, 10)}</span>
                         </p>
                         <p>
                             <span className="owner">{item.owner}</span>

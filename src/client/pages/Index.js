@@ -29,7 +29,7 @@ class ProjectList extends React.Component {
                                 <img className="detail-icon" src={item.icon} alt="项目icon"/>
                                 <div className="detail-info">
                                     <p className="name">{item.name}</p>
-                                    <p>创建日期： {item.createDate.substr(0, 10)}</p>
+                                    <p>创建日期： {item.time.substr(0, 10)}</p>
                                     <p>项目成员： </p>
                                     <ul></ul>
                                 </div>

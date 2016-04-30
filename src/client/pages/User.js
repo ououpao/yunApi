@@ -34,7 +34,7 @@ class User extends React.Component {
         })
     }
     like(){
-        message.success('关注成功!', 3)
+        message.success('添加成功!', 3)
     }
     componentDidMount() {
         AuthStore.addChangeListener(this.getUser.bind(this));
@@ -81,7 +81,7 @@ class User extends React.Component {
                                             <Icon type="setting" size="small"/>
                                         </Button>
                                         <Button onClick={this.like.bind(this)} type="ghost" title="关注" size="small" style={{marginLeft: '10px'}}>
-                                            <span>关注</span>
+                                            <span>加好友</span>
                                         </Button>
                                     </div>
                                 </div>
