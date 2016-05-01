@@ -11,17 +11,15 @@
     .project-list {
         margin-top: 10px!important;
         padding: 10px 20px 20px;
-        .item {}
         .detail {
             border: 1px solid $main-border-color;
             background: #fff;
             border-radius: 3px;
             height: 150px;
             padding: 25px;
-            transition: background-color .3s;
+            transition: all .3s;
             &:hover {
-                background-color: #FBFBFB;
-                border-color: #F1F1F1;
+                box-shadow: 0 0px 12px -2px rgba(78, 76, 76, 0.65);
             }
             .detail-icon {
                 width: 100px;
@@ -32,10 +30,20 @@
                 display: table-cell;
                 padding-left: 10px;
                 p {
+                    width: 100%;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    color: #333;
                     font-size: 12px;
-                    padding: 2px 0;
+                    padding: 6px 0;
                     &.name {
                         font-size: 16px;
+                    }
+                    &.count {
+                        span {
+                            padding-right: 10px;
+                        }
                     }
                 }
             }

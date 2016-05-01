@@ -30,24 +30,24 @@ class AppRoutes extends React.Component {
             <Router history={hashHistory}>
               <Route path="/" component={Layout}>
                   <IndexRoute component={Index}/>
-                  <Route name="project" path="project" component={Project}>
-                      <Route name="projectDetail" path=":url" component={ProjectDetail}>
-                          <Route name="ApiList" path="apis" component={ApiList}>
-                              <Route name="ApiDetail" path=":id" component={ApiDetail} />
+                  <Route path="project" component={Project}>
+                      <Route path=":url" component={ProjectDetail}>
+                          <Route path="apis" component={ApiList}>
+                              <Route path=":id" component={ApiDetail} />
                           </Route>
-                          <Route name="ProjectTaskList" path="tasks" component={ProjectTaskList} />
-                          <Route name="ProjectMemberList" path="members" component={ProjectMemberList} />
+                          <Route path="tasks" component={ProjectTaskList} />
+                          <Route path="members" component={ProjectMemberList} />
                       </Route>
                   </Route>
-                  <Route name="addproject" path="addproject" component={AddProject} />
-                  <Route name="addapi" path="addapi" component={AddApi} />
-                  <Route name="addtask" path="addtask" component={AddTask} />
-                  <Route name="addmember" path="addmember" component={AddMember} />
-                  <Route name="editproject" path="editproject" component={ProjectEdit} />
-                  <Route name="task" path="task" component={Task} />
-                  <Route name="login" path="login" component={Login} />
-                  <Route name="user" path="user" component={User}>
-                      <Route name="user" path=":id" component={User} />
+                  <Route path="addproject" component={AddProject} />
+                  <Route path="addapi" component={AddApi} />
+                  <Route path="addtask" component={AddTask} />
+                  <Route path="addmember" component={AddMember} />
+                  <Route path="editproject" component={ProjectEdit} />
+                  <Route path="task" component={Task} />
+                  <Route path="login" component={Login} />
+                  <Route path="user" component={User}>
+                      <Route path=":id" component={User} />
                   </Route>
               </Route>
           </Router>
