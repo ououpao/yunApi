@@ -23,6 +23,7 @@ module.exports = function(app, passport) {
 
     router.get('/auth', authController.getCurrentUser);
     router.post('/auth', authController.signIn);
+    router.get('/user/:id', authController.getUserById);
 
     router.all('/signout', authController.signOut);
     router.post('/signup', authController.createUser);

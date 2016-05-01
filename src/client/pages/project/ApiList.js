@@ -8,10 +8,19 @@ class ProjectDetailApi extends React.Component {
         super(props);
         this.state = {
             projectUrl: this.props.params.url,
-            list: []
+            list: [],
+            api_id: this.props.params.id
         }
     }
     componentWillMount() {
+        this.getList();
+    }
+    componentWillReceiveProps() {
+        if (this.props.params.id) {
+            this.getList();
+        }
+    }
+    getList() {
         ApiStore.getList(this.state.projectUrl, (err, list) => {
             if (err) {
                 message.error(err, 3);

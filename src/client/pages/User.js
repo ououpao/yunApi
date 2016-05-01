@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Upload, Button, Icon, Menu, Dropdown, Modal, message, Badge, Tabs} from 'antd';
+import { Form, Input, Upload, Button, Icon, Menu, Dropdown, Modal, message, Badge, Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 import AuthStore from "../stores/auth";
@@ -13,34 +13,47 @@ class User extends React.Component {
     }
     componentDidMount() {
         document.title = "用户中❤";
-        console.log(this.state.user)
+        if (!this.props.params.id) {
+            this.getCurrentUser();
+            AuthStore.addChangeListener(this.getCurrentUser.bind(this));
+        } else {
+            this.getUserById(this.props.params.id);
+        }
     }
-    getUser() {
+    componentWillUnmount() {
+        AuthStore.removeChangeListener(this.getCurrentUser.bind(this));
+    }
+    componentDidUpdate(prevProps) {
+        var userId = this.props.params.id;
+        if (userId) {
+            this.getUserById(userId)
+        }
+    }
+    getCurrentUser() {
         this.setState({
             user: AuthStore.getUser()
         })
-        console.log(this.state.user)
     }
-    edit(){
+    getUserById(id) {
+        AuthStore.getUserById(id, (err, user) => {
+            this.setState({
+                user: user
+            })
+        })
+    }
+    edit() {
         this.setState({
             activepanel: '2'
         })
-        console.log(this.state.activepanel)
     }
-    submit(e){
+    submit(e) {
         e.preventDefault();
         this.setState({
             activepanel: '1'
         })
     }
-    like(){
+    like() {
         message.success('添加成功!', 3)
-    }
-    componentDidMount() {
-        AuthStore.addChangeListener(this.getUser.bind(this));
-    }
-    componentWillUnmount() {
-        AuthStore.removeChangeListener(this.getUser.bind(this));
     }
     render() {
         let user = this.state.user;

@@ -63,3 +63,9 @@ exports.getCurrentUser = function*() {
     }
     this.status = 200;
 };
+exports.getUserById = function*() {
+    var User = require("mongoose").model("User");
+    var user = yield User.findOne({_id: this.params.id}).exec();
+    this.status = 200;
+    this.body = {user: user};
+};

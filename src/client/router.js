@@ -46,7 +46,7 @@ class AppRoutes extends React.Component {
                   <Route path="editproject" component={ProjectEdit} />
                   <Route path="task" component={Task} />
                   <Route path="login" component={Login} />
-                  <Route path="user" component={User}>
+                  <Route path="u" component={User}>
                       <Route path=":id" component={User} />
                   </Route>
               </Route>

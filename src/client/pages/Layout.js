@@ -55,12 +55,10 @@ class Layout extends React.Component {
         })();
         const userMenu = (
             <Menu>
-            <Menu.Item key="1">个人中❤</Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="2" >
-                <span onClick={this.singout.bind(this)}>退出</span>
-            </Menu.Item>
-          </Menu>
+                <Menu.Item key="2" >
+                    <span onClick={this.singout.bind(this)}>退出</span>
+                </Menu.Item>
+            </Menu>
         );
         return (
             <div className="wrap">
@@ -73,7 +71,7 @@ class Layout extends React.Component {
                         <div className="nav-right ttr">
                             <div className="authed">
                                 <DropdownButton overlay={userMenu} type="ghost">
-                                   <Link to="user">{this.state.user && this.state.user.username}</Link>
+                                   <Link to="u">{this.state.user && this.state.user.username}</Link>
                                 </DropdownButton>
                                 <Link to="addproject">
                                     <Button type="primary" shape="circle" title="添加项目">
