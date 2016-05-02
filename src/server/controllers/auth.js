@@ -100,3 +100,20 @@ exports.accpetInvite = function*() {
         }
     };
 };
+exports.addFriend = function*() {
+    let userId = this.request.body.userId;
+    let user = this.passport.user;
+    let friend = yield User.findOne({ _id: userId }).exec();
+    if (friend) {
+        yield user.update({
+            '$push': {
+                'friends': friend
+            }
+        })
+    }
+    this.status = 200;
+    this.body = {
+        status: 'success',
+        msg: '添加成功！'
+    }
+}

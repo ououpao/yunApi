@@ -14,6 +14,7 @@ class User extends React.Component {
         }
     }
     componentDidMount() {
+        console.log('did');
         document.title = "用户中❤";
         this.getCurrentUser();
         AuthStore.addChangeListener(this.getCurrentUser.bind(this));
@@ -22,13 +23,8 @@ class User extends React.Component {
         }
     }
     componentWillUnmount() {
+        console.log('unmount');
         AuthStore.removeChangeListener(this.getCurrentUser.bind(this));
-    }
-    componentDidUpdate(prevProps) {
-        var userId = this.props.params.id;
-        if (userId) {
-            this.getUserById(userId)
-        }
     }
     getCurrentUser() {
         this.setState({
@@ -37,9 +33,11 @@ class User extends React.Component {
     }
     getUserById(id) {
         UserStore.getUserById(id, (err, user) => {
-            this.setState({
-                user: user || {}
-            })
+            if (this.state.user._id != user._id) {
+                this.setState({
+                    user: user || {}
+                })
+            }
         })
     }
     edit() {
@@ -53,12 +51,14 @@ class User extends React.Component {
             activepanel: '1'
         })
     }
-    like() {
-        message.success('添加成功!', 3)
+    addFriend() {
+        UserStore.addFriend(this.state.user._id, (err, res) => {
+            message.success('添加成功!', 3)
+        })
     }
     render() {
         let currentUser = this.state.currentUser;
-        let user = this.state.user || currentUser;
+        let user = this.state.user = this.state.user || currentUser;
         let activepanel = this.state.activepanel;
         const { getFieldProps } = this.props.form;
         const formItemLayout = {
@@ -99,7 +99,7 @@ class User extends React.Component {
                                         : ''
                                         }
                                         {user._id != currentUser._id ? 
-                                        <Button onClick={this.like.bind(this)} type="ghost" title="关注" size="small" style={{marginLeft: '10px'}}>
+                                        <Button onClick={this.addFriend.bind(this)} type="ghost" title="关注" size="small" style={{marginLeft: '10px'}}>
                                             <span>加好友</span>
                                         </Button>
                                         : ''

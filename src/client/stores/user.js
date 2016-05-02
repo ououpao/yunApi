@@ -2,6 +2,7 @@ import request from "superagent";
 const URLS = {
     USER: "/api/user",
     INVITE: "/api/user/invite",
+    ADDFRIEND: "/api/user/addFriend",
 };
 
 const UserStore = {
@@ -12,6 +13,19 @@ const UserStore = {
             .end(function(err, res) {
                 if (!err && res.body && res.body.user) {
                     done(err, res.body.user)
+                }
+            });
+    },
+    addFriend(id, done) {
+        request.post(URLS.ADDFRIEND)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                userId: id
+            })
+            .end(function(err, res) {
+                if (!err && res.body) {
+                    done(err, res.body)
                 }
             });
     },

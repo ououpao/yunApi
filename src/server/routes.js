@@ -25,6 +25,7 @@ module.exports = function(app, passport) {
     router.post('/auth', authController.signIn);
     router.get('/user/:id', authController.getUserById);
     router.post('/user/invite', authController.accpetInvite);
+    router.post('/user/addFriend', authController.addFriend);
 
     router.all('/signout', authController.signOut);
     router.post('/signup', authController.createUser);
