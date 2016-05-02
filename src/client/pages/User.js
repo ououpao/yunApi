@@ -8,16 +8,16 @@ class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentUser: {},
             user: {},
             activepanel: '1'
         }
     }
     componentDidMount() {
         document.title = "用户中❤";
-        if (!this.props.params.id) {
-            this.getCurrentUser();
-            AuthStore.addChangeListener(this.getCurrentUser.bind(this));
-        } else {
+        this.getCurrentUser();
+        AuthStore.addChangeListener(this.getCurrentUser.bind(this));
+        if (this.props.params.id) {
             this.getUserById(this.props.params.id);
         }
     }
@@ -32,7 +32,7 @@ class User extends React.Component {
     }
     getCurrentUser() {
         this.setState({
-            user: AuthStore.getUser()
+            currentUser: AuthStore.getUser()
         })
     }
     getUserById(id) {
@@ -57,7 +57,8 @@ class User extends React.Component {
         message.success('添加成功!', 3)
     }
     render() {
-        let user = this.state.user;
+        let currentUser = this.state.currentUser;
+        let user = this.state.user || currentUser;
         let activepanel = this.state.activepanel;
         const { getFieldProps } = this.props.form;
         const formItemLayout = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message } from 'antd';
-import ApiStore from '../../stores/api';
+import ProjectStore from '../../stores/project';
 
 class ProjectDetailApi extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class ProjectDetailApi extends React.Component {
         }
     }
     getList() {
-        ApiStore.getList(this.state.projectUrl, (err, list) => {
+        ProjectStore.getApiList(this.state.projectUrl, (err, list) => {
             if (err) {
                 message.error(err, 3);
                 return;
@@ -41,10 +41,12 @@ class ProjectDetailApi extends React.Component {
                             <span className="name">{item.name}</span> 
                             <span className="time">{item.time.substr(0, 10)}</span>
                         </p>
-                        <p>
-                            <span className="owner">{item.owner}</span>
-                        </p>
                     </Link>
+                    <p>
+                        <Link to={`/u/${item.owner._id}`}>
+                            <span className="owner">{item.owner.username}</span>
+                        </Link>
+                    </p>
                 </li>
             )
         });

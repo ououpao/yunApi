@@ -30,14 +30,15 @@ class ProjectDetailApi extends React.Component {
                 <li className="item" key={item._id}>
                     <Link to={`/project/${this.state.projectUrl}/apis/${item._id}`}>
                         <p>
-                            <span className="name">{item.name}</span>
+                            <span className="name">{item.name}</span> 
                             <span className="time">{item.time.substr(0, 10)}</span>
                         </p>
-                        <p>
-                            <span className="owner">{item.owner}</span>
-                        </p>
                     </Link>
-                    
+                    <p>
+                        <Link to={`/u/${item.owner._id}`}>
+                            <span className="owner">{item.owner.username}</span>
+                        </Link>
+                    </p>
                 </li>
             )
         });

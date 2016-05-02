@@ -80,7 +80,7 @@ const ProjectStore = {
                 done(err, res);
             });
     },
-    inviteUser(email, projectUrl, done){
+    inviteUser(email, projectUrl, done) {
         request.post(URLS.INVITE)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -90,6 +90,22 @@ const ProjectStore = {
             })
             .end(function(err, res) {
                 done(err, res);
+            });
+    },
+    getApiList(projectUrl, done) {
+        request.get(`api/project/${projectUrl}/api`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.list);
+            });
+    },
+    getMemberList(projectUrl, done) {
+        request.get(`api/project/${projectUrl}/member`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.list);
             });
     }
 };

@@ -24,15 +24,17 @@ module.exports = function(app, passport) {
     router.get('/auth', authController.getCurrentUser);
     router.post('/auth', authController.signIn);
     router.get('/user/:id', authController.getUserById);
+    router.post('/user/invite', authController.accpetInvite);
 
     router.all('/signout', authController.signOut);
     router.post('/signup', authController.createUser);
 
     router.get('/project/list', secured, projectController.getProjectList);
     router.get('/project/:url/api', secured, projectController.getApiList);
+    router.get('/project/:url/member', secured, projectController.getMemberList);
     router.get('/project/detail', secured, projectController.getDetail);
-    router.post('/project/create', secured, projectController.createProject);
-    router.post('/project/invite', secured, projectController.invite);
+    router.post('/project/create', secured, projectController.create);
+    router.post('/project/invite', secured, projectController.inviteMember);
     router.del('/project/:id', secured, projectController.remove);
     router.put('/project/:id', secured, projectController.update);
 

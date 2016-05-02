@@ -6,30 +6,34 @@ var co = require("co");
 
 var UserSchema = new Schema({
     // 用户名
-    username: { type: String, required: true},
+    username: { type: String, required: true },
     // 密码
     password: { type: String, required: true },
     // 电子邮箱
     email: { type: String, required: true, unique: true },
     // 用户头像
-    avatar: {type: String},
+    avatar: { type: String },
     // 好友列表
     friends: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'User'
     }],
     // 自己创建的项目
     myProjects: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'Project'
     }],
     // 邀请加入的项目
     inviteProjects: [{
-        type: Schema.Types.ObjectId, 
+        type: Schema.Types.ObjectId,
         ref: 'Project'
     }],
+    inviteMsgs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'inviteMsg'
+    }],
     // 注册时间
-    time: { type: Date, default: new Date(), required: true}
+    time: { type: Date, default: new Date(), required: true }
 }, {
     toJSON: {
         transform: function(doc, ret, options) {
@@ -71,7 +75,10 @@ UserSchema.methods.comparePassword = function*(candidatePassword) {
  */
 
 UserSchema.statics.passwordMatches = function*(email, password) {
-    var user = yield this.findOne({ email: email.toLowerCase() }).exec();
+    var user = yield this
+        .findOne({ email: email.toLowerCase() })
+        .populate('inviteMsgs', null, {isTimeout: false})
+        .exec();
     if (!user) {
         throw new Error("没有找到该用户！");
     }

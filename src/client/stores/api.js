@@ -4,14 +4,6 @@ const URLS = {
 };
 
 const ApiStore = {
-    getList(projectUrl, done) {
-        request.get(`api/project/${projectUrl}/api`)
-            .set("Accept", "application/json")
-            .set("Content-Type", "application/json")
-            .end(function(err, res) {
-                done(err, res.body.list);
-            });
-    },
     getDetail(projectUrl, id, done) {
         request.get(`api/project/${projectUrl}/api/${id}`)
             .set("Accept", "application/json")

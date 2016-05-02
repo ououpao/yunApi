@@ -1,5 +1,8 @@
 "use strict";
-var passport = require("koa-passport");
+let passport = require("koa-passport");
+let User = require("mongoose").model("User");
+let ProjectStore = require("mongoose").model("Project");
+let inviteMsgStore = require("mongoose").model("inviteMsg");
 
 exports.signIn = function*() {
     var _this = this;
@@ -7,9 +10,9 @@ exports.signIn = function*() {
         if (!!err) {
             _this.throw(err, 400);
         }
-        if(user){
-           yield _this.login(user);
-            _this.body = { user: user }; 
+        if (user) {
+            yield _this.login(user);
+            _this.body = { user: user };
         }
     }).call(this);
 };
@@ -65,7 +68,35 @@ exports.getCurrentUser = function*() {
 };
 exports.getUserById = function*() {
     var User = require("mongoose").model("User");
-    var user = yield User.findOne({_id: this.params.id}).exec();
+    var user = yield User.findOne({ _id: this.params.id }).exec();
     this.status = 200;
-    this.body = {user: user};
+    this.body = { user: user };
+};
+exports.accpetInvite = function*() {
+    let body = this.request.body,
+        msgId = body.msgId,
+        projectId = body.projectId;
+    let user = this.passport.user;
+    let project = yield ProjectStore.findOne({ _id: projectId }).exec();
+    // 更新信息状态
+    inviteMsgStore.findOneAndUpdate({ _id: msgId }, { isTimeout: true }).exec();
+    // 在项目中添加成员
+    yield project.update({
+        '$push': {
+            members: user
+        }
+    }).exec();
+    // 更新该用户项目表
+    yield user.update({
+        '$push': {
+            inviteProjects: project
+        }
+    }).exec();
+    this.status = 200;
+    this.body = {
+        status: 'success',
+        data: {
+            msg: '加入成功!'
+        }
+    };
 };

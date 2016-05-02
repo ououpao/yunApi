@@ -34,6 +34,7 @@ require('./models/user');
 require('./models/project');
 require('./models/api');
 require('./models/comments');
+require('./models/inviteMsg');
 
 // session config
 app.use(bodyParser());

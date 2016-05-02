@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message, Badge } from 'antd';
 import ProjectStore from '../../stores/project';
+import AuthStore from "../../stores/auth";
 
 class ProjectDetail extends React.Component {
     constructor(props) {
@@ -11,20 +12,27 @@ class ProjectDetail extends React.Component {
             url: this.props.params.url
         };
     }
+    getCurrentUser() {
+        this.setState({
+            user: AuthStore.getUser()
+        })
+    }
+    componentDidMount() {
+        document.title = '项目详情';
+        AuthStore.addChangeListener(this.getCurrentUser.bind(this));
+    }
     componentWillMount() {
         ProjectStore.getDetail(this.state.url, (err, detail) => {
             this.setState({
                 detail: detail
             })
         })
+        AuthStore.removeChangeListener(this.getCurrentUser.bind(this));
     }
-    componentDidMount(){
-        document.title = '项目详情';
-    }
-    removeProject(){
-        let remove =  () => {
+    removeProject() {
+        let remove = () => {
             ProjectStore.reomve(this.state.detail._id, (err, res) => {
-                if(!err){
+                if (!err) {
                     message.success('删除成功!', 3)
                     this.props.history.replace({ pathname: 'project' })
                 }
@@ -38,13 +46,14 @@ class ProjectDetail extends React.Component {
             onOk: remove
         });
     }
-    editProject(){
-        this.props.history.replace({ pathname: 'editProject' , state: this.state.detail })
+    editProject() {
+        this.props.history.replace({ pathname: 'editProject', state: this.state.detail })
     }
     render() {
-        let detail = this.state.detail;
+        let detail = this.state.detail,
+            user = this.state.user;
         const editMenu = (
-          <Menu>
+            <Menu>
             <Menu.Item key="1">
                 <span onClick={this.editProject.bind(this)}>修改</span>
             </Menu.Item>
@@ -64,7 +73,7 @@ class ProjectDetail extends React.Component {
                             <p>创建日期： {detail.time && detail.time.substr(0, 10)}</p>
                             <p className="detail-text">{detail.detail || '暂无描述'}</p>
                         </div>
-                        
+                        {user && user._id == detail.owner ?
                         <Dropdown overlay={editMenu} type="ghost" trigger={['click']}>
                             <div className="edit-btn">
                                 <Button type="ghost" shape="circle" title="修改">
@@ -72,6 +81,8 @@ class ProjectDetail extends React.Component {
                                 </Button>
                             </div>
                         </Dropdown>
+                        : ''
+                         }
                         <ul className="pro-navbar">
                             <li><Link to={`/project/${detail.url}/apis`} activeClassName={"active"}><span>接口列表<Badge count={25} /></span></Link></li>
                             <li><Link to={`/project/${detail.url}/tasks`} activeClassName={"active"}>任务列表<Badge count={20} /></Link></li>

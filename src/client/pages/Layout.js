@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-    Link
-} from 'react-router';
-import {
-    Button,
-    Icon,
-    Menu,
-    Dropdown,
-    message
-} from 'antd';
+import { Link } from 'react-router';
+import { Button, Icon, Menu, Dropdown, message, notification } from 'antd';
 const DropdownButton = Dropdown.Button;
 import AuthStore from "../stores/auth";
+import UserStore from "../stores/user";
 AuthStore.init();
-
 class Layout extends React.Component {
     constructor(props) {
         super(props);
@@ -40,9 +32,52 @@ class Layout extends React.Component {
         this.setState({
             user: user
         })
+        if (user.inviteMsgs.length) {
+            this.notification();
+        }
+    }
+    acceptInvite(notificationKey, inviteMsg) {
+        UserStore.acceptInvite(inviteMsg._id, inviteMsg.project._id, (err, res) => {
+            message.success('hahah', 2);
+            notification.close(notificationKey);
+        });
+    }
+    notification() {
+        let inviteMsg = this.state.user.inviteMsgs[0];
+        if(typeof inviteMsg != 'object') return;
+        let description = (
+            <div>
+                <span>{inviteMsg.invitor.username}</span>
+                <span>邀请您加入</span>
+                <span>{inviteMsg.project.name}</span>
+            </div>
+        );
+        let key = `open${Date.now()}`;
+        let sureClick = () => {
+            this.acceptInvite(key, inviteMsg);
+        }
+        let cacelClick = () => {}
+        let btn = (
+            <div>
+                <Button type="ghost" size="small" onClick={cacelClick}>不再提醒</Button>
+                <Button 
+                    type="primary" 
+                    size="small" 
+                    onClick={sureClick}
+                    style={{marginLeft: '10px'}}
+                >我要加入</Button>
+            </div>
+        )
+        notification.open({
+            message: '项目邀请',
+            description: description,
+            btn,
+            duration: null
+        })
     }
     componentDidMount() {
         AuthStore.addChangeListener(this.loginStateChange.bind(this));
+
     }
     componentWillUnmount() {
         AuthStore.removeChangeListener(this.loginStateChange.bind(this));
