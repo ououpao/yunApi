@@ -3,6 +3,7 @@ import { Form, Input, Upload, Button, Icon, Menu, Dropdown, Modal, message, Badg
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 import AuthStore from "../stores/auth";
+import UserStore from "../stores/user";
 class User extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +36,7 @@ class User extends React.Component {
         })
     }
     getUserById(id) {
-        AuthStore.getUserById(id, (err, user) => {
+        UserStore.getUserById(id, (err, user) => {
             this.setState({
                 user: user
             })

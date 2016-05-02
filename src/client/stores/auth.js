@@ -6,7 +6,6 @@ let _initCalled = false;
 
 const URLS = {
     AUTH: "/api/auth",
-    USER: "/api/user",
     SIGN_UP: "/api/signup",
     SIGN_OUT: "/api/signout",
 };
@@ -32,16 +31,6 @@ const AuthStore = {
     },
     getUser: function(){
         return _user;
-    },
-    getUserById: function(id, done){
-        request.get(`${URLS.USER}/${id}`)
-            .set("Accept", "application/json")
-            .set("Content-Type", "application/json")
-            .end(function(err, res) {
-                if (!err && res.body && res.body.user) {
-                    done(err, res.body.user)
-                }
-            });
     },
     signUp: function(user, done) {
         _postAndHandleParseUser(URLS.SIGN_UP, user, done);

@@ -41,7 +41,7 @@ class ProjectDetailApi extends React.Component {
                 <div className="api-list-wrap">
                     <div className="header">
                         <span className="api-count">共{this.state.list.length}位项目成员</span>
-                        <Link to={{ pathname: 'addmember', query: { projectUrl: this.state.projectUrl } }}>
+                        <Link to={{ pathname: 'invite', query: { projectUrl: this.state.projectUrl } }}>
                             <span className="api-add" title="添加API"><Icon type="plus" /></span>
                         </Link>
                     </div>

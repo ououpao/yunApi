@@ -4,7 +4,14 @@ var Schema = mongoose.Schema;
 
 var Comments = new Schema({
 	// 评论者id
-    user_id: { type: String, required: true },
+    user: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    },
+    belongTo: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Api'
+    },
     // 评论内容
     content: { type: String, required: true },
     // 评论时间

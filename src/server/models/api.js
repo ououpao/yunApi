@@ -11,18 +11,30 @@ var ApiSchema = new Schema({
     method: { type: String, required: true}, 
     // 详细内容
     detail: { type: String},
-    // 无操作权限成员
-    members: { type: Array},
     // 请求参数
     requestBody: {type: Array},
     // 响应模板
     responseBody: {type: Array},
+    // 无操作权限成员
+    members: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    }],
     // 创建者
-    owner: {type: String, required: true},
+    owner: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    },
     // 评论列表
-    comments: {type: Array},
+    comments: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Comments'
+    }],
     // 所属项目
-    belongTo: {type: String, required: true},
+    belongTo: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Project'
+    },
     // 是否删除
     isRemove: {type: Boolean, default: false, required: true},
     // 创建时间

@@ -14,7 +14,20 @@ var UserSchema = new Schema({
     // 用户头像
     avatar: {type: String},
     // 好友列表
-    friends: {type: Array},
+    friends: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    }],
+    // 自己创建的项目
+    myProjects: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Project'
+    }],
+    // 邀请加入的项目
+    inviteProjects: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Project'
+    }],
     // 注册时间
     time: { type: Date, default: new Date(), required: true}
 }, {

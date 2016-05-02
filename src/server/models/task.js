@@ -8,9 +8,19 @@ var Task = new Schema({
     // 内容
     content: { type: String, required: true},
     // 创建者
-    creator: { type: String, required: true},
+    owner: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    },
     // 指派者
-    receiver: { type: String, required: true},
+    receiver: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    },
+    belongTo: {
+        type: Schema.Types.ObjectId, 
+        ref: 'Project'
+    },
     // 开始时间
     startTime: { type: Date, default: new Date(), required: true},
     // 结束时间

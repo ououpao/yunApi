@@ -3,7 +3,7 @@ import Codemirror from 'react-codemirror/lib/Codemirror';
 require('codemirror/mode/javascript/javascript');
 require('codemirror/theme/monokai.css');
 import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message } from 'antd';
-import ApiStore from "../../stores/api";
+import ProjectStore from "../../stores/project";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 let children = [];
@@ -14,7 +14,7 @@ class AddProject extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            members: [],
+            email: [],
             detail: props.detail || {},
             projectUrl: this.props.location.query.projectUrl
         };
@@ -29,16 +29,20 @@ class AddProject extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-        let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
-        apiInfo.requestBody = this.state.requestBody;
-        apiInfo.responseBody = this.state.responseBody;
-        ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
-            if (err || !detail) {
-                message.error(err.response.text, 3)
-                return;
-            }
-            message.success('添加成功！', 3);
-            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis/${detail._id}` })
+        var email = this.props.form.getFieldsValue(['email']).email;
+        if(this.state.email){
+            ProjectStore.inviteUser(email, this.state.projectUrl, (err, res) => {
+                if(!err){
+                    message.success('您的邀请已发送，请耐心等待对方的回应！', 3)
+                }
+            })
+        }else{
+            message.error('请填写成员邮箱', 3)
+        }
+    }
+    handleChange(value) {
+        this.setState({
+            email: value
         })
     }
     updateRequestBody(newValue) {
@@ -49,11 +53,6 @@ class AddProject extends React.Component {
     updateReponseBody(newValue) {
         this.setState({
             responseBody: newValue
-        })
-    }
-    handleChange(value) {
-        this.setState({
-            members: value
         })
     }
     render() {
@@ -81,13 +80,8 @@ class AddProject extends React.Component {
                         <div className="methods">
                             <FormItem
                               {...formItemLayout}
-                              label="邀请成员：">
-                              <Select tags
-                                style={{ width: '100%' }}
-                                showSearch="true"
-                                searchPlaceholder="输入后按Enter键添加"
-                                onChange={this.handleChange.bind(this)}>
-                              </Select>
+                              label="邮箱：">
+                              <Input type="text" {...getFieldProps('email')} placeholder="请输入电子邮箱" />
                             </FormItem>
                             <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
                               <Button 

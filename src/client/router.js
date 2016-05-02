@@ -15,7 +15,7 @@ import ProjectDetail from './pages/project/Detail';
 import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
 
 import ProjectMemberList from './pages/project/MemberList';
-import AddMember from './pages/project/AddMember';
+import Invite from './pages/project/Invite';
 
 import ProjectTaskList from './pages/project/TaskList';
 import AddTask from './pages/project/AddTask';
@@ -42,7 +42,7 @@ class AppRoutes extends React.Component {
                   <Route path="addproject" component={AddProject} />
                   <Route path="addapi" component={AddApi} />
                   <Route path="addtask" component={AddTask} />
-                  <Route path="addmember" component={AddMember} />
+                  <Route path="invite" component={Invite} />
                   <Route path="editproject" component={ProjectEdit} />
                   <Route path="task" component={Task} />
                   <Route path="login" component={Login} />

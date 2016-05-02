@@ -4,7 +4,8 @@ const URLS = {
     CREATE: '/api/project/create',
     GETALL: '/api/project/list',
     DETAIL: '/api/project/detail',
-    ADDAPI: '/api/project/addapi'
+    ADDAPI: '/api/project/addapi',
+    INVITE: '/api/project/invite'
 };
 
 const ProjectStore = {
@@ -74,6 +75,18 @@ const ProjectStore = {
                 method: apiInfo.method,
                 requestBody: apiInfo.requestBody,
                 responseBody: apiInfo.responseBody
+            })
+            .end(function(err, res) {
+                done(err, res);
+            });
+    },
+    inviteUser(email, projectUrl, done){
+        request.post(URLS.INVITE)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                email: email,
+                projectUrl: projectUrl
             })
             .end(function(err, res) {
                 done(err, res);
