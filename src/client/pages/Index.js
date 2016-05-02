@@ -31,9 +31,9 @@ class ProjectList extends React.Component {
                                     <p className="name">{item.name}</p>
                                     <p>创建日期： {item.time.substr(0, 10)}</p>
                                     <p className="count">
-                                        <span title="成员数量">12<Icon type="user" /></span>
-                                        <span title="接口数量">15<Icon type="link" /></span>
-                                        <span title="任务数量">16<Icon type="book" /></span>
+                                        <span title="成员数量">{item.members.length}<Icon type="user" /></span>
+                                        <span title="接口数量">{item.apis.length}<Icon type="link" /></span>
+                                        <span title="任务数量">{item.tasks.length}<Icon type="book" /></span>
                                     </p>
                                     <ul></ul>
                                 </div>
