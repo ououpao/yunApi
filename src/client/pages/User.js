@@ -32,13 +32,13 @@ class User extends React.Component {
     }
     getCurrentUser() {
         this.setState({
-            currentUser: AuthStore.getUser()
+            currentUser: AuthStore.getUser() || {}
         })
     }
     getUserById(id) {
         UserStore.getUserById(id, (err, user) => {
             this.setState({
-                user: user
+                user: user || {}
             })
         })
     }
@@ -92,12 +92,18 @@ class User extends React.Component {
                                         <li><label>注册时间</label><span>2015-05-06</span></li>
                                     </ul>
                                     <div className="edit-btn">
+                                        {user._id == currentUser._id ? 
                                         <Button onClick={this.edit.bind(this)} type="ghost" shape="circle" title="修改" size="small">
                                             <Icon type="setting" size="small"/>
                                         </Button>
+                                        : ''
+                                        }
+                                        {user._id != currentUser._id ? 
                                         <Button onClick={this.like.bind(this)} type="ghost" title="关注" size="small" style={{marginLeft: '10px'}}>
                                             <span>加好友</span>
                                         </Button>
+                                        : ''
+                                        }
                                     </div>
                                 </div>
                             </TabPane>
