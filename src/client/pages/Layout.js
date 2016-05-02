@@ -32,7 +32,7 @@ class Layout extends React.Component {
         this.setState({
             user: user
         })
-        if (user.inviteMsgs.length) {
+        if (user && user.inviteMsgs.length) {
             this.notification();
         }
     }
@@ -95,6 +95,7 @@ class Layout extends React.Component {
                 </Menu.Item>
             </Menu>
         );
+        let user = this.state.user || {};
         return (
             <div className="wrap">
                 {!isLoginPage ? 
@@ -106,7 +107,7 @@ class Layout extends React.Component {
                         <div className="nav-right ttr">
                             <div className="authed">
                                 <DropdownButton overlay={userMenu} type="ghost">
-                                   <Link to="u">{this.state.user && this.state.user.username}</Link>
+                                   <Link to={`u/${user._id}`}>{user.username}</Link>
                                 </DropdownButton>
                                 <Link to="addproject">
                                     <Button type="primary" shape="circle" title="添加项目">

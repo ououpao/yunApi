@@ -40,9 +40,10 @@ module.exports = function(app, passport) {
     router.put('/project/:id', secured, projectController.update);
 
     router.post('/project/:url/api', secured, apiController.create);
-    router.get('/project/:url/api/:id', secured, apiController.getDetail);
-    router.put('/project/:url/api/:id', secured, apiController.updateApi);
-    router.del('/project/:url/api/:id', secured, apiController.removeApi);
+    router.post('/api/:id/addComment', secured, apiController.addComment);
+    router.get('/api/:id', secured, apiController.getDetail);
+    router.put('/api/:id', secured, apiController.updateApi);
+    router.del('/api/:id', secured, apiController.removeApi);
 
     app.use(router.routes());
 };

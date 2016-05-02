@@ -1,11 +1,23 @@
 "use strict";
 let sendMail = require('../libs/nodemail').sendMail;
-let Api = require("mongoose").model("Api");
+let ApiModel = require("mongoose").model("Api");
 let ProjectModel = require("mongoose").model("Project");
 exports.getDetail = function*(next) {
     let id = this.params.id;
-    let Api = require("mongoose").model("Api");
-    let detail = yield Api.findOne({ _id: id }).exec();
+    let detail = yield ApiModel
+        .findOne({ _id: id })
+        .populate({
+            path: 'comments',
+            select: 'content time user',
+            model: 'Comments',
+            options: {sort: {time: -1}},
+            populate: {
+                path: 'user',
+                select: '_id username',
+                model: 'User'
+            }
+        })
+        .exec();
     this.status = 200;
     this.body = { detail: detail };
 }
@@ -56,4 +68,27 @@ exports.removeApi = function*(next) {
     }).exec();
     this.status = 200;
     this.body = { api: api };
+}
+exports.addComment = function*(next) {
+    let CommentsStore = require("mongoose").model("Comments");
+    let user = this.passport.user;
+    let apiEntity = yield ApiModel.findOne({ _id: this.params.id }).exec();
+    let commentEntity = new CommentsStore({
+        user: this.passport.user,
+        belongTo: apiEntity,
+        content: this.request.body.comment
+    });
+    commentEntity = yield commentEntity.save();
+    yield apiEntity.update({
+        '$push': {
+            'comments': commentEntity
+        }
+    });
+    this.status = 200;
+    this.body = {
+        status: 'success',
+        data: {
+            comment: commentEntity
+        }
+    }
 }

@@ -52,7 +52,6 @@ require("./routes")(app, passport);
 
 // spa config
 app.use(function*() {
-    console.log('here');
     this.type = 'text/html';
     this.body = yield send(this, '/index.html');
 });

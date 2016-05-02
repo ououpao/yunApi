@@ -1,19 +1,11 @@
 import request from "superagent";
 const URLS = {
-    LIST: 'api/project'
+    LIST: 'api/project',
+    ADDCOMMENT: 'api/addComment'
 };
 
 const ApiStore = {
-    getDetail(projectUrl, id, done) {
-        request.get(`api/project/${projectUrl}/api/${id}`)
-            .set("Accept", "application/json")
-            .set("Content-Type", "application/json")
-            .end(function(err, res) {
-                done(err, res.body.detail);
-            });
-    },
     create(projectUrl, apiInfo, done) {
-        console.log(projectUrl);
         request.post(`api/project/${projectUrl}/api`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
@@ -29,15 +21,35 @@ const ApiStore = {
                 done(err, res.body.detail);
             });
     },
+    getDetail(projectUrl, id, done) {
+        request.get(`/api/api/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.detail);
+            });
+    },
     remove(projectUrl, id, done) {
-        request.del(`api/project/${projectUrl}/api/${id}`)
+        request.del(`/api/api/${id}`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")
             .end(function(err, res) {
                 done(err, res.body);
             });
     },
-    update() {}
+    update() {},
+    addComment(id, comment, done){
+        request.post(`/api/api/${id}/addComment`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                comment: comment
+            })
+            .end(function(err, res) {
+                done(err, res.body.data.comment);
+            });
+    }
+
 };
 
 export default ApiStore;

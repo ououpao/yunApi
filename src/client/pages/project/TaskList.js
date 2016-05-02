@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message } from 'antd';
-import ApiStore from '../../stores/api';
+import ProjectStore from '../../stores/project';
 
 class ProjectDetailApi extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class ProjectDetailApi extends React.Component {
         }
     }
     componentWillMount() {
-        ApiStore.getList(this.state.projectUrl, (err, list) => {
+        ProjectStore.getApiList(this.state.projectUrl, (err, list) => {
             if (err) {
                 message.error(err, 3);
                 return;

@@ -8,36 +8,44 @@ class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentUser: {},
-            user: {},
-            activepanel: '1'
+            loggedInUser: AuthStore.getUser() || {},
+            getByIdUser: {},
+            activepanel: '1',
+            isAdded: false
         }
     }
     componentDidMount() {
-        console.log('did');
         document.title = "用户中❤";
-        this.getCurrentUser();
-        AuthStore.addChangeListener(this.getCurrentUser.bind(this));
-        if (this.props.params.id) {
-            this.getUserById(this.props.params.id);
-        }
+        AuthStore.addChangeListener(this.getLoggedInUser.bind(this));
+        this.getUserById(this.props.params.id);
     }
     componentWillUnmount() {
-        console.log('unmount');
-        AuthStore.removeChangeListener(this.getCurrentUser.bind(this));
+        AuthStore.removeChangeListener(this.getLoggedInUser.bind(this));
     }
-    getCurrentUser() {
+    componentDidUpdate(preProps) {
+        console.log('update')
+        let loggedInUser = this.state.loggedInUser,
+            getByIdUser = this.state.getByIdUser;
+        if (loggedInUser && getByIdUser) {
+            if (!this.state.isAdded) {
+                if (loggedInUser.friends.indexOf(getByIdUser._id) > -1) {
+                    this.setState({
+                        isAdded: true
+                    })
+                }
+            }
+        }
+    }
+    getLoggedInUser() {
         this.setState({
-            currentUser: AuthStore.getUser() || {}
+            loggedInUser: AuthStore.getUser() || {}
         })
     }
     getUserById(id) {
         UserStore.getUserById(id, (err, user) => {
-            if (this.state.user._id != user._id) {
-                this.setState({
-                    user: user || {}
-                })
-            }
+            this.setState({
+                getByIdUser: user || {}
+            })
         })
     }
     edit() {
@@ -52,13 +60,19 @@ class User extends React.Component {
         })
     }
     addFriend() {
-        UserStore.addFriend(this.state.user._id, (err, res) => {
-            message.success('添加成功!', 3)
+        UserStore.addFriend(this.state.getByIdUser._id, (err, res) => {
+            if (!err && res) {
+                message.success('操作成功!', 2);
+                console.log(this.state.isAdded)
+                this.setState({
+                    isAdded: !this.state.isAdded
+                })
+            }
         })
     }
     render() {
-        let currentUser = this.state.currentUser;
-        let user = this.state.user = this.state.user || currentUser;
+        let loggedInUser = this.state.loggedInUser;
+        let user = this.state.getByIdUser;
         let activepanel = this.state.activepanel;
         const { getFieldProps } = this.props.form;
         const formItemLayout = {
@@ -92,15 +106,15 @@ class User extends React.Component {
                                         <li><label>注册时间</label><span>2015-05-06</span></li>
                                     </ul>
                                     <div className="edit-btn">
-                                        {user._id == currentUser._id ? 
+                                        {user._id == loggedInUser._id ? 
                                         <Button onClick={this.edit.bind(this)} type="ghost" shape="circle" title="修改" size="small">
                                             <Icon type="setting" size="small"/>
                                         </Button>
                                         : ''
                                         }
-                                        {user._id != currentUser._id ? 
-                                        <Button onClick={this.addFriend.bind(this)} type="ghost" title="关注" size="small" style={{marginLeft: '10px'}}>
-                                            <span>加好友</span>
+                                        {user._id != loggedInUser._id ? 
+                                        <Button onClick={this.addFriend.bind(this)} type="ghost" size="small" style={{marginLeft: '10px'}}>
+                                            <span>{this.state.isAdded ? '取消关注' : '加好友'}</span>
                                         </Button>
                                         : ''
                                         }

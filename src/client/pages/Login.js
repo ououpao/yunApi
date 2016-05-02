@@ -25,7 +25,6 @@ class Login extends React.Component {
     }
     loginHandle(e) {
         e.preventDefault();
-        console.log(this.props)
         let user = this.props.form.getFieldsValue(['loginEmail', 'pass']);
         user.username = user.loginEmail;
         user.password = user.pass;
@@ -45,7 +44,6 @@ class Login extends React.Component {
         e.preventDefault();
         let user = this.props.form.getFieldsValue(['username', 'email', 'password']);
         AuthStore.signUp(user, (err, _user) => {
-            console.dir(err);
             if (err || !user) {
                 message.error(err.response.text, 3)
             } else {

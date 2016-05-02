@@ -20,12 +20,9 @@ class Login extends React.Component {
                 loading: false
             })
         }, 3000)
-        console.log('收到表单值：', this.props.form.getFieldsValue());
     }
     loginHandle(e) {
         e.preventDefault();
-        console.log('login')
-        console.log('收到表单值：', this.props.form.getFieldsValue(['user', 'pass']));
     }
     regHandle(e) {
         e.preventDefault();

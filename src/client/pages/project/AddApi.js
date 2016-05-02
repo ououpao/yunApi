@@ -21,7 +21,6 @@ class AddProject extends React.Component {
         this.isEdit = !!this.state.detail.name;
     }
     componentDidMount() {
-        console.log(this.state.projectUrl)
         document.title = this.isEdit ? '修改接口' : '创建新接口';
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)

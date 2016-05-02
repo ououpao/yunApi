@@ -11,7 +11,8 @@ class ApiDetail extends React.Component {
         this.state = {
             detail: {},
             projectUrl: this.props.params.url,
-            _id: this.props.params.id
+            _id: this.props.params.id,
+            comments: []
         };
     }
     componentWillMount() {
@@ -21,7 +22,8 @@ class ApiDetail extends React.Component {
                 return;
             }
             this.setState({
-                detail: detail
+                detail: detail,
+                comments: detail.comments
             })
         })
     }
@@ -47,6 +49,13 @@ class ApiDetail extends React.Component {
     editApi() {
 
     }
+    addComment() {
+        let data = this.props.form.getFieldsValue(['comment']);
+        ApiStore.addComment(this.state._id, data.comment, (err, comment) => {
+            if (!err) {}
+            this.state.comments.push(comment);
+        })
+    }
     render() {
         let detail = this.state.detail;
         const formItemLayout = {
@@ -65,6 +74,18 @@ class ApiDetail extends React.Component {
             </Menu.Item>
           </Menu>
         );
+        let comments = this.state.comments.map(function(comment) {
+            return (
+                <li key={comment._id}>
+                    <header>
+                        <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                        <Link to={`/u/${comment.user._id}`}><span className="name">{comment.user.username}</span></Link>
+                        <span className="time">{comment.time}</span>
+                    </header>
+                    <div className="content">{comment.content}</div>
+                </li>
+            )
+        })
         const options = {
             theme: "monokai",
             indentUnit: 4,
@@ -90,58 +111,28 @@ class ApiDetail extends React.Component {
                     <p>请求方式：<span className="method">{detail.method}</span></p>
                     <p>请求URL：<span className="url">{detail.url}</span></p>
                     <p>请求参数：</p>
-                    <Codemirror value={detail.requestBody && detail.requestBody[0]} options={options} />
+                    <Codemirror value={detail.requestBody && detail.requestBody[0]} options={options} key="code1"/>
                     <p>响应模板：</p>
-                    <Codemirror value={detail.responseBody && detail.responseBody[0]} options={options} />
+                    <Codemirror value={detail.responseBody && detail.responseBody[0]} options={options} key="code2" />
                     <p>详细描述：</p>
-                    <p className="detail">
-                        阿萨德发送到分乐尽哀生电话费交阿克苏地方哈师大覅那usd回复收到货您符合是滴
-                    </p>
+                    <p className="detail">{detail.detail}</p>
                     <div className="comment">
                         <p>全部回复</p>
                         <ul>
-                            <li>
-                                <header>
-                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
-                                    <span className="name">naraku</span>
-                                    <span className="time">2015-10-10 08:00</span>
-                                </header>
-                                <div className="content">
-                                    接口返回有点问题
-                                </div>
-                            </li>
-                            <li>
-                                <header>
-                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
-                                    <span className="name">naraku</span>
-                                    <span className="time">2015-10-10 08:00</span>
-                                </header>
-                                <div className="content">
-                                    那里有问题
-                                </div>
-                            </li>
-                            <li>
-                                <header>
-                                    <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
-                                    <span className="name">naraku</span>
-                                    <span className="time">2015-10-10 08:00</span>
-                                </header>
-                                <div className="content">
-                                    date参数有无
-                                </div>
-                            </li>
+                            {comments}
                         </ul>
                     </div>
                     <div className="add-comment">
                         <FormItem
                           label="">
-                          <Input type="textarea" {...getFieldProps('detail')} placeholder="请输入评论内容"/>
+                          <Input type="textarea" {...getFieldProps('comment')} placeholder="请输入评论内容"/>
                         </FormItem>
                         <FormItem wrapperCol={{ span: 3, offset: 21 }} style={{ marginTop: 24 }}>
                           <Button 
                             type="primary" 
                             htmlType="submit" 
-                            style={{width: '100%'}}>添加评论
+                            style={{width: '100%'}}
+                            onClick={this.addComment.bind(this)}>添加评论
                           </Button>
                         </FormItem>
                     </div>
