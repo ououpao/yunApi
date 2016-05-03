@@ -68,7 +68,10 @@ exports.getCurrentUser = function*() {
 };
 exports.getUserById = function*() {
     var User = require("mongoose").model("User");
-    var user = yield User.findOne({ _id: this.params.id }).exec();
+    var user = yield User
+        .findOne({ _id: this.params.id })
+        .populate('friends')
+        .exec();
     this.status = 200;
     this.body = { user: user };
 };

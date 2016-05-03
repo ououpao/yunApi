@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Form, Input, Upload, Button, Icon, Menu, Dropdown, Modal, message, Badge, Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
@@ -90,6 +91,15 @@ class User extends React.Component {
                 thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
             }]
         };
+        let friends = user.friends && user.friends.map((friend) => {
+            return (
+                <li>
+                    <Link to={`/u/${friend._id}`}>
+                        <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                    </Link>
+                </li>
+            )
+        })
         return (
             <div className="main-wrap">
                 <div className="user-module">
@@ -103,7 +113,7 @@ class User extends React.Component {
                                     <ul className="info">
                                         <li><label>用户名</label><span>{user.username}</span></li>
                                         <li><label>邮箱</label><span>{user.email}</span></li>
-                                        <li><label>注册时间</label><span>2015-05-06</span></li>
+                                        <li><label>注册时间</label><span>{user.time}</span></li>
                                     </ul>
                                     <div className="edit-btn">
                                         {user._id == loggedInUser._id ? 
@@ -164,11 +174,7 @@ class User extends React.Component {
                             我的好友
                         </header>
                         <ul className="list">
-                            <li><img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/></li>
-                            <li><img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/></li>
-                            <li><img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/></li>
-                            <li><img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/></li>
-                            <li><img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/></li>
+                            {friends}
                         </ul>
                     </div>
                 </div>

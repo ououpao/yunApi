@@ -31,11 +31,10 @@ module.exports = {
             test: /\.json$/,
             loader: 'json'
         }, {
-            test: /\.(png|jpg|gif|svg)$/,
+            test: /\.(png|jpg|gif|svg|ttf)$/,
             loader: 'url',
             query: {
-                limit: 10000,
-                name: '[name].[ext]?[hash:7]'
+                limit: 10000
             }
         }]
     },
