@@ -85,6 +85,7 @@ class AddProject extends React.Component {
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
+                          className="url-input" 
                           label="项目URL：" required>
                           <Input addonBefore="www.naraku.com/project/" type="text" {...getFieldProps('url')} placeholder="请输入项目URL"/>
                         </FormItem>

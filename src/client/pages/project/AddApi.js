@@ -102,7 +102,7 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="请求URL：" required>
-                          <Input type="text" {...getFieldProps('url')}/>
+                          <Input className="url-input" type="text" {...getFieldProps('url')}/>
                         </FormItem>
                         <FormItem
                           {...formItemLayout}

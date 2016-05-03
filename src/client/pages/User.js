@@ -91,15 +91,17 @@ class User extends React.Component {
                 thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
             }]
         };
-        let friends = user.friends && user.friends.map((friend) => {
-            return (
-                <li>
+        let renderFriends = function() {
+            return user.friends && user.friends.map((friend) => {
+                return (
+                    <li>
                     <Link to={`/u/${friend._id}`}>
                         <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
                     </Link>
                 </li>
-            )
-        })
+                )
+            })
+        }
         return (
             <div className="main-wrap">
                 <div className="user-module">
@@ -169,14 +171,16 @@ class User extends React.Component {
                             </TabPane>
                         </Tabs>
                     </div>
+                    {user._id == loggedInUser._id ?
                     <div className="friend-module">
                         <header>
                             我的好友
                         </header>
                         <ul className="list">
-                            {friends}
+                            {renderFriends()}
                         </ul>
                     </div>
+                     : ''}
                 </div>
             </div>
         );
