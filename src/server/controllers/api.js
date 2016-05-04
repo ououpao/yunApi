@@ -45,7 +45,8 @@ exports.create = function*(next) {
             requestBody: data.requestBody,
             responseBody: data.responseBody,
             owner: this.passport.user,
-            'belongTo': projectEntity
+            belongTo: projectEntity,
+            time: new Date()
         });
         apiEntity = yield apiEntity.save();
         yield projectEntity.update({
@@ -76,7 +77,8 @@ exports.addComment = function*(next) {
     let commentEntity = new CommentsStore({
         user: this.passport.user,
         belongTo: apiEntity,
-        content: this.request.body.comment
+        content: this.request.body.comment,
+        time: new Date()
     });
     commentEntity = yield commentEntity.save();
     yield apiEntity.update({

@@ -26,7 +26,7 @@ var Task = new Schema({
     // 结束时间
     endTime: { type: Date, default: new Date(), required: true},
     // 创建时间
-    time: { type: Date, default: new Date(), required: true}
+    time: { type: Date, required: true}
 });
 
 // Model creation

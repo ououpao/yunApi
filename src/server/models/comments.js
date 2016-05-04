@@ -15,7 +15,7 @@ var Comments = new Schema({
     // 评论内容
     content: { type: String, required: true },
     // 评论时间
-    time: { type: Date, default: new Date(), required: true }
+    time: { type: Date, required: true }
 });
 
 // Model creation

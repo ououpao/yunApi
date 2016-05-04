@@ -53,15 +53,16 @@ class AddProject extends React.Component {
             wrapperCol: { span: 14 },
         };
         const props = {
-            action: '/upload.do',
+            action: 'http://up.qiniu.com/',
             listType: 'picture-card',
-            defaultFileList: [{
-                uid: -1,
-                name: 'xxx.png',
-                status: 'done',
-                url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-                thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-            }]
+            data: {
+                key: new Date().getTime(),
+                token: "h2V2WcqzVYn3RTnc7BiDsubyTquJIkylzK-TBbEW:wRoz_TGBt7wAWN2emLKgj54ZJVY=:eyJzY29wZSI6ImVhc3lhcGkiLCJkZWFkbGluZSI6MTQ2MjI4ODY0N30="
+            },
+            defaultFileList: [],
+            onChange: function(res){
+                console.log(res.file)
+            }
         };
         return (
             <div className="main-wrap add-project">

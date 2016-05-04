@@ -33,7 +33,7 @@ var UserSchema = new Schema({
         ref: 'inviteMsg'
     }],
     // 注册时间
-    time: { type: Date, default: new Date(), required: true }
+    time: { type: Date, required: true }
 }, {
     toJSON: {
         transform: function(doc, ret, options) {

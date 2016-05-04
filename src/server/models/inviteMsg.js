@@ -11,7 +11,7 @@ var inviteMsg = new Schema({
     //  
     isTimeout: { type: Boolean, default: false},
     // 评论时间
-    time: { type: Date, default: new Date()}
+    time: { type: Date, require: true}
 });
 
 // Model creation

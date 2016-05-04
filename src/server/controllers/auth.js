@@ -45,7 +45,8 @@ exports.createUser = function*(next) {
             var user = new User({
                 username: this.request.body.username,
                 password: this.request.body.password,
-                email: this.request.body.email
+                email: this.request.body.email,
+                time: new Date()
             });
             user = yield user.save();
             // yield this.login(user);

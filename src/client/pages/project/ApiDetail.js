@@ -52,10 +52,13 @@ class ApiDetail extends React.Component {
     addComment() {
         let data = this.props.form.getFieldsValue(['comment']);
         ApiStore.addComment(this.state._id, data.comment, (err, comment) => {
-            if (!err) {
+            if (err) {
                 return;
             }
-            this.state.comments.push(comment);
+            this.state.comments.unshift(comment)
+            this.setState({
+                 comments: this.state.comments   
+            })
             message.success('评论成功!', 2)
         })
     }

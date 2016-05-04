@@ -28,7 +28,8 @@ exports.create = function*(next) {
                 url: this.request.body.url,
                 detail: this.request.body.detail,
                 members: [user],
-                owner: user
+                owner: user,
+                time: new Date()
             });
             project = yield project.save();
             yield UserModel.findOneAndUpdate({
@@ -101,7 +102,8 @@ exports.inviteMember = function*(next) {
         let inviteMsgEntity = new inviteMsgModel({
             invitor: user,
             invitee: invitee,
-            project: project
+            project: project,
+            time: new Date()
         });
         inviteMsgEntity = yield inviteMsgEntity.save();
         yield invitee.update({

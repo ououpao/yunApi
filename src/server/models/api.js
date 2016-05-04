@@ -38,7 +38,7 @@ var ApiSchema = new Schema({
     // 是否删除
     isRemove: {type: Boolean, default: false, required: true},
     // 创建时间
-    time: {type: Date, default: new Date(), required: true}
+    time: {type: Date, required: true}
 });
 
 // Model creation
