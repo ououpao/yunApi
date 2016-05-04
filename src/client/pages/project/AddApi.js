@@ -15,7 +15,10 @@ class AddProject extends React.Component {
         super(props);
         this.state = {
             members: [],
-            detail: props.detail || {},
+            detail: this.props.location.state || {
+                requestBody: null,
+                responseBody: null
+            },
             projectUrl: this.props.location.query.projectUrl
         };
         this.isEdit = !!this.state.detail.name;
@@ -42,12 +45,16 @@ class AddProject extends React.Component {
     }
     updateRequestBody(newValue) {
         this.setState({
-            requestBody: newValue
+            detail: {
+                requestBody: newValue
+            }
         })
     }
     updateReponseBody(newValue) {
         this.setState({
-            responseBody: newValue
+            detail: {
+                responseBody: newValue
+            }
         })
     }
     handleChange(value) {
@@ -107,12 +114,12 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="请求参数：" required>
-                          <Codemirror value={this.state.requestBody} onChange={this.updateRequestBody.bind(this)} options={options} />
+                          <Codemirror value={this.state.detail.requestBody} onChange={this.updateRequestBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
                           label="响应模板：" required>
-                          <Codemirror value={this.state.reponseBody} onChange={this.updateReponseBody.bind(this)} options={options} />
+                          <Codemirror value={this.state.detail.reponseBody} onChange={this.updateReponseBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}

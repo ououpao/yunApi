@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import Layout from './pages/Layout';
+import NotFoundPage from './pages/NotFound';
 import Index from './pages/Index';
 import Task from './pages/Task';
 import Login from './pages/Login';
@@ -40,14 +41,16 @@ class AppRoutes extends React.Component {
                       </Route>
                   </Route>
                   <Route path="addproject" component={AddProject} />
+                  <Route path="editproject" component={AddProject} />
                   <Route path="addapi" component={AddApi} />
+                  <Route path="editapi" component={AddApi} />
                   <Route path="addtask" component={AddTask} />
                   <Route path="invite" component={Invite} />
-                  <Route path="editproject" component={ProjectEdit} />
                   <Route path="task" component={Task} />
                   <Route path="login" component={Login} />
                   <Route path="u/:id" component={User} />
               </Route>
+              <Route path="*" component={NotFoundPage}></Route>
           </Router>
         );
     }

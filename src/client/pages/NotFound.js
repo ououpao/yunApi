@@ -1,5 +1,5 @@
 import React from 'react';
-class notFoundPage extends React.Component {
+class NotFoundPage extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -11,4 +11,4 @@ class notFoundPage extends React.Component {
         );
     }
 }
-export default notFoundPage;
+export default NotFoundPage;

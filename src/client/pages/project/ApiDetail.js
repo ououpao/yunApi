@@ -47,7 +47,7 @@ class ApiDetail extends React.Component {
         });
     }
     editApi() {
-
+        this.props.history.replace({ pathname: 'editapi', state: this.state.detail })
     }
     addComment() {
         let data = this.props.form.getFieldsValue(['comment']);

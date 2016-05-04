@@ -19,6 +19,8 @@ class ProjectDetail extends React.Component {
     }
     componentDidMount() {
         document.title = '项目详情';
+        this.getCurrentUser();
+        console.log(this.props.history)
         AuthStore.addChangeListener(this.getCurrentUser.bind(this));
     }
     componentWillMount() {

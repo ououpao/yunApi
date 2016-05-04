@@ -13,7 +13,7 @@ class AddProject extends React.Component {
         super(props);
         this.state = {
             members: [],
-            detail: props.detail || {}
+            detail: this.props.location.state || {}
         };
         this.isEdit = !!this.state.detail.name;
     }
