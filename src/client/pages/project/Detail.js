@@ -86,9 +86,9 @@ class ProjectDetail extends React.Component {
                         : ''
                          }
                         <ul className="pro-navbar">
-                            <li><Link to={`/project/${detail.url}/apis`} activeClassName={"active"}><span>接口列表<Badge count={detail.apis && detail.apis.length} /></span></Link></li>
-                            <li><Link to={`/project/${detail.url}/tasks`} activeClassName={"active"}>任务列表<Badge count={detail.tasks && detail.tasks.length} /></Link></li>
-                            <li><Link to={`/project/${detail.url}/members`} activeClassName={"active"}>项目成员<Badge count={detail.members && detail.members.length} /></Link></li>
+                            <li><Link to={`/project/${detail.url}/apis`} activeClassName={"active"}>接口列表</Link></li>
+                            <li><Link to={`/project/${detail.url}/tasks`} activeClassName={"active"}>任务列表</Link></li>
+                            <li><Link to={`/project/${detail.url}/members`} activeClassName={"active"}>项目成员</Link></li>
                         </ul>
                     </div>
                 </div>

@@ -100,7 +100,22 @@ exports.accpetInvite = function*() {
     this.body = {
         status: 'success',
         data: {
+            projectUrl: project.url,
             msg: '加入成功!'
+        }
+    };
+};
+exports.rejectInvite = function*() {
+    let body = this.request.body,
+        msgId = body.msgId;
+    // 更新信息状态
+    inviteMsgStore.findOneAndUpdate({ _id: msgId }, { isTimeout: true }).exec();
+    // 在项目中添加成员
+    this.status = 200;
+    this.body = {
+        status: 'success',
+        data: {
+            msg: '操作成功!'
         }
     };
 };

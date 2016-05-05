@@ -21,6 +21,23 @@ const ApiStore = {
                 done(err, res.body.detail);
             });
     },
+    update(id, apiInfo, done) {
+        request.put(`api/api/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                name: apiInfo.name,
+                url: apiInfo.url,
+                detail: apiInfo.detail,
+                method: apiInfo.method,
+                members: apiInfo.members,
+                requestBody: apiInfo.requestBody,
+                responseBody: apiInfo.responseBody
+            })
+            .end(function(err, res) {
+                done(err, res.body.detail);
+            });
+    },
     getDetail(projectUrl, id, done) {
         request.get(`/api/api/${id}`)
             .set("Accept", "application/json")
@@ -37,8 +54,7 @@ const ApiStore = {
                 done(err, res.body);
             });
     },
-    update() {},
-    addComment(id, comment, done){
+    addComment(id, comment, done) {
         request.post(`/api/api/${id}/addComment`)
             .set("Accept", "application/json")
             .set("Content-Type", "application/json")

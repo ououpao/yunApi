@@ -25,6 +25,7 @@ module.exports = function(app, passport) {
     router.post('/auth', authController.signIn);
     router.get('/user/:id', authController.getUserById);
     router.post('/user/invite', authController.accpetInvite);
+    router.post('/user/reject', authController.rejectInvite);
     router.post('/user/addFriend', authController.addFriend);
 
     router.all('/signout', authController.signOut);
@@ -42,8 +43,8 @@ module.exports = function(app, passport) {
     router.post('/project/:url/api', secured, apiController.create);
     router.post('/api/:id/addComment', secured, apiController.addComment);
     router.get('/api/:id', secured, apiController.getDetail);
-    router.put('/api/:id', secured, apiController.updateApi);
-    router.del('/api/:id', secured, apiController.removeApi);
+    router.put('/api/:id', secured, apiController.update);
+    router.del('/api/:id', secured, apiController.remove);
 
     app.use(router.routes());
 };

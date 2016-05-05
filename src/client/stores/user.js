@@ -2,6 +2,7 @@ import request from "superagent";
 const URLS = {
     USER: "/api/user",
     INVITE: "/api/user/invite",
+    REJECT: "/api/user/reject",
     ADDFRIEND: "/api/user/addFriend",
 };
 
@@ -36,6 +37,19 @@ const UserStore = {
             .send({
                 msgId: msgId,
                 projectId: projectId
+            })
+            .end(function(err, res) {
+                if (!err && res.body) {
+                    done(err, res.body)
+                }
+            });
+    },
+    rejectInvite(msgId, done) {
+        request.post(URLS.REJECT)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                msgId: msgId
             })
             .end(function(err, res) {
                 if (!err && res.body) {

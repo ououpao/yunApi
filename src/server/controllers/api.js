@@ -59,8 +59,42 @@ exports.create = function*(next) {
     this.body = { detail: apiEntity };
     sendMail('570453516@qq.com', '测试', `<a href="http://localhost:3000/#/login?invite=${apiEntity.belongTo}">点击注册</a>`)
 }
-exports.updateApi = function*(next) {}
-exports.removeApi = function*(next) {
+exports.update = function*(next) {
+    let data = this.request.body,
+        _id = this.params.id,
+        user = this.passport.user,
+        Api = require("mongoose").model("Api"),
+        projectEntity = null,
+        apiEntity = null;
+    if (!data.name) {
+        this.throw("接口名称不能为空！", 400);
+    }
+    if (!data.url) {
+        this.throw("接口url不能为空！", 400);
+    }
+    try {
+        apiEntity = yield ApiModel.findOneAndUpdate({ 
+            _id: _id 
+        },{
+            name: data.name,
+            url: data.url,
+            method: data.method,
+            detail: data.detail,
+            members: data.members,
+            requestBody: data.requestBody,
+            responseBody: data.responseBody,
+        },{
+            new: true
+        })
+        .populate('belongTo')
+        .exec();
+    } catch (err) {
+        this.throw(err);
+    }
+    this.status = 200;
+    this.body = { detail: apiEntity };
+}
+exports.remove = function*(next) {
     let user = this.passport.user;
     let Api = require("mongoose").model("Api");
     let api = yield Api.remove({

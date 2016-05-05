@@ -15,10 +15,7 @@ class AddProject extends React.Component {
         super(props);
         this.state = {
             members: [],
-            detail: this.props.location.state || {
-                requestBody: null,
-                responseBody: null
-            },
+            detail: this.props.location.state || {},
             projectUrl: this.props.location.query.projectUrl
         };
         this.isEdit = !!this.state.detail.name;
@@ -32,29 +29,40 @@ class AddProject extends React.Component {
     submit(e) {
         e.preventDefault();
         let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
-        apiInfo.requestBody = this.state.requestBody;
-        apiInfo.responseBody = this.state.responseBody;
-        ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
-            if (err || !detail) {
-                message.error(err.response.text, 3)
-                return;
-            }
-            message.success('添加成功！', 3);
-            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis/${detail._id}` })
-        })
+        apiInfo.members = this.state.members;
+        apiInfo.requestBody = this.state.requestBody || this.state.detail.requestBody;
+        apiInfo.responseBody = this.state.responseBody || this.state.detail.responseBody;
+        if (this.isEdit) {
+            ApiStore.update(this.state.detail._id, apiInfo, (err, detail) => {
+                if (err || !detail) {
+                    message.error(err.response.text, 3)
+                    return;
+                }
+                console.log(detail.belongTo.url);
+                message.success(this.isEdit ? '修改成功！' : '添加成功！', 3);
+                this.props.history.replace({ pathname: `project/${detail.belongTo.url}/apis/${detail._id}` })
+            })
+        } else {
+            console.log(this.isEdit)
+            ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
+                if (err || !detail) {
+                    message.error(err.response.text, 3)
+                    return;
+                }
+                message.success(this.isEdit ? '修改成功！' : '添加成功！', 3);
+                this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis/${detail._id}` })
+            })
+        }
+
     }
     updateRequestBody(newValue) {
         this.setState({
-            detail: {
-                requestBody: newValue
-            }
+            requestBody: newValue
         })
     }
     updateReponseBody(newValue) {
         this.setState({
-            detail: {
-                responseBody: newValue
-            }
+            responseBody: newValue
         })
     }
     handleChange(value) {
@@ -65,13 +73,6 @@ class AddProject extends React.Component {
     render() {
         let detail = this.state.detail;
         const options = {
-            // mode: "javascript",
-            // lineNumbers: true,
-            // indentUnit: 4,
-            // cursorHeight: 1,
-            // styleActiveLine: true,
-            // theme: 'monokai'
-
             theme: "monokai",
             indentUnit: 4,
             lineNumbers: !0,
@@ -114,12 +115,12 @@ class AddProject extends React.Component {
                         <FormItem
                           {...formItemLayout}
                           label="请求参数：" required>
-                          <Codemirror value={this.state.detail.requestBody} onChange={this.updateRequestBody.bind(this)} options={options} />
+                          <Codemirror value={detail.requestBody && detail.requestBody[0]} onChange={this.updateRequestBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
                           label="响应模板：" required>
-                          <Codemirror value={this.state.detail.reponseBody} onChange={this.updateReponseBody.bind(this)} options={options} />
+                          <Codemirror value={detail.responseBody && detail.responseBody[0]} onChange={this.updateReponseBody.bind(this)} options={options} />
                         </FormItem>
                         <FormItem
                           {...formItemLayout}

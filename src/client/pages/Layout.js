@@ -38,13 +38,22 @@ class Layout extends React.Component {
     }
     acceptInvite(notificationKey, inviteMsg) {
         UserStore.acceptInvite(inviteMsg._id, inviteMsg.project._id, (err, res) => {
-            message.success('hahah', 2);
+            message.success('加入成功！', 2);
+            this.props.history.replace({
+                pathname: `project/${res.data.projectUrl}/apis`,
+            })
+            notification.close(notificationKey);
+        });
+    }
+    rejectInvite(notificationKey, inviteMsg) {
+        UserStore.rejectInvite(inviteMsg._id, (err, res) => {
+            message.success('操作成功！', 2);
             notification.close(notificationKey);
         });
     }
     notification() {
         let inviteMsg = this.state.user.inviteMsgs[0];
-        if(typeof inviteMsg != 'object') return;
+        if (typeof inviteMsg != 'object') return;
         let description = (
             <div>
                 <span>{inviteMsg.invitor.username}</span>
@@ -56,7 +65,10 @@ class Layout extends React.Component {
         let sureClick = () => {
             this.acceptInvite(key, inviteMsg);
         }
-        let cacelClick = () => {}
+        let cacelClick = () => {
+            this.rejectInvite(key, inviteMsg);
+            notification.close(key);
+        }
         let btn = (
             <div>
                 <Button type="ghost" size="small" onClick={cacelClick}>不再提醒</Button>
@@ -70,7 +82,8 @@ class Layout extends React.Component {
         )
         notification.open({
             message: '项目邀请',
-            description: description,
+            description,
+            key,
             btn,
             duration: null
         })
