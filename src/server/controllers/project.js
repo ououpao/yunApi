@@ -22,12 +22,13 @@ exports.create = function*(next) {
     if (project) {
         this.throw("该项目的名称或URL已存在！", 400);
     } else {
+        this.request.body.members.push(user._id);
         try {
             project = new ProjectModel({
                 name: this.request.body.name,
                 url: this.request.body.url,
                 detail: this.request.body.detail,
-                members: [user],
+                members: this.request.body.members,
                 owner: user,
                 time: new Date()
             });

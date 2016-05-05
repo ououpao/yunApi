@@ -136,3 +136,12 @@ exports.addFriend = function*() {
         msg: '添加成功！'
     }
 }
+exports.getFriends = function*() {
+    let userId = this.params.id;
+    let friends = yield User
+        .findOne({ _id: userId })
+        .populate('friends')
+        .exec();
+    this.status = 200;
+    this.body = friends.friends;
+}

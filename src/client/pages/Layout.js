@@ -11,17 +11,13 @@ class Layout extends React.Component {
         this.state = {
             login: false,
             user: AuthStore.getUser()
-        };
+        }
     }
-    singout() {
-        AuthStore.signOut((err, res) => {
-            if (!err) {
-                message.success('退出成功!', 3);
-                this.props.history.replace({
-                    pathname: 'login'
-                })
-            }
-        });
+    componentDidMount() {
+        AuthStore.addChangeListener(this.loginStateChange.bind(this));
+    }
+    componentWillUnmount() {
+        AuthStore.removeChangeListener(this.loginStateChange.bind(this));
     }
     loginStateChange(user) {
         if (!user) {
@@ -35,6 +31,16 @@ class Layout extends React.Component {
         if (user && user.inviteMsgs.length) {
             this.notification();
         }
+    }
+    singout() {
+        AuthStore.signOut((err, res) => {
+            if (!err) {
+                message.success('退出成功!', 3);
+                this.props.history.replace({
+                    pathname: 'login'
+                })
+            }
+        });
     }
     acceptInvite(notificationKey, inviteMsg) {
         UserStore.acceptInvite(inviteMsg._id, inviteMsg.project._id, (err, res) => {
@@ -87,13 +93,6 @@ class Layout extends React.Component {
             btn,
             duration: null
         })
-    }
-    componentDidMount() {
-        AuthStore.addChangeListener(this.loginStateChange.bind(this));
-
-    }
-    componentWillUnmount() {
-        AuthStore.removeChangeListener(this.loginStateChange.bind(this));
     }
     render() {
         let isLoginPage = (() => {

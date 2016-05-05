@@ -30,6 +30,16 @@ const UserStore = {
                 }
             });
     },
+    getFriends(userId, done) {
+        request.get(`/api/u/${userId}/getFriends`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                if (!err && res.body) {
+                    done(err, res.body)
+                }
+            });
+    },
     acceptInvite(msgId, projectId, done) {
         request.post(URLS.INVITE)
             .set("Accept", "application/json")

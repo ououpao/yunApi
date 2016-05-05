@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Input, Button, Select, Upload, Icon, Alert, message } from 'antd';
 const FormItem = Form.Item;
 import ProjectStore from "../../stores/project";
+import AuthStore from "../../stores/auth";
+import UserStore from "../../stores/user";
 
 let children = [];
 for (let i = 10; i < 36; i++) {
@@ -12,7 +14,9 @@ class AddProject extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            friends: [],
             members: [],
+            user: AuthStore.getUser(),
             detail: this.props.location.state || {}
         };
         this.isEdit = !!this.state.detail.name;
@@ -22,6 +26,16 @@ class AddProject extends React.Component {
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
+        this.getFriends();
+    }
+    getFriends() {
+        UserStore.getFriends(this.state.user._id, (err, friends) => {
+            if(!err){
+                this.setState({
+                    friends: friends
+                })
+            }
+        })
     }
     submit(e) {
         e.preventDefault();
@@ -36,7 +50,7 @@ class AddProject extends React.Component {
                 return;
             }
             message.success(this.isEdit ? '修改成功!' : '添加成功!', 3)
-            this.props.history.replace({ pathname: `project/${projectInfo.url}` })
+            this.props.history.replace({ pathname: `project/${projectInfo.url}/apis` })
         })
     }
     handleChange(value) {
@@ -44,7 +58,6 @@ class AddProject extends React.Component {
             members: value
         })
     }
-
     render() {
         let detail = this.state.detail;
         const { getFieldProps } = this.props.form;
@@ -52,18 +65,11 @@ class AddProject extends React.Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
-        const props = {
-            action: 'http://up.qiniu.com/',
-            listType: 'picture-card',
-            data: {
-                key: new Date().getTime(),
-                token: "h2V2WcqzVYn3RTnc7BiDsubyTquJIkylzK-TBbEW:wRoz_TGBt7wAWN2emLKgj54ZJVY=:eyJzY29wZSI6ImVhc3lhcGkiLCJkZWFkbGluZSI6MTQ2MjI4ODY0N30="
-            },
-            defaultFileList: [],
-            onChange: function(res){
-                console.log(res.file)
-            }
-        };
+        let friends = this.state.friends.map(function(item){
+            return (
+                <Option key={item._id} value={item._id}>{item.username}</Option>
+            )
+        })
         return (
             <div className="main-wrap add-project">
                 <header className="header">
@@ -71,14 +77,6 @@ class AddProject extends React.Component {
                 </header>
                 <section>
                     <Form horizontal onSubmit={this.submit.bind(this)}>
-                        <FormItem
-                          {...formItemLayout}
-                          label="项目图标：">
-                          <Upload {...props}>
-                            <Icon type="plus" />
-                            <div className="ant-upload-text">上传照片</div>
-                          </Upload>
-                        </FormItem>
                         <FormItem
                           {...formItemLayout}
                           label="项目名称：" required>
@@ -97,7 +95,7 @@ class AddProject extends React.Component {
                             defaultValue={[]} 
                             onChange={this.handleChange.bind(this)}
                             searchPlaceholder="请选择项目成员">
-                            {children}
+                            {friends}
                           </Select>
                         </FormItem>
                         <FormItem
