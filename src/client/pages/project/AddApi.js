@@ -4,6 +4,7 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/theme/monokai.css');
 import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message } from 'antd';
 import ApiStore from "../../stores/api";
+import ProjectStore from "../../stores/project";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 let children = [];
@@ -14,6 +15,7 @@ class AddProject extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            noAccessMembers: [],
             members: [],
             detail: this.props.location.state || {},
             projectUrl: this.props.location.query.projectUrl
@@ -25,11 +27,21 @@ class AddProject extends React.Component {
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
+        this.getMembers();
+    }
+    getMembers() {
+        ProjectStore.getMemberList(this.state.projectUrl, (err, members) => {
+            if (!err) {
+                this.setState({
+                    members: members
+                })
+            }
+        })
     }
     submit(e) {
         e.preventDefault();
         let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
-        apiInfo.members = this.state.members;
+        apiInfo.noAccessMembers = this.state.noAccessMembers;
         apiInfo.requestBody = this.state.requestBody || this.state.detail.requestBody;
         apiInfo.responseBody = this.state.responseBody || this.state.detail.responseBody;
         if (this.isEdit) {
@@ -67,7 +79,7 @@ class AddProject extends React.Component {
     }
     handleChange(value) {
         this.setState({
-            members: value
+            noAccessMembers: value
         })
     }
     render() {
@@ -85,6 +97,11 @@ class AddProject extends React.Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
+        let membersSelects = this.state.members.map((item) => {
+            return (
+                <Option key={item._id} value={item._id}>{item.username}</Option>
+            )
+        })
         return (
             <div className="main-wrap add-project add-api">
                 <header className="header">
@@ -124,12 +141,12 @@ class AddProject extends React.Component {
                         </FormItem>
                         <FormItem
                           {...formItemLayout}
-                          label="添加成员：">
+                          label="无权限成员：">
                           <Select multiple
                             defaultValue={[]} 
                             onChange={this.handleChange.bind(this)}
                             searchPlaceholder="请选择项目成员">
-                            {children}
+                            {membersSelects}
                           </Select>
                         </FormItem>
                         <FormItem

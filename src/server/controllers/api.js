@@ -41,7 +41,7 @@ exports.create = function*(next) {
             url: data.url,
             method: data.method,
             detail: data.detail,
-            members: [],
+            members: data.members,
             requestBody: data.requestBody,
             responseBody: data.responseBody,
             owner: this.passport.user,

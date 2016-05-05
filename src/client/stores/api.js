@@ -14,6 +14,7 @@ const ApiStore = {
                 url: apiInfo.url,
                 detail: apiInfo.detail,
                 method: apiInfo.method,
+                members: apiInfo.noAccessMembers,
                 requestBody: apiInfo.requestBody,
                 responseBody: apiInfo.responseBody
             })
