@@ -100,6 +100,14 @@ const ProjectStore = {
                 done(err, res.body.list);
             });
     },
+    getTaskList(projectUrl, done) {
+        request.get(`api/project/${projectUrl}/task`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .end(function(err, res) {
+                done(err, res.body.list);
+            });
+    },
     getMemberList(projectUrl, done) {
         request.get(`api/project/${projectUrl}/member`)
             .set("Accept", "application/json")

@@ -33,6 +33,7 @@ mongoose.connection.on("open", function () {
 require('./models/user');
 require('./models/project');
 require('./models/api');
+require('./models/task');
 require('./models/comments');
 require('./models/inviteMsg');
 

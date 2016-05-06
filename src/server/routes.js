@@ -5,6 +5,7 @@ var router = require('koa-router')({
 var authController = require('./controllers/auth');
 var projectController = require('./controllers/project');
 var apiController = require('./controllers/api');
+var taskController = require('./controllers/task');
 
 var secured = function*(next) {
     if (this.isAuthenticated()) {
@@ -34,6 +35,7 @@ module.exports = function(app, passport) {
 
     router.get('/project/list', secured, projectController.getProjectList);
     router.get('/project/:url/api', secured, projectController.getApiList);
+    router.get('/project/:url/task', secured, projectController.getTaskList);
     router.get('/project/:url/member', secured, projectController.getMemberList);
     router.get('/project/detail', secured, projectController.getDetail);
     router.post('/project/create', secured, projectController.create);
@@ -46,6 +48,8 @@ module.exports = function(app, passport) {
     router.get('/api/:id', secured, apiController.getDetail);
     router.put('/api/:id', secured, apiController.update);
     router.del('/api/:id', secured, apiController.remove);
+
+    router.post('/project/:url/task', secured, taskController.create);
 
     app.use(router.routes());
 };

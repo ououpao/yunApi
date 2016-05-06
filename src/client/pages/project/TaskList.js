@@ -12,7 +12,7 @@ class ProjectDetailApi extends React.Component {
         }
     }
     componentWillMount() {
-        ProjectStore.getApiList(this.state.projectUrl, (err, list) => {
+        ProjectStore.getTaskList(this.state.projectUrl, (err, list) => {
             if (err) {
                 message.error(err, 3);
                 return;
@@ -28,12 +28,10 @@ class ProjectDetailApi extends React.Component {
         let listItems = this.state.list.map((item, index) => {
             return (
                 <li className="item" key={item._id}>
-                    <Link to={`/project/${this.state.projectUrl}/apis/${item._id}`}>
-                        <p>
-                            <span className="name">{item.name}</span> 
-                            <span className="time">{item.time.substr(0, 10)}</span>
-                        </p>
-                    </Link>
+                    <p>
+                        <span className="name">{item.title}</span> 
+                        <span className="time">{item.startTime.substr(0, 10)}--{item.endTime.substr(0, 10)}</span>
+                    </p>
                     <p>
                         <Link to={`/u/${item.owner._id}`}>
                             <span className="owner">{item.owner.username}</span>
@@ -48,7 +46,7 @@ class ProjectDetailApi extends React.Component {
                     <div className="header">
                         <span className="api-count">共{this.state.list.length}项</span>
                         <Link to={{ pathname: 'addtask', query: { projectUrl: this.state.projectUrl } }}>
-                            <span className="api-add" title="添加API"><Icon type="plus" /></span>
+                            <span className="api-add" title="添加任务"><Icon type="plus" /></span>
                         </Link>
                     </div>
                     <ul className="list">

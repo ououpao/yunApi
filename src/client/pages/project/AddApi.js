@@ -55,7 +55,6 @@ class AddProject extends React.Component {
                 this.props.history.replace({ pathname: `project/${detail.belongTo.url}/apis/${detail._id}` })
             })
         } else {
-            console.log(this.isEdit)
             ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
                 if (err || !detail) {
                     message.error(err.response.text, 3)

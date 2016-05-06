@@ -148,8 +148,17 @@ exports.getApiList = function*(next) {
 exports.getTaskList = function*(next) {
     let user = this.passport.user;
     let project = yield ProjectModel
-        .findOne({ owner: user }, { tasks: 1 })
-        .populate('tasks')
+        .findOne({ url: this.params.url }, { tasks: 1 })
+        .populate({
+            path: 'tasks',
+            model: 'Task',
+            options: {sort: {time: -1}},
+            populate: {
+                path: 'owner',
+                select: '_id username',
+                model: 'User'
+            }
+        })
         .exec();
     this.status = 200;
     this.body = { list: project.tasks };

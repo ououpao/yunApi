@@ -4,6 +4,9 @@ require('codemirror/mode/javascript/javascript');
 require('codemirror/theme/monokai.css');
 import { Form, Input, Button, Radio, Select, Upload, Icon, Alert, message, DatePicker } from 'antd';
 import ApiStore from "../../stores/api";
+import UserStore from "../../stores/user";
+import ProjectStore from "../../stores/project";
+import TaskStore from "../../stores/task";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const RangePicker = DatePicker.RangePicker;
@@ -16,6 +19,8 @@ class AddProject extends React.Component {
         super(props);
         this.state = {
             members: [],
+            reciver: null,
+            time: null,
             detail: props.detail || {},
             projectUrl: this.props.location.query.projectUrl
         };
@@ -26,19 +31,30 @@ class AddProject extends React.Component {
         if (this.isEdit) {
             this.props.form.setFieldsValue(this.state.detail)
         }
+        this.getMembers()
+    }
+    getMembers() {
+        ProjectStore.getMemberList(this.state.projectUrl, (err, members) => {
+            if (!err) {
+                this.setState({
+                    members: members
+                })
+            }
+        })
     }
     submit(e) {
         e.preventDefault();
-        let apiInfo = this.props.form.getFieldsValue(['name', 'url', 'method', 'detail']);
-        apiInfo.requestBody = this.state.requestBody;
-        apiInfo.responseBody = this.state.responseBody;
-        ApiStore.create(this.state.projectUrl, apiInfo, (err, detail) => {
+        let apiInfo = this.props.form.getFieldsValue(['name', 'detail']);
+        apiInfo.reciver = this.state.reciver;
+        apiInfo.startTime = this.state.time[0];
+        apiInfo.endTime = this.state.time[1];
+        TaskStore.create(this.state.projectUrl, apiInfo, (err, res) => {
             if (err || !detail) {
-                message.error(err.response.text, 3)
+                message.error(err.response.text, 2)
                 return;
             }
-            message.success('添加成功！', 3);
-            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/apis/${detail._id}` })
+            message.success('添加成功！', 2);
+            this.props.history.replace({ pathname: `project/${this.state.projectUrl}/tasks` })
         })
     }
     updateRequestBody(newValue) {
@@ -53,11 +69,13 @@ class AddProject extends React.Component {
     }
     handleChange(value) {
         this.setState({
-            members: value
+            reciver: value
         })
     }
-    changeTimeRange(){
-
+    changeTimeRange(value) {
+        this.setState({
+            time: value
+        })
     }
     render() {
         let detail = this.state.detail;
@@ -66,6 +84,11 @@ class AddProject extends React.Component {
             labelCol: { span: 6 },
             wrapperCol: { span: 14 },
         };
+        let membersSelects = this.state.members.map((item) => {
+            return (
+                <Option key={item._id} value={item._id}>{item.username}</Option>
+            )
+        })
         return (
             <div className="main-wrap add-project">
                 <header className="header">
@@ -87,9 +110,7 @@ class AddProject extends React.Component {
                             notFoundContent="无法找到"
                             searchPlaceholder="输入关键词"
                             onChange={this.handleChange.bind(this)}>
-                            <Option value="jack">杰克</Option>
-                            <Option value="lucy">露西</Option>
-                            <Option value="tom">汤姆</Option>
+                            {membersSelects}
                           </Select>
                         </FormItem>
                         <FormItem
