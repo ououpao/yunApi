@@ -28,7 +28,7 @@ class ProjectDetailApi extends React.Component {
                 <li className="item" key={item._id}>
                     <Link to={`/u/${item._id}`}>
                         <p>
-                            <span className="name">{item.username}</span>
+                            <span className="font-avart font-avart-small">{item.username && item.username.substr(0, 1).toUpperCase()}</span>
                         </p>
                     </Link>
                 </li>

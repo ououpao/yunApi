@@ -56,9 +56,16 @@ class User extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-        this.setState({
-            activepanel: '1'
-        })
+        let user = this.props.form.getFieldsValue(['name']);
+        UserStore.update(this.state.loggedInUser._id, user, (err, user) => {
+            if (err || !user) {
+                message.error(err.response.text, 3)
+                return;
+            }
+           this.setState({
+                activepanel: '1'
+            })
+        });
     }
     addFriend() {
         UserStore.addFriend(this.state.getByIdUser._id, (err, res) => {
@@ -96,7 +103,7 @@ class User extends React.Component {
                 return (
                     <li>
                     <Link to={`/u/${friend._id}`}>
-                        <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                        <span className="font-avart font-avart-small">{friend.username && friend.username.substr(0, 1).toUpperCase()}</span>
                     </Link>
                 </li>
                 )
@@ -110,7 +117,7 @@ class User extends React.Component {
                             <TabPane tab="选项卡一" key="1">
                                 <div>
                                     <p className="user-img">
-                                        <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                                        <span className="font-avart font-avart-big">{user.username && user.username.substr(0, 1).toUpperCase()}</span>
                                     </p>
                                     <ul className="info">
                                         <li><label>用户名</label><span>{user.username}</span></li>
@@ -138,21 +145,8 @@ class User extends React.Component {
                                     <Form horizontal onSubmit={this.submit.bind(this)}>
                                         <FormItem
                                           {...formItemLayout}
-                                          label="用户头像：">
-                                          <Upload {...props}>
-                                            <Icon type="plus" />
-                                            <div className="ant-upload-text">上传照片</div>
-                                          </Upload>
-                                        </FormItem>
-                                        <FormItem
-                                          {...formItemLayout}
                                           label="用户昵称：" required>
                                           <Input type="text" {...getFieldProps('name')} placeholder="请输入用户昵称"/>
-                                        </FormItem>
-                                        <FormItem
-                                          {...formItemLayout}
-                                          label="邮箱：" required>
-                                          <Input type="text" {...getFieldProps('name')} placeholder="请输入邮箱地址"/>
                                         </FormItem>
                                         <FormItem wrapperCol={{ span: 14, offset: 6 }} style={{ marginTop: 24 }}>
                                            <Button 

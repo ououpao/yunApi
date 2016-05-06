@@ -17,6 +17,19 @@ const UserStore = {
                 }
             });
     },
+    update(id, user, done){
+        request.put(`${URLS.USER}/${id}`)
+            .set("Accept", "application/json")
+            .set("Content-Type", "application/json")
+            .send({
+                user: user 
+            })
+            .end(function(err, res) {
+                if (!err && res.body && res.body.user) {
+                    done(err, res.body.user)
+                }
+            });
+    },
     addFriend(id, done) {
         request.post(URLS.ADDFRIEND)
             .set("Accept", "application/json")

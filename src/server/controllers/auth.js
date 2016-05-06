@@ -67,6 +67,16 @@ exports.getCurrentUser = function*() {
     }
     this.status = 200;
 };
+exports.update = function*() {
+    let uid = this.params.id;
+    let user = User.findOneAndUpdate({_id: uid}, {
+        username: this.request.body.user.name
+    }).exec();
+    this.status = 200;
+    this.body = {
+        user: user
+    }
+};
 exports.getUserById = function*() {
     var User = require("mongoose").model("User");
     var user = yield User
