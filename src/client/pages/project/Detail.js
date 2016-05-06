@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, Modal, message, Badge } from 'antd';
 import ProjectStore from '../../stores/project';
 import AuthStore from "../../stores/auth";
-
+let projectImg = require('../../imgs/project.png');
 class ProjectDetail extends React.Component {
     constructor(props) {
         super(props);
@@ -69,7 +69,7 @@ class ProjectDetail extends React.Component {
             <div className="project-detal">
                 <div className="pro-navbar-wrap">
                     <div className="main-wrap">
-                        <img className="detail-icon" src='https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png' alt="项目icon"/>
+                        <img className="detail-icon" src={projectImg} alt="项目icon"/>
                         <div className="detail-info">
                             <p className="name">{detail.name}</p>
                             <p>创建日期： {detail.time && detail.time.substr(0, 10)}</p>

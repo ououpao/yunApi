@@ -105,7 +105,7 @@ class ApiDetail extends React.Component {
             <div className="detail-wrap">
                 <header className="header">
                     <h3>{detail.name}</h3>
-                    <p><span>{detail.owner}</span></p>
+                    <p><span>{detail.owner && detail.owner.username}</span></p>
                     <p><span>{detail.time}</span></p>
                     <Dropdown overlay={editMenu} type="ghost" trigger={['click']}>
                         <Button type="ghost" shape="circle" size="small">

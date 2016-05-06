@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Link } from 'react-router';
 import ProjectStore from '../stores/project'
-
+let projectImg = require('../imgs/project.png');
 class ProjectList extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +26,7 @@ class ProjectList extends React.Component {
                 <li className="item app-col-6 app-col-mb-12" key={item._id}>
                         <Link to={`/project/${item.url}/apis`}>
                             <div className="detail">
-                                <img className="detail-icon" src={item.icon} alt="项目icon"/>
+                                <img className="detail-icon" src={projectImg} alt="项目icon"/>
                                 <div className="detail-info">
                                     <p className="name">{item.name}</p>
                                     <p>创建日期： {item.time.substr(0, 10)}</p>

@@ -10,12 +10,13 @@ exports.getDetail = function*(next) {
             path: 'comments',
             select: 'content time user',
             model: 'Comments',
-            options: {sort: {time: -1}},
-            populate: {
-                path: 'user',
-                select: '_id username',
-                model: 'User'
-            }
+            options: { sort: { time: -1 } }
+
+        })
+        .populate({
+            path: 'owner',
+            select: '_id username',
+            model: 'User'
         })
         .exec();
     this.status = 200;
@@ -73,21 +74,21 @@ exports.update = function*(next) {
         this.throw("接口url不能为空！", 400);
     }
     try {
-        apiEntity = yield ApiModel.findOneAndUpdate({ 
-            _id: _id 
-        },{
-            name: data.name,
-            url: data.url,
-            method: data.method,
-            detail: data.detail,
-            members: data.members,
-            requestBody: data.requestBody,
-            responseBody: data.responseBody,
-        },{
-            new: true
-        })
-        .populate('belongTo')
-        .exec();
+        apiEntity = yield ApiModel.findOneAndUpdate({
+                _id: _id
+            }, {
+                name: data.name,
+                url: data.url,
+                method: data.method,
+                detail: data.detail,
+                members: data.members,
+                requestBody: data.requestBody,
+                responseBody: data.responseBody,
+            }, {
+                new: true
+            })
+            .populate('belongTo')
+            .exec();
     } catch (err) {
         this.throw(err);
     }

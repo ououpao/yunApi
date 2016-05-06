@@ -29,10 +29,12 @@ class AddProject extends React.Component {
     submit(e) {
         e.preventDefault();
         var email = this.props.form.getFieldsValue(['email']).email;
-        if(this.state.email){
+        if(email){
             ProjectStore.inviteUser(email, this.state.projectUrl, (err, res) => {
                 if(!err){
                     message.success('您的邀请已发送，请耐心等待对方的回应！', 3)
+                }else{
+                    message.error(err.response.text, 2)
                 }
             })
         }else{
