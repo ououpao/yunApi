@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Link } from 'react-router';
 import ProjectStore from '../stores/project'
-let projectImg = require('../imgs/project.png');
+import projectImg from '../imgs/project.png';
 class ProjectList extends React.Component {
     constructor(props) {
         super(props);

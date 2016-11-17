@@ -1,12 +1,13 @@
-var webpack = require('webpack')
-var config = require('./webpack.base')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+'use strick'
+let webpack = require('webpack')
+let config = require('./webpack.base')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
   // config.devtool = false
   // add hot-reload related code to entry chunks
-  // var polyfill = 'eventsource-polyfill'
-  // var hotClient = 'webpack-hot-middleware/client?noInfo=true&reload=true'
+  // let polyfill = 'eventsource-polyfill'
+  // let hotClient = 'webpack-hot-middleware/client?noInfo=true&reload=true'
   // Object.keys(config.entry).forEach(function(name, i) {
-  //     var extras = i === 0 ? [polyfill, hotClient] : [hotClient]
+  //     let extras = i === 0 ? [polyfill, hotClient] : [hotClient]
   //     config.entry[name] = extras.concat(config.entry[name])
   // })
 config.output.publicPath = '/'

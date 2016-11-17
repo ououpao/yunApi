@@ -1,6 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+'use strick'
+let path = require('path')
+let webpack = require('webpack')
+let ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
   entry: {
     // 入口文件

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Button, Icon, Menu, Dropdown, message, notification } from 'antd';
-const DropdownButton = Dropdown.Button;
 import AuthStore from "../stores/auth";
 import UserStore from "../stores/user";
+const DropdownButton = Dropdown.Button;
 AuthStore.init();
+
 class Layout extends React.Component {
     constructor(props) {
         super(props);
