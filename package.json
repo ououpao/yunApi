@@ -4,8 +4,8 @@
   "description": "build spa with Koa, React, Node and Mongodb",
   "scripts": {
     "deploy": "NODE_ENV=production pm2 start src/server/server.js --watch",
-    "start-server": "NODE_ENV=development supervisor -i src/client src/server/server.js",
-    "start-client": "webpack-dev-server --content-base public -ds --config build_config/webpack.dev.config.js --progress --hot --colors --inline",
+    "server": "NODE_ENV=development supervisor -i src/client src/server/server.js",
+    "client": "webpack-dev-server --content-base public -ds --config build_config/webpack.dev.config.js --progress --hot --colors --inline",
     "prod": "supervisor src/server/server.js",
     "build": "rimraf dist && webpack --progress --hide-modules --config build_config/webpack.prod.config.js"
   },

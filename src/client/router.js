@@ -1,29 +1,29 @@
-import React from 'react';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import React from 'react'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 
-import Layout from './pages/Layout';
-import NotFoundPage from './pages/NotFound';
-import Index from './pages/Index';
-import Task from './pages/Task';
-import Login from './pages/Login';
-import User from './pages/User';
+import Layout from './pages/Layout'
+import NotFoundPage from './pages/NotFound'
+import Index from './pages/Index'
+import Task from './pages/Task'
+import Login from './pages/Login'
+import User from './pages/User'
 
-import Project from './pages/project/Project';
-import AddProject from './pages/project/AddProject';
-import ProjectEdit from './pages/project/Edit';
-import ProjectList from './pages/project/List';
-import ProjectDetail from './pages/project/Detail';
-import ProjectDetailAnalysis from './pages/project/DetailAnalysis';
+import Project from './pages/project/Project'
+import AddProject from './pages/project/AddProject'
+import ProjectEdit from './pages/project/Edit'
+import ProjectList from './pages/project/List'
+import ProjectDetail from './pages/project/Detail'
+import ProjectDetailAnalysis from './pages/project/DetailAnalysis'
 
-import ProjectMemberList from './pages/project/MemberList';
-import Invite from './pages/project/Invite';
+import ProjectMemberList from './pages/project/MemberList'
+import Invite from './pages/project/Invite'
 
-import ProjectTaskList from './pages/project/TaskList';
-import AddTask from './pages/project/AddTask';
+import ProjectTaskList from './pages/project/TaskList'
+import AddTask from './pages/project/AddTask'
 
-import ApiList from './pages/project/ApiList';
-import AddApi from './pages/project/AddApi';
-import ApiDetail from './pages/project/ApiDetail';
+import ApiList from './pages/project/ApiList'
+import AddApi from './pages/project/AddApi'
+import ApiDetail from './pages/project/ApiDetail'
 
 class AppRoutes extends React.Component {
     render() {
@@ -52,8 +52,8 @@ class AppRoutes extends React.Component {
               </Route>
               <Route path="*" component={NotFoundPage}></Route>
           </Router>
-        );
+        )
     }
 }
 
-export default AppRoutes;
+export default AppRoutes
